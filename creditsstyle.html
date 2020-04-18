@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>scamming time</title>
+        <link rel="icon" href="" type="image/jpg">
+        <meta name="keywords" content="">
+        <meta name="author" content="Deveny Faruque - deve1000">
+        <meta name="robots" content="index, follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+          <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <style>
+/*BASIC BODY*/
+@font-face {
+  font-family: "round";
+  src: url("fonts/ArialRoundedBold.ttf");
+}
+
+body {
+  font-family: "Round";
+background-image: url(cloth.jpg);
+  margin:0;
+  padding:0;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+}
+/*LETTERS*/
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+a:hover {
+  text-decoration: underline;
+}
+/*error404*/
+            
+
+@keyframes slideDown {
+	0% { transform: translateY(-50%)scale(3);
+        opacity: 0; }
+	100% { transform: none;
+		opacity: 1; }
+}
+@keyframes slideUp {
+	0% { transform: translateY(50%)scale(3);
+        opacity: 0; }
+	100% { transform: none; 
+		opacity: 1;}
+}
+@keyframes slideRight {
+	0% { transform: translateX(-50%) scale(3);
+        opacity: 0;}
+	100% { transform: none; 
+		opacity: 1;}
+}
+@keyframes slideLeft {
+	0% { transform: translateX(50%)scale(3);
+        opacity: 0; }
+	100% { transform: none; 
+		opacity: 1;}
+}
+
+
+
+@keyframes jitter {
+	0% {
+		transform: translateX(0px) translateY(0px);
+		opacity: 1;
+	}
+	10% {
+		transform: translateX(2px) translateY(2px);
+		opacity: 0.8;
+	}
+	20% {
+		transform: translateX(0px) translateY(0px);
+		opacity: 0.47;
+	}
+	30% {
+		transform: translateX(0px) translateY(2px);
+		opacity: 0.3;
+	}
+	70% {
+		transform: translateX(-1px) translateY(1px);
+		opacity: 0.96;
+	}
+	80% {
+		transform: translateX(0px) translateY(-2px);
+		opacity: 0.9;
+	}
+	90% {
+		transform: translateX(1px) translateY(-2px);
+		opacity: 0.81;
+	}
+	100% {
+		transform: translateX(0) translateY(0);
+		opacity: 1;
+	}
+}
+            
+            .tittle{
+                filter: blur(1px);
+                text-align: center;
+                opacity: 0.8;
+                color: pink;
+                -webkit-text-stroke: 1px white;
+                    text-shadow: 2px 2px 10px blue;
+                font-size: 7rem;
+            }
+            p{
+                padding: 0;
+                margin: 0;
+                display: inline-block;
+            }
+            p:first-child{
+                transform: translateX(50%) scale(2);
+                animation: slideRight 5s ease forwards; 
+            }
+            p:nth-child(2){
+                transform: translateY(50%);
+                animation: slideUp 5s ease forwards;
+            }
+            p:nth-child(3){
+                transform: translateX(-50%);
+                animation: slideLeft 5s ease forwards;
+            }
+            p:last-child{
+                transform: translateY(-50%);
+                animation: slideDown 5s ease forwards;
+            }
+            
+        </style>
+</head><body>
+    <div class="tittle">
+    <p>scam</p><p>ming</p><p> time</p><br>
+    <p>brings you</p></div>
+    
+</body>
+    <script>
+        
+</script>
+</html>

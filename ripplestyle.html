@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>scamming time</title>
+        <link rel="icon" href="" type="image/jpg">
+        <meta name="keywords" content="">
+        <meta name="author" content="Deveny Faruque - deve1000">
+        <meta name="robots" content="index, follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+          <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <style>
+/*BASIC BODY*/
+@font-face {
+  font-family: "round";
+  src: url("fonts/ArialRoundedBold.ttf");
+}
+
+body {
+  font-family: "Round";
+background-image: url(cloth.jpg);
+}
+/*LETTERS*/
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+a:hover {
+  text-decoration: underline;
+}
+/*figure*/
+      
+ figure {
+    animation: wobble 10s linear infinite;
+    transform-origin: center center;
+    transform-style: preserve-3d;
+  
+}
+
+@keyframes wobble {
+    0%{
+/* 	    transform: rotate3d(0,1,0,0deg); */
+	    transform: rotateY(0deg);
+    }
+    100%{
+/* 	    transform: rotate3d(0,1,0,360deg); */
+	    transform: rotateY(360deg);
+    }
+}
+h1.main-title{
+    position: absolute;
+    font: 700 5rem "Round";
+
+  color: white;
+  text-shadow: 2px 2px 2px white, 0 0 10px pink, 0 0 10px purple;
+}
+
+h1.main-title:nth-child(2){ transform:translateZ(1px); }
+h1.main-title:nth-child(3){ transform:translateZ(2px);}
+h1.main-title:nth-child(4){ transform:translateZ(3px); }
+h1.main-title:nth-child(5){ transform:translateZ(4px); }
+h1.main-title:nth-child(6){ transform:translateZ(5px); }
+h1.main-title:nth-child(7){ transform:translateZ(6px); }
+h1.main-title:nth-child(8){ transform:translateZ(7px); }
+h1.main-title:nth-child(9){ transform:translateZ(8px); }
+h1.main-title:nth-child(10){ transform:translateZ(9px); }
+h1.main-title:nth-child(11){ transform:translateZ(10px); }
+h1.main-title:nth-child(12){ transform:translateZ(11px); }
+h1.main-title:nth-child(13){ transform:translateZ(12px); }
+h1.main-title:nth-child(14){ transform:translateZ(13px); }
+h1.main-title:nth-child(15){ transform:translateZ(14px); }
+h1.main-title:nth-child(16){ transform:translateZ(15px); }
+h1.main-title:nth-child(17){ transform:translateZ(16px); }
+h1.main-title:nth-child(18){ transform:translateZ(17px); }
+h1.main-title:nth-child(19){ transform:translateZ(18px); }
+h1.main-title:nth-child(20){ transform:translateZ(19px); }
+h1.main-title:nth-child(21){ transform:translateZ(20px); }
+h1.main-title:nth-child(22){ transform:translateZ(21px); }
+h1.main-title:nth-child(23){ transform:translateZ(22px); }
+h1.main-title:nth-child(24){ transform:translateZ(23px); }
+h1.main-title:nth-child(25){ transform:translateZ(24px); }
+h1.main-title:nth-child(26){ transform:translateZ(25px); }
+h1.main-title:nth-child(27){ transform:translateZ(26px); }
+h1.main-title:nth-child(28){ transform:translateZ(27px); }
+h1.main-title:nth-child(29){ transform:translateZ(28px); }
+h1.main-title:nth-child(30){ transform:translateZ(29px); }
+h1.main-title:nth-child(31){ transform:translateZ(30px); }
+h1.main-title:nth-child(32){ transform:translateZ(31px); }
+h1.main-title:nth-child(33){ transform:translateZ(32px); }
+h1.main-title:nth-child(34){ transform:translateZ(33px); }
+h1.main-title:nth-child(35){ transform:translateZ(34px); }
+
+      html, body {
+  touch-action:none;
+  content-zooming:none;
+  position:absolute;
+  margin:0;
+  padding:0;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
+#canvas {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  cursor: pointer;
+  box-shadow: 0px 0px 80px #000;
+  border-radius: 10px;
+}
+
+#texture {
+	position: absolute;
+	visibility: hidden;
+}
+            
+
+        </style>
+</head><body>
+    
+    <canvas id="canvas"></canvas>
+    <img id="texture" src="cloth.jpg">
+    
+    
+</body>
+    <script>    
+        /*
+* Adapted from Neil Wallis' Water Java simulation
+* http://www.neilwallis.com/projects/java/water/index.php
+*
+*/
+"use strict";
+///////////////// worker thread code ///////////////////
+const water = noWorkers => {
+  "use strict";
+  let canvas, ctx;
+  let pointer = { x: 0, y: 0, isDown: false };
+  let width, height, hwidth, hheight, size, map, oldind, newind;
+  let textureBuffer8, textureBuffer32;
+  let ripple, rippleBuffer8, rippleBuffer32;
+  const window = {
+    CP: {
+      shouldStopExecution(e) {
+      },
+      exitedLoop(e) {}
+    }
+  };
+  // ---- messages from the main thread ----
+  const message = e => {
+    switch (e.data.msg) {
+      case "pointerMove":
+        pointer.x = e.data.x | 0;
+        pointer.y = e.data.y | 0;
+        break;
+      case "pointerDown":
+        pointer.x = e.data.x | 0;
+        pointer.y = e.data.y | 0;
+        pointer.isDown = true;
+        break;
+      case "pointerUp":
+        pointer.isDown = false;
+        break;
+      case "start":
+        canvas = e.data.elem;
+        width = canvas.width;
+        height = canvas.height;
+        ctx = canvas.getContext("2d");
+        hwidth = width / 2;
+        hheight = height / 2;
+        size = width * (height + 2) * 2;
+        map = new Int16Array(size);
+        oldind = width;
+        newind = width * (height + 3);
+        const textureBuffer = new ArrayBuffer(e.data.imgData.data.length);
+        textureBuffer8 = new Uint8ClampedArray(textureBuffer); // 8 bit clamped view
+        textureBuffer32 = new Uint32Array(textureBuffer); // 32 bits view
+        textureBuffer8.set(e.data.imgData.data);
+        // ripple texture
+        ripple = e.data.imgData;
+        const rippleBuffer = new ArrayBuffer(ripple.data.length);
+        rippleBuffer8 = new Uint8ClampedArray(rippleBuffer);
+        rippleBuffer32 = new Uint32Array(rippleBuffer);
+        // start
+        run();
+        gloop();
+        setInterval(gloop, 4000);
+        break;
+    }
+  };
+  // create wave
+  function wave(dx, dy, r) {
+    for (let j = -r; j < r; j++) {
+      for (let k = -r; k < r; k++) {
+        if (j * j + k * k < r * r) {
+          const x = dx + k;
+          const y = dy + j;
+          if (y > 0 && y < height && x > 0 && x < width) {
+            map[oldind + y * width + x] += 256;
+          }
+        }
+      }
+    }
+  }
+  function water() {
+    // toggle maps each frame
+    let i = oldind;
+    oldind = newind;
+    newind = i;
+    let mapind = oldind;
+    const len = width * height;
+    for (let i = 0; i < len; i++) {
+      const x = (i % width) | 0;
+      const y = (i / width) | 0;
+      let data =
+        ((map[mapind - width] +
+          map[mapind + width] +
+          map[mapind - 1] +
+          map[mapind + 1]) >>
+          1) -
+        map[newind + i];
+      data -= data >> 6;
+      mapind++;
+      if (x !== 0) map[newind + i] = data;
+      data = 1024 - data;
+      // offsets
+      let a = ((x - hwidth) * data / 1024 + hwidth) | 0;
+      let b = ((y - hheight) * data / 1024 + hheight) | 0;
+      // 32 bits pixel copy
+      rippleBuffer32[i] = textureBuffer32[a + b * width];
+    }
+    ripple.data.set(rippleBuffer8);
+    ctx.putImageData(ripple, 0, 0);
+  }
+  function gloop() {
+    wave(hwidth, hheight, 16);
+  }
+  // main loop
+  function run() {
+    requestAnimationFrame(run);
+    water();
+    if (pointer.isDown) {
+      wave(pointer.x, pointer.y, 16);
+    }
+  }
+  // ---- main thread vs. worker
+  if (noWorkers) {
+    // ---- map postMessage ----
+    return {
+      postMessage(data) {
+        message({ data: data });
+      }
+    };
+  } else {
+    // ---- worker messaging ----
+    onmessage = message;
+  }
+};
+///////////////// main thread code ///////////////////
+let worker = null;
+const createWorker = fn => {
+  const URL = window.URL || window.webkitURL;
+  return new Worker(URL.createObjectURL(new Blob(["(" + fn + ")()"])));
+};
+// ---- init canvas ----
+const canvas = document.querySelector("canvas");
+canvas.width = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
+// ---- source image ----
+const img = document.getElementById("texture");
+const texture = document.createElement("canvas");
+texture.width = canvas.width;
+texture.height = canvas.height;
+const ctx = texture.getContext("2d");
+ctx.drawImage(img, 0, 0);
+const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+// ---- instanciate worker ----
+if (window.Worker && window.OffscreenCanvas) {
+  worker = createWorker(water);
+  const offscreen = canvas.transferControlToOffscreen();
+  worker.postMessage({ msg: "start", elem: offscreen, imgData: imgData }, [
+    offscreen
+  ]);
+} else {
+  worker = water(true);
+  worker.postMessage({ msg: "start", elem: canvas, imgData: imgData });
+}
+// ---- pointer events ----
+const pointer = {
+  x: 0,
+  y: 0,
+  move(e) {
+    if (e.targetTouches) {
+      e.preventDefault();
+      this.x = e.targetTouches[0].clientX;
+      this.y = e.targetTouches[0].clientY;
+    } else {
+      this.x = e.clientX;
+      this.y = e.clientY;
+    }
+    worker.postMessage({
+      msg: "pointerMove",
+      x: this.x - canvas.offsetLeft,
+      y: this.y - canvas.offsetTop
+    });
+  },
+  down(e) {
+    this.move(e);
+    worker.postMessage({
+      msg: "pointerDown",
+      x: this.x - canvas.offsetLeft,
+      y: this.y - canvas.offsetTop
+    });
+  },
+  up(e) {
+    worker.postMessage({
+      msg: "pointerUp"
+    });
+  }
+};
+window.addEventListener("mousemove", e => pointer.move(e), false);
+canvas.addEventListener("touchmove", e => pointer.move(e), false);
+window.addEventListener("mousedown", e => pointer.down(e), false);
+window.addEventListener("touchstart", e => pointer.down(e), false);
+window.addEventListener("mouseup", e => pointer.up(e), false);
+window.addEventListener("touchend", e => pointer.up(e), false);
+
+</script>
+</html>
