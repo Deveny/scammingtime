@@ -5,21 +5,15 @@
         <title>scamming time</title>
         <link rel="icon" href="" type="image/jpg">
         <meta name="keywords" content="">
-        <meta name="author" content="Deveny Faruque - deve1000">
+        <meta name="author" content="Henrique Martin, Mar Correia, Deveny Faruque">
         <meta name="robots" content="index, follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
           <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
         <style>
-/*BASIC BODY*/
-@font-face {
-  font-family: "round";
-  src: url("fonts/ArialRoundedBold.ttf");
-}
 
 body {
-  font-family: "Round";
 background-color: white;
     margin:0;
   padding:0;
@@ -28,19 +22,10 @@ background-color: white;
   width:100vw;
     height: 100vh;
 }
-/*LETTERS*/
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-a:hover {
-  text-decoration: underline;
-}
-            
 .cube {
   -webkit-transform-style: preserve-3d;
-  -webkit-animation: spin 13s infinite ease-out;
+  -webkit-animation: spin 20s infinite alternate ease-out;
   position: relative;
   width: 100px;
   height: 100px;
@@ -51,14 +36,14 @@ a:hover {
 }
 
 .cube div {
-   width: 200px;
-   height: 100px;
+   width: 15vw;
+   height: 15vh;
    line-height: 100px;
    text-align: center;
-background-color:gray;
+background-color:lightgray;
   display: block;
    position: absolute;
-    border-radius:10%;
+    opacity: 0.8;
 }
 
 .cube div.front {
@@ -82,31 +67,14 @@ background-color:gray;
 
 @-webkit-keyframes glow {
   from {
-    box-shadow: 0 0 10px inset white, 0 0 20px white, 0 0 30px purple, 0 0 40px purple, 0 0 50px purple, 0 0 60px purple, 0 0 70px purple;
+    box-shadow: 0 0 10px inset white, 0 0 20px white, 0 0 30px lightsalmon, 0 0 40px lightsalmon, 0 0 50px lightsalmon, 0 0 60px lightsalmon, 0 0 70px lightsalmon;
   }
   to {
-    box-shadow: 0 0 20px inset white, 0 0 30px indigo, 0 0 40px indigo, 0 0 50px indigo, 0 0 60px indigo, 0 0 70px indigo, 0 0 80px indigo;
+    box-shadow: 0 0 20px inset white, 0 0 30px lavender, 0 0 40px lavender, 0 0 50px lavender, 0 0 60px lavender, 0 0 70px lavender, 0 0 80px lavender;
   } 
-}
-            
-            
-            .overlay{
-                width: 100vw;
-                height: 100vh;
-                position: fixed;
-                  background-image: linear-gradient(darkblue, indigo, purple, salmon, gray,darkslategray);
-
-            }
-            .overlay img{
-                width: 100%;
-                height: 100vh;
-                                mix-blend-mode:  color-dodge;
-
-            }
-            
+}       
         </style>
 </head><body>
-    <div class="overlay"><img src="bggtest.jpg"></div>
     <div class="cube">
   <div class="front glow"></div>
   <div class="back glow"></div>
