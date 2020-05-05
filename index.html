@@ -60,7 +60,11 @@ background-color:lightgray;
   -moz-animation: glow 1s ease-in-out infinite alternate;
   animation: glow 1s ease-in-out infinite alternate;
 }
-
+@media screen and (max-width: 767px) {
+  .cube {
+    zoom:1.4;
+  }
+}
 .cube div.front {
    -webkit-transform: translateZ(15vw);
 }
