@@ -12,26 +12,24 @@
           <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
         <style>
-
 body {
 background-color: white;
-    margin:0;
-  padding:0;
-  left:0;
-  top:0;
-  width:100vw;
-    height: 100vh;
+margin:0;
+padding:0;
+left:0;
+top:0;
+width:100vw;
+height: 100vh;
 }
-            .fornow{
-                
-    margin:0;
-  padding:0;
-  left:0;
-  top:0;
-  width:100vw;
-    height: 100vh;
-            }
-
+            
+.fornow{             
+margin:0;
+padding:0;
+left:0;
+top:0;
+width:100vw;
+height: 100vh;
+}
 .cube {
   -webkit-transform-style: preserve-3d;
   -webkit-animation: spin 20s infinite alternate ease-out;
@@ -44,46 +42,39 @@ background-color: white;
   margin-top: -7.5vh;
     display: block;
 }
-
 .cube div {
-   width: 15vw;
-   height: 15vh;
-   line-height: 15vh;
-   text-align: center;
+width: 15vw;
+height: 15vh;
+line-height: 15vh;
+text-align: center;
 background-color:lightgray;
-  display: block;
-   position: absolute;
-    opacity: 0.8;
-    display: block;
-        border-radius: 1px;
-  -webkit-animation: glow 1s ease-in-out infinite alternate;
-  -moz-animation: glow 1s ease-in-out infinite alternate;
-  animation: glow 1s ease-in-out infinite alternate;
-}
+display: block;
+position: absolute;
+opacity: 0.8;
+display: block;
+border-radius: 1px;
+-webkit-animation: glow 1s ease-in-out infinite alternate;
+-moz-animation: glow 1s ease-in-out infinite alternate;
+animation: glow 1s ease-in-out infinite alternate;
+}           
 @media screen and (max-width: 767px) {
-  .cube {
-    zoom:1.4;
-  }
+.cube {
+zoom:1.4;
 }
+}
+            
 .cube div.front {
-   -webkit-transform: translateZ(15vw);
+-webkit-transform: translateZ(15vw);
 }
 
 .cube div.back {
-   -webkit-transform: translateZ(-10vw) rotateX(180deg); 
+-webkit-transform: translateZ(-10vw) rotateX(180deg); 
 }
 
 @-webkit-keyframes spin {
   0% {-webkit-transform: rotateX(-20deg) rotateY(20deg);}
   100% {-webkit-transform: rotateX(-20deg) rotateY(740deg);}
 }
-
-.glow {
-  -webkit-animation: glow 1s ease-in-out infinite alternate;
-  -moz-animation: glow 1s ease-in-out infinite alternate;
-  animation: glow 1s ease-in-out infinite alternate;
-}
-
 @-webkit-keyframes glow {
   from {
       -webkit-appearance: none;
@@ -103,8 +94,7 @@ background-color:lightgray;
     <div class="cube">
   <div class="front"></div>
   <div class="back"></div>
-</div>
-        </div>
+</div></div>
 </body>
     <script>
 </script>
