@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>scamming time</title>
+        <link rel="icon" href="" type="image/jpg">
+        <meta name="keywords" content="">
+        <meta name="author" content="Henrique Martin, Mar Correia, Deveny Faruque">
+        <meta name="robots" content="index, follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+          <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.4/gsap.min.js"></script>
+
+        <style>
+
+            body{
+                height: 100vh;
+                padding: 0;
+                margin: 0;
+                width: 100vw;
+            }
+            
+            * {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  overflow: hidden;
+    transform: rotate(180deg)
+}
+.container2 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+ /* background: url('/assets/cargrass.png') top center no-repeat fixed;*/
+  overflow: hidden;
+      background-size: cover;
+    background-position: center;
+    z-index: 100;
+
+}
+.fornow{             
+margin:0;
+padding:4em;
+left:0;
+top:0;
+width:100vw;
+height: 100vh;
+    position: fixed;
+animation: shake 5s alternate infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-2px, 0px) rotate(1deg); }
+  30% { transform: translate(2px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-2px, 1px) rotate(0deg); }
+  70% { transform: translate(2px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}            
+.cube {
+  font-size: 4em;
+  width: 2em;
+  margin: 1.5em auto;
+  transform-style: preserve-3d;
+  transform: rotateX(-45deg) rotateY(30deg);
+  animation: spin infinite 25s;
+    zoom:0.4;
+}
+
+.side {
+  position: absolute;
+  text-align: center;
+  line-height: 2em;
+width: 15vw;
+height: 15vh;
+background-color:lightgray;
+    background-image: url(till25-04//assets/abacate2.jpg);
+opacity: 0.8;
+-webkit-animation: glow 1s ease-in-out infinite alternate;
+-moz-animation: glow 1s ease-in-out infinite alternate;
+animation: glow 1s ease-in-out infinite alternate;
+    color: white;
+    border: 10px groove gray;
+    
+    
+}
+
+.front {transform: translateZ(4em);}
+.right {transform: rotateY(60deg) translateZ(4em);}
+.left {transform: rotateY(120deg) translateZ(4em);}
+.back {transform: rotateY(180deg) translateZ(4em);}
+.midr {transform: rotateY(240deg) translateZ(4em);}
+.midl {transform: rotateY(300deg) translateZ(4em);}
+
+@-webkit-keyframes spin {
+  0% {-webkit-transform: rotateX(-20deg) rotateY(20deg);}
+  100% {-webkit-transform: rotateX(-20deg) rotateY(740deg);}
+}
+                
+@media screen and (max-width: 767px) {
+.cube {
+zoom:1.4;
+}
+}
+@-webkit-keyframes glow {
+  from {
+      -webkit-appearance: none;
+    box-shadow: inset 0 0 10px white, 0 0 20px white, 0 0 30px lightsalmon, 0 0 40px lightsalmon, 0 0 50px lightsalmon, 0 0 60px lightsalmon, 0 0 70px lightsalmon;
+      -webkit-box-shadow: inset 0 0 10px white, 0 0 20px white, 0 0 30px lightsalmon, 0 0 40px lightsalmon, 0 0 50px lightsalmon, 0 0 60px lightsalmon, 0 0 70px lightsalmon;
+  }
+  to {
+      -webkit-appearance: none;
+          box-shadow: inset 0 0 20px white, 0 0 30px lavender, 0 0 40px lavender, 0 0 50px lavender, 0 0 60px lavender, 0 0 70px lavender, 0 0 80px lavender;
+
+    -webkit-box-shadow: inset 0 0 20px white, 0 0 30px lavender, 0 0 40px lavender, 0 0 50px lavender, 0 0 60px lavender, 0 0 70px lavender, 0 0 80px lavender;
+  } 
+}   
+            
+      .frame img{ 
+        animation: mymove 5s alternate infinite ease-in-out;
+}
+
+
+@keyframes mymove {
+  from {  transform: skewX(10deg) skewY(10deg) rotateX(0deg) scale(1,2);}
+  to {  transform: skewX(-20deg) skewY(-10deg) rotateX(15deg) scale(1,1);
+}
+}
+        </style>
+</head><body>
+    <div class="container">
+        <img src="/assets/zeil.png" width="100%">
+</div>
+       <div class="fornow">
+    
+  <div class="cube">
+  <div class="side front">1</div>
+  <div class="side back">6</div>
+  <div class="side right">4</div>
+  <div class="side left">3</div>
+  <div class="side midr">4</div>
+  <div class="side midl">3</div>
+  </div>
+           
+    </div>
+     <div class="frame">
+            <img src="/assets/liquidplaid.png" width="20%">
+        </div>
+</body>
+    <script>
+</script>
+</html>

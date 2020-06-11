@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>scamming time</title>
+        <link rel="icon" href="" type="image/jpg">
+        <meta name="keywords" content="">
+        <meta name="author" content="Henrique Martin, Mar Correia, Deveny Faruque">
+        <meta name="robots" content="index, follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+          <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <style>
+body {
+background-image:url(greek.jpg);
+    background-size: 110%;
+    background-position: center;
+margin:0;
+padding:0;
+left:0;
+top:0;
+width:100vw;
+height: 100vh;
+}
+ .noise{ 
+     position: fixed;
+     background-image: url(/assets/noise2.png);
+     background-repeat: repeat;
+margin:0;
+padding:0;
+left:0;
+top:0;
+width:100vw;
+height: 100vh;
+     opacity: 0.4;
+            }
+              
+.fornow{             
+margin:0;
+padding:0;
+left:0;
+top:0;
+width:100vw;
+height: 100vh;
+
+}
+            
+            
+.cube {
+  font-size: 4em;
+  width: 2em;
+  margin: 1.5em auto;
+  transform-style: preserve-3d;
+  transform: rotateX(-45deg) rotateY(30deg);
+  animation: spin infinite 25s;
+}
+
+.side {
+  position: absolute;
+  text-align: center;
+  line-height: 2em;
+width: 15vw;
+height: 15vh;
+opacity: 0.8;
+-webkit-animation: glow 1s ease-in-out infinite alternate;
+-moz-animation: glow 1s ease-in-out infinite alternate;
+animation: glow 1s ease-in-out infinite alternate;
+    color: white;
+    
+    
+}
+            
+
+.front {transform: translateZ(4em); background-image: url(/assets/zeil.png); background-size: 100%;}
+.right {transform: rotateY(60deg) translateZ(4em); background-image: url(/assets/weirdgrass.png);background-size: 100%;}
+.left {transform: rotateY(120deg) translateZ(4em);background-image: url(/assets/grasstop.png);background-size: 100%;}
+.back {transform: rotateY(180deg) translateZ(4em);}
+.midr {transform: rotateY(240deg) translateZ(4em);}
+.midl {transform: rotateY(300deg) translateZ(4em);}
+
+@-webkit-keyframes spin {
+  0% {-webkit-transform: rotateX(-20deg) rotateY(20deg);}
+  100% {-webkit-transform: rotateX(-20deg) rotateY(740deg);}
+}
+            
+@media screen and (max-width: 767px) {
+.cube {
+zoom:1.4;
+}
+}
+@-webkit-keyframes glw {
+  from {
+      -webkit-appearance: none;
+    box-shadow: inset 0 0 10px white, 0 0 20px white, 0 0 30px lightsalmon, 0 0 40px lightsalmon, 0 0 50px lightsalmon, 0 0 60px lightsalmon, 0 0 70px lightsalmon;
+      -webkit-box-shadow: inset 0 0 10px white, 0 0 20px white, 0 0 30px lightsalmon, 0 0 40px lightsalmon, 0 0 50px lightsalmon, 0 0 60px lightsalmon, 0 0 70px lightsalmon;
+  }
+  to {
+      -webkit-appearance: none;
+          box-shadow: inset 0 0 20px white, 0 0 30px lavender, 0 0 40px lavender, 0 0 50px lavender, 0 0 60px lavender, 0 0 70px lavender, 0 0 80px lavender;
+
+    -webkit-box-shadow: inset 0 0 20px white, 0 0 30px lavender, 0 0 40px lavender, 0 0 50px lavender, 0 0 60px lavender, 0 0 70px lavender, 0 0 80px lavender;
+  } 
+}       
+        </style>
+</head><body>
+        <div class="noise">
+    </div>
+    <div class="fornow">
+    
+  <div class="cube">
+  <div class="side front">1</div>
+  <div class="side back">6</div>
+  <div class="side right">4</div>
+  <div class="side left">3</div>
+  <div class="side midr">4</div>
+  <div class="side midl">3</div>
+  </div>
+    </div>
+</body>
+    <script>
+</script>
+</html>
