@@ -411,7 +411,7 @@ animation: glow 1s ease-in-out infinite alternate;
         var helixMaterial = new THREE.MeshPhongMaterial();
         helixMaterial.opacity = 0.5;
         helixMaterial.side = THREE.DoubleSide;
-        helixMaterial.blending = THREE.AdditiveBlending
+        helixMaterial.blending = THREE.MultiplyBlending
         helixMaterial.color = new THREE.Color(0xFF69B4);
         
         var helixMesh = new THREE.Mesh(helixGeo, helixMaterial);
