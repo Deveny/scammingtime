@@ -196,25 +196,14 @@ animation: glow 1s ease-in-out infinite alternate;
 
 		<script type="module">
 
-			import * as THREE from '../build/three.module.js';
+			import * as THREE from '/three/build/three.module.js';
 
-			import Stats from './jsm/libs/stats.module.js';
-			import { GUI } from './jsm/libs/dat.gui.module.js';
+			import Stats from '/three/examples/jsm/libs/stats.module.js';
+			import { GUI } from '/three/examples/jsm/libs/dat.gui.module.js';
 
-			import { OrbitControls } from './jsm/controls/OrbitControls.js';
+			import { OrbitControls } from '/three/examples/jsm/controls/OrbitControls.js';
 
-			/*
-			 * Cloth Simulation using a relaxed constraints solver
-			 */
-
-			// Suggested Readings
-
-			// Advanced Character Physics by Thomas Jakobsen Character
-			// http://freespace.virgin.net/hugo.elias/models/m_cloth.htm
-			// http://en.wikipedia.org/wiki/Cloth_modeling
-			// http://cg.alexandra.dk/tag/spring-mass-system/
-			// Real-time Cloth Animation http://www.darwin3d.com/gamedev/articles/col0599.pdf
-
+			
 			var params = {
 				enableWind: true,
 				showBall: false,
@@ -589,13 +578,14 @@ animation: glow 1s ease-in-out infinite alternate;
 
 			function init() {
 
-				
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
 
 				// scene
 
 				scene = new THREE.Scene();
-				scene.background = new THREE.Color( 0xcce0ff );
-				scene.fog = new THREE.Fog( 0xcce0ff, 500, 10000 );
+				scene.background = new THREE.Color( 0xffffff );
+			//	scene.fog = new THREE.Fog( 0xcce0ff, 500, 10000 );
 
 				// camera
 
@@ -675,11 +665,13 @@ const ballGeo = new THREE.SphereBufferGeometry( ballSize, 32, 16 );
 
 				// renderer
 
-				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer = new THREE.WebGLRenderer( { antialias: true , alpha: true} );
+                renderer.setClearColor(0xffffff, 0);
+
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 
-				document.getElementById( 'container' ).appendChild( renderer.domElement );
+				container.appendChild( renderer.domElement );
 
 				renderer.outputEncoding = THREE.sRGBEncoding;
 
