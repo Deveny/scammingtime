@@ -17,7 +17,7 @@
 		<style>
             body {
 	margin: 0;
-  background-color: lavender;
+  background-color: #ffcac0;
 	color: #fff;
 	font-family: Monospace;
 	font-size: 13px;
@@ -198,7 +198,7 @@ animation: glow 1s ease-in-out infinite alternate;
 			function init() {
 
 				scene = new THREE.Scene();
-				scene.fog = new THREE.FogExp2( 0xffffff, 0.0025 );
+				scene.fog = new THREE.FogExp2( 0xffcac0, 0.001 );
 
 				renderer = new THREE.WebGLRenderer( { antialias: true , alpha: true} );
 				//renderer.setPixelRatio( window.devicePixelRatio );
@@ -304,7 +304,7 @@ animation: glow 1s ease-in-out infinite alternate;
 
         var spacingX = 3;
         var spacingZ = 3;
-        var heightOffset =2;
+        var heightOffset =3;
 
         var canvas = document.createElement('canvas');
         canvas.width = 512;
@@ -312,7 +312,7 @@ animation: glow 1s ease-in-out infinite alternate;
         var ctx = canvas.getContext('2d');
 
         var img = new Image();
-        img.src = "../assets/kol.png";
+        img.src = "../assets/water.jpg";
         img.onload = function () {
             // draw on canvas
             ctx.drawImage(img, 0, 0);
@@ -454,7 +454,8 @@ helix.add( helixMesh );
 
 				requestAnimationFrame( animate );
 
-				controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+				controls.update(); // only required if controls.enableDamping = true, or if 
+                controls.autoRotate = true
 
 				render();
 
