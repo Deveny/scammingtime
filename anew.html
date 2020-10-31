@@ -11,9 +11,6 @@
     <script src="../libs/postprocessing/EffectComposer.js"></script>
     <script src="../libs/postprocessing/RenderPass.js"></script>
     <script src="../libs/postprocessing/ShaderPass.js"></script>
-            <script src="../libs/postprocessing/BloomPass.js"></script>
-    <script src="../libs/postprocessing/CopyShader.js"></script>
-
         
         
 
@@ -45,7 +42,6 @@ button {
 canvas {
 	display: block;
     position: absolute;
-    z-index: 200;
 }
 
 #info {
@@ -60,21 +56,7 @@ canvas {
 	-ms-user-select: none;
 	user-select: none;
 	pointer-events: none;
-	z-index: -100; /* TODO Solve this in HTML */
-}
-            .container2 {
-                display: none;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  background: url('/assets/carframe.png') top center no-repeat fixed;
-  overflow: hidden;
-      background-size: cover;
-    background-position: center;
-                z-index: 200;
-
+	z-index: 1; /* TODO Solve this in HTML */
 }
 
 a, button, input, select {
@@ -165,7 +147,19 @@ a, button, input, select {
 -moz-animation: glow 1s ease-in-out infinite alternate;
 animation: glow 1s ease-in-out infinite alternate;
 }       
- 
+@-webkit-keyframes glow {
+  from {
+      -webkit-appearance: none;
+    box-shadow: inset 0 0 10px white, 0 0 20px white, 0 0 30px lightsalmon, 0 0 40px lightsalmon, 0 0 50px lightsalmon, 0 0 60px lightsalmon, 0 0 70px lightsalmon;
+      -webkit-box-shadow: inset 0 0 10px white, 0 0 20px white, 0 0 30px lightsalmon, 0 0 40px lightsalmon, 0 0 50px lightsalmon, 0 0 60px lightsalmon, 0 0 70px lightsalmon;
+  }
+  to {
+      -webkit-appearance: none;
+          box-shadow: inset 0 0 20px white, 0 0 30px lavender, 0 0 40px lavender, 0 0 50px lavender, 0 0 60px lavender, 0 0 70px lavender, 0 0 80px lavender;
+
+    -webkit-box-shadow: inset 0 0 20px white, 0 0 30px lavender, 0 0 40px lavender, 0 0 50px lavender, 0 0 60px lavender, 0 0 70px lavender, 0 0 80px lavender;
+  } 
+}    
 			button {
 				color: rgba(127,255,255,0.75);
 				background: transparent;
@@ -188,19 +182,14 @@ animation: glow 1s ease-in-out infinite alternate;
 
 	<body>
 		<div id="info">
-            dfsdfsd
 		</div>
- <div class="container2">
-</div>
-	<video id="video" loop crossOrigin="anonymous" autoplay playsinline style="display:none">
-			<source src="/assets/scheldepaars.mp4" type='video/mp4'>
-		</video>
+
+	
 		<script>
 
 
 
-			var camera, controls, scene, renderer, geom;
-			var worldWidth = 128, worldDepth = 128;
+			var camera, controls, scene, renderer;
 
 			init();
 			//render(); // remove when using next line for animation loop (requestAnimationFrame)
@@ -209,7 +198,7 @@ animation: glow 1s ease-in-out infinite alternate;
 			function init() {
 
 				scene = new THREE.Scene();
-				scene.fog = new THREE.FogExp2(0xaaccff, 0.001  );
+				scene.fog = new THREE.FogExp2(0xaaccff, 0.001 );
 
 				renderer = new THREE.WebGLRenderer( { antialias: true , alpha: true} );
 				//renderer.setPixelRatio( window.devicePixelRatio );
@@ -219,63 +208,23 @@ animation: glow 1s ease-in-out infinite alternate;
 				document.body.appendChild( renderer.domElement );
 
 				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
-				camera.position.set( 50, 0, 10 );
-                
-geom = new THREE.PlaneBufferGeometry( 20000, 20000, worldWidth - 1, worldDepth - 1 );
-				geom.rotateX( - Math.PI / 2 );
-                var posi = geom.attributes.position;
-				posi.usage = THREE.DynamicDrawUsage;
-
-				for ( var i = 0; i < posi.count; i ++ ) {
-
-					var y = 35 * Math.sin( i / 2 );
-					posi.setY( i, y );
-
-				}
-                var texture = new THREE.TextureLoader().load( 'assets/water.jpg' );
-				texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-				texture.repeat.set( 5, 5 );
-
-				matorial = new THREE.MeshBasicMaterial( { color: 0x0044ff, map: texture } );
-
-				mosh = new THREE.Mesh( geom, matorial );
-				//scene.add( mosh );
+				camera.position.set( 500, -100, 1000 );
 
 				// controls
 
 				controls = new THREE.OrbitControls( camera, renderer.domElement );
-
 				//controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
 
 				controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
 				controls.dampingFactor = 0.05;
-
-				controls.screenSpacePanning = false;
-
-				controls.minDistance = -300;
-				controls.maxDistance = 2000;
-
-                controls.maxPolarAngle = Math.PI / 2;
+controls.enablePan=false;
+				controls.minDistance = 0;
+				controls.maxDistance = 10000;
+                controls.minPolarAngle = Math.PI / 3;
+                controls.maxPolarAngle =  Math.PI / 2;
 //particles
                       //  setupParticleSystem(100, 100);
-                         
-	// SKYBOX
-	var imagePrefix = "assets/car/";
-	var directions  = ["right", "left", "top", "bottom", "front", "back"];
-	var imageSuffix = ".png";
-	var skyGeometry = new THREE.CubeGeometry( 5000, 5000, 5000 );	
-	
-	var materialArray = [];
-	for (var i = 0; i < 6; i++)
-		materialArray.push( new THREE.MeshBasicMaterial({
-			map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
-			side: THREE.BackSide
-		}));
-	var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
-	var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
-	//scene.add( skyBox );
-
-
+    
 				// lights
 
 				var light = new THREE.DirectionalLight( 0xFFF3D4 );
@@ -292,19 +241,17 @@ geom = new THREE.PlaneBufferGeometry( 20000, 20000, worldWidth - 1, worldDepth -
                 
         addPointLight(0xff0000, new THREE.Vector3(-300, 0, 0), 'sl1');
         addPointLight(0xff0000, new THREE.Vector3(-100, 0, 0), 'sl2');
-       // addPointLight(0xffffff, new THREE.Vector3(750, -15, 0), 'sl3');
+        addPointLight(0xfff000, new THREE.Vector3(750, -15, 0), 'sl3');
         addPointLight(0x0000ff, new THREE.Vector3(300, 0, 0), 'sl4');
                 control = new function () {
-
-
             this.count = 0.01;
         };
                 
     
-            //          addFloor();
+            //           addFloor();
                 addHelix();
        createGeometryFromMap();
-
+                
                 
                 
                 	// postprocessing
@@ -326,16 +273,16 @@ geom = new THREE.PlaneBufferGeometry( 20000, 20000, worldWidth - 1, worldDepth -
 
         var bulbMat = new THREE.MeshBasicMaterial();
         bulbMat.color = new THREE.Color(color);
-        pointLight.add(new THREE.Mesh(new THREE.SphereGeometry(0.1), bulbMat));
+        pointLight.add(new THREE.Mesh(new THREE.SphereGeometry(1), bulbMat));
     }
 
-             function createGeometryFromMap() {
+              function createGeometryFromMap() {
         var depth = 512;
         var width = 512;
 
         var spacingX = 3;
         var spacingZ = 3;
-        var heightOffset =-3;
+        var heightOffset =-4;
 
         var canvas = document.createElement('canvas');
         canvas.width = 512;
@@ -389,25 +336,17 @@ geom = new THREE.PlaneBufferGeometry( 20000, 20000, worldWidth - 1, worldDepth -
 
             var zMax = geom.boundingBox.max.z;
             var xMax = geom.boundingBox.max.x;
-            
-//var texture = new THREE.TextureLoader().load( 'assets/zeil.png' );
-const video = document.getElementById( 'video' );
-const texture = new THREE.VideoTexture( video );
-            
+
             var mesh = new THREE.Mesh(geom, new THREE.MeshPhongMaterial({
-                map:texture,
-            }));
-            var mish = new THREE.Mesh(geom, new THREE.MeshLambertMaterial({
-                vertexColors: THREE.FaceColors,
-                color: 0x0044ff,
-                shading: THREE.NoShading
+                color: 0x2AD9C6,
+                shininess:40,
+                specular:0x161616,
             }));
             mesh.translateX(-xMax / 2);
             mesh.translateZ(-zMax / 2);
-            mesh.position.y=70;
+            mesh.position.y=-70;
             scene.add(mesh);
-                        scene.add(mish);
-
+            mesh.name = 'valley';
         };
 
     }
@@ -420,20 +359,7 @@ const texture = new THREE.VideoTexture( video );
 
         return Math.max(v1, v2, v3);
     }
-  function addFloor() {
-        var floorGeometry = new THREE.PlaneGeometry(1600, 1600, 20, 20);
-        var floorMaterial = new THREE.MeshPhongMaterial();
-        floorMaterial.map = THREE.ImageUtils.loadTexture("../assets/textures/sand3.jpg");
 
-        floorMaterial.map.wrapS = floorMaterial.map.wrapT = THREE.RepeatWrapping;
-        floorMaterial.map.repeat.set(20, 20);
-        floorMaterial.side = THREE.DoubleSide;
-        var floorMesh = new THREE.Mesh(floorGeometry, floorMaterial);
-        floorMesh.receiveShadow = true;
-        floorMesh.rotation.x = -0.5 * Math.PI;
-      floorMesh.position.y = -15;
-        scene.add(floorMesh);
-    }
             
              function addHelix() {
                 var vector = new THREE.Vector3();
@@ -493,8 +419,9 @@ helix.add( helixMesh );
 
 				requestAnimationFrame( animate );
 
-				controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
-
+				controls.update(); // only required if controls.enableDamping = true, or if 
+              //  controls.autoRotate = true;
+                controls.autoRotateSpeed = 0.5;
 				render();
 
 			}
@@ -521,7 +448,7 @@ helix.add( helixMesh );
       //  light.position.y = 15 * Math.sin((control.count += 0.005) + 1.0 * Math.PI);
         var light = scene.getObjectByName('sl4');
         light.position.y = 15 * Math.sin((control.count += 0.005) + 1.5 * Math.PI);
-                        scene.getObjectByName('group').rotation.y += 0.005;
+                     //   scene.getObjectByName('group').rotation.y += 0.005;
 
 
 			}

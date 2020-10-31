@@ -11,13 +11,16 @@
     <script src="../libs/postprocessing/EffectComposer.js"></script>
     <script src="../libs/postprocessing/RenderPass.js"></script>
     <script src="../libs/postprocessing/ShaderPass.js"></script>
+            <script src="../libs/postprocessing/BloomPass.js"></script>
+    <script src="../libs/postprocessing/CopyShader.js"></script>
+
         
         
 
 		<style>
             body {
 	margin: 0;
-  background-color: #ffcac0;
+  background-color: lavender;
 	color: #fff;
 	font-family: Monospace;
 	font-size: 13px;
@@ -42,6 +45,7 @@ button {
 canvas {
 	display: block;
     position: absolute;
+    z-index: 200;
 }
 
 #info {
@@ -56,7 +60,21 @@ canvas {
 	-ms-user-select: none;
 	user-select: none;
 	pointer-events: none;
-	z-index: 1; /* TODO Solve this in HTML */
+	z-index: -100; /* TODO Solve this in HTML */
+}
+            .container2 {
+                display: none;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: url('/assets/carframe.png') top center no-repeat fixed;
+  overflow: hidden;
+      background-size: cover;
+    background-position: center;
+                z-index: 200;
+
 }
 
 a, button, input, select {
@@ -147,19 +165,7 @@ a, button, input, select {
 -moz-animation: glow 1s ease-in-out infinite alternate;
 animation: glow 1s ease-in-out infinite alternate;
 }       
-@-webkit-keyframes glow {
-  from {
-      -webkit-appearance: none;
-    box-shadow: inset 0 0 10px white, 0 0 20px white, 0 0 30px lightsalmon, 0 0 40px lightsalmon, 0 0 50px lightsalmon, 0 0 60px lightsalmon, 0 0 70px lightsalmon;
-      -webkit-box-shadow: inset 0 0 10px white, 0 0 20px white, 0 0 30px lightsalmon, 0 0 40px lightsalmon, 0 0 50px lightsalmon, 0 0 60px lightsalmon, 0 0 70px lightsalmon;
-  }
-  to {
-      -webkit-appearance: none;
-          box-shadow: inset 0 0 20px white, 0 0 30px lavender, 0 0 40px lavender, 0 0 50px lavender, 0 0 60px lavender, 0 0 70px lavender, 0 0 80px lavender;
-
-    -webkit-box-shadow: inset 0 0 20px white, 0 0 30px lavender, 0 0 40px lavender, 0 0 50px lavender, 0 0 60px lavender, 0 0 70px lavender, 0 0 80px lavender;
-  } 
-}    
+ 
 			button {
 				color: rgba(127,255,255,0.75);
 				background: transparent;
@@ -182,14 +188,19 @@ animation: glow 1s ease-in-out infinite alternate;
 
 	<body>
 		<div id="info">
+            dfsdfsd
 		</div>
-
-	
+ <div class="container2">
+</div>
+	<video id="video" loop crossOrigin="anonymous" autoplay playsinline style="display:none">
+			<source src="/assets/scheldepaars.mp4" type='video/mp4'>
+		</video>
 		<script>
 
 
 
-			var camera, controls, scene, renderer;
+			var camera, controls, scene, renderer, geom;
+			var worldWidth = 128, worldDepth = 128;
 
 			init();
 			//render(); // remove when using next line for animation loop (requestAnimationFrame)
@@ -198,7 +209,7 @@ animation: glow 1s ease-in-out infinite alternate;
 			function init() {
 
 				scene = new THREE.Scene();
-				scene.fog = new THREE.FogExp2( 0xffcac0, 0.001 );
+			//	scene.fog = new THREE.FogExp2(0xaaccff, 0.001  );
 
 				renderer = new THREE.WebGLRenderer( { antialias: true , alpha: true} );
 				//renderer.setPixelRatio( window.devicePixelRatio );
@@ -208,7 +219,27 @@ animation: glow 1s ease-in-out infinite alternate;
 				document.body.appendChild( renderer.domElement );
 
 				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
-				camera.position.set( 100, 0, 0 );
+				camera.position.set( 50, 0, 10 );
+                
+geom = new THREE.PlaneBufferGeometry( 20000, 20000, worldWidth - 1, worldDepth - 1 );
+				geom.rotateX( - Math.PI / 2 );
+                var posi = geom.attributes.position;
+				posi.usage = THREE.DynamicDrawUsage;
+
+				for ( var i = 0; i < posi.count; i ++ ) {
+
+					var y = 35 * Math.sin( i / 2 );
+					posi.setY( i, y );
+
+				}
+                var texture = new THREE.TextureLoader().load( 'assets/water.jpg' );
+				texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+				texture.repeat.set( 5, 5 );
+
+				matorial = new THREE.MeshBasicMaterial( { color: 0x0044ff, map: texture } );
+
+				mosh = new THREE.Mesh( geom, matorial );
+				//scene.add( mosh );
 
 				// controls
 
@@ -221,8 +252,8 @@ animation: glow 1s ease-in-out infinite alternate;
 
 				controls.screenSpacePanning = false;
 
-				controls.minDistance = 0;
-				controls.maxDistance = 800;
+				controls.minDistance = -300;
+				controls.maxDistance = 2000;
 
                 controls.maxPolarAngle = Math.PI / 2;
 //particles
@@ -270,10 +301,10 @@ animation: glow 1s ease-in-out infinite alternate;
         };
                 
     
-            //           addFloor();
+            //          addFloor();
                 addHelix();
        createGeometryFromMap();
-                
+
                 
                 
                 	// postprocessing
@@ -298,13 +329,13 @@ animation: glow 1s ease-in-out infinite alternate;
         pointLight.add(new THREE.Mesh(new THREE.SphereGeometry(0.1), bulbMat));
     }
 
-              function createGeometryFromMap() {
+             function createGeometryFromMap() {
         var depth = 512;
         var width = 512;
 
         var spacingX = 3;
         var spacingZ = 3;
-        var heightOffset =3;
+        var heightOffset =-3;
 
         var canvas = document.createElement('canvas');
         canvas.width = 512;
@@ -358,17 +389,25 @@ animation: glow 1s ease-in-out infinite alternate;
 
             var zMax = geom.boundingBox.max.z;
             var xMax = geom.boundingBox.max.x;
-
-            var mesh = new THREE.Mesh(geom, new THREE.MeshLambertMaterial({
+            
+//var texture = new THREE.TextureLoader().load( 'assets/zeil.png' );
+const video = document.getElementById( 'video' );
+const texture = new THREE.VideoTexture( video );
+            
+            var mesh = new THREE.Mesh(geom, new THREE.MeshPhongMaterial({
+                map:texture,
+            }));
+            var mish = new THREE.Mesh(geom, new THREE.MeshLambertMaterial({
                 vertexColors: THREE.FaceColors,
-                color: 0x2AD9C6,
+                color: 0x0044ff,
                 shading: THREE.NoShading
             }));
             mesh.translateX(-xMax / 2);
             mesh.translateZ(-zMax / 2);
-            mesh.position.y=-70;
+            mesh.position.y=70;
             scene.add(mesh);
-            mesh.name = 'valley';
+                        scene.add(mish);
+
         };
 
     }
@@ -454,8 +493,7 @@ helix.add( helixMesh );
 
 				requestAnimationFrame( animate );
 
-				controls.update(); // only required if controls.enableDamping = true, or if 
-                controls.autoRotate = true
+				controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
 
 				render();
 
@@ -483,7 +521,7 @@ helix.add( helixMesh );
       //  light.position.y = 15 * Math.sin((control.count += 0.005) + 1.0 * Math.PI);
         var light = scene.getObjectByName('sl4');
         light.position.y = 15 * Math.sin((control.count += 0.005) + 1.5 * Math.PI);
-                     //   scene.getObjectByName('group').rotation.y += 0.005;
+                        scene.getObjectByName('group').rotation.y += 0.005;
 
 
 			}
