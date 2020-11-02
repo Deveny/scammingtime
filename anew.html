@@ -220,8 +220,8 @@ animation: glow 1s ease-in-out infinite alternate;
 controls.enablePan=false;
 				controls.minDistance = 0;
 				controls.maxDistance = 10000;
-                controls.minPolarAngle = Math.PI / 3;
-                controls.maxPolarAngle =  Math.PI / 2;
+               // controls.minPolarAngle = Math.PI / 3;
+                controls.maxPolarAngle = Math.PI / 2;
 //particles
                       //  setupParticleSystem(100, 100);
     
@@ -448,11 +448,8 @@ helix.add( helixMesh );
       //  light.position.y = 15 * Math.sin((control.count += 0.005) + 1.0 * Math.PI);
         var light = scene.getObjectByName('sl4');
         light.position.y = 15 * Math.sin((control.count += 0.005) + 1.5 * Math.PI);
-                     //   scene.getObjectByName('group').rotation.y += 0.005;
-
-
+//   scene.getObjectByName('group').rotation.y += 0.005;
 			}
-
 		</script>
 	</body>
 </html>

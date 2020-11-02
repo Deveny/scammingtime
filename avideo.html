@@ -20,7 +20,7 @@
 		<style>
             body {
 	margin: 0;
-  background-color: lavender;
+  background-color: darkgray;
 	color: #fff;
 	font-family: Monospace;
 	font-size: 13px;
@@ -67,7 +67,8 @@ var newPosition = new THREE.Vector3();
 
 				camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 1, 10000 );
 
-        camera.position.set(0,50,15);
+        camera.position.set(0,100,70);
+        camera.rotation.x =-50;
         //(15,6,-15);
         camera.lookAt(scene.position);   
                 
@@ -121,7 +122,7 @@ var newPosition = new THREE.Vector3();
 
         var bulbMat = new THREE.MeshBasicMaterial();
         bulbMat.color = new THREE.Color(color);
-        pointLight.add(new THREE.Mesh(new THREE.SphereGeometry(1), bulbMat));
+        pointLight.add(new THREE.Mesh(new THREE.SphereGeometry(0.01), bulbMat));
     }
 
              function createGeometryFromMap() {
@@ -191,6 +192,7 @@ const texture = new THREE.VideoTexture( video );
             
             var mesh = new THREE.Mesh(geom, new THREE.MeshPhongMaterial({
                 map:texture,
+                shininess:100
             }));
             var mish = new THREE.Mesh(geom, new THREE.MeshLambertMaterial({
                 vertexColors: THREE.FaceColors,
@@ -199,7 +201,7 @@ const texture = new THREE.VideoTexture( video );
             }));
             mesh.translateX(-xMax / 2);
             mesh.translateZ(-zMax / 2);
-            mesh.position.y=0;
+            mesh.position.y=20;
             scene.add(mesh);
 
         };
@@ -228,7 +230,8 @@ const texture = new THREE.VideoTexture( video );
 
 			function animate() {
 
-				requestAnimationFrame( animate );
+				//
+                requestAnimationFrame( animate );
 
 				
 				render();
