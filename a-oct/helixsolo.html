@@ -142,14 +142,13 @@ animation: glow 1s ease-in-out infinite alternate;
 
 		<script type="module">
 
-			import * as THREE from '/libs/three.module.js';
+			import * as THREE from '/three/build/three.module.js';
 
-			import { TWEEN } from '/libs/tween.module.min.js';
-			import { TrackballControls } from '/libs/TrackballControls.js';
-			import { CSS3DRenderer, CSS3DObject } from '/libs/helix/CSS3DRenderer.js';
+			import { TWEEN } from '/three/examples/jsm/libs/tween.module.min.js';
+			import { OrbitControls } from '/three/examples/jsm/controls/OrbitControls.js';
+			import { CSS3DRenderer, CSS3DObject } from '/three/examples/jsm/renderers/CSS3DRenderer.js';
 
-
-			var camera, scene, renderer;
+			var camera, scene, renderer, radius, phi, theta, lon, lat;
 			var controls;
 
 			var objects = [];
@@ -166,7 +165,6 @@ animation: glow 1s ease-in-out infinite alternate;
 				scene = new THREE.Scene();
 
 				// table
-
 				for ( var i = 0; i < 6; i += 1 ) {
 
 					var element = document.createElement( 'div' );
@@ -175,17 +173,15 @@ animation: glow 1s ease-in-out infinite alternate;
 
 					var object = new CSS3DObject( element );
 					scene.add( object );
+ element.parent = object;
 
+object.element.onclick = function() { cameraToMarker(this); };
 					objects.push( object );
 
 					//
 				}
-
-				// sphere
 				// helix
-
 				var vector = new THREE.Vector3();
-
 				for ( var i = 0, l = objects.length; i < l; i ++ ) {
 
 					var theta = i * 1.05 + Math.PI;
@@ -204,28 +200,68 @@ animation: glow 1s ease-in-out infinite alternate;
 
 				}
 
-				// grid
-				//
-
 				renderer = new CSS3DRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				document.getElementById( 'container' ).appendChild( renderer.domElement );
 
-				//
-
-				controls = new TrackballControls( camera, renderer.domElement );
+				//controls
+				controls = new OrbitControls( camera, renderer.domElement );
 				controls.minDistance = 500;
 				controls.maxDistance = 6000;
 				controls.addEventListener( 'change', render );
-
 				transform( targets.helix, 0 );
-
-				//
-
 				window.addEventListener( 'resize', onWindowResize, false );
 
 			}
-
+const getNewPointOnVector = (p1, p2) => {
+  let distAway = 200;
+  let vector = {x: p2.x - p1.x, y: p2.y - p1.y, z:p2.z - p1.z};
+  let vl = Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2) + Math.pow(vector.z, 2));
+  let vectorLength = {x: vector.x/vl, y: vector.y/vl, z: vector.z/vl};
+  let v = {x: distAway * vectorLength.x, y: distAway * vectorLength.y, z: distAway * vectorLength.z};
+  return {x: p2.x + v.x, y: p2.y + v.y, z: p2.z + v.z};
+}
+function cameraToMarker(marker) {
+  const currentCamPosition = {x: marker.cameraPositionX, y: camera.positionY, z: marker.cameraPositionZ};
+  const storedMarkerPosition = new THREE.Vector3(marker.positionX, marker.positionY, marker.positionZ);
+  const newCameraTarget = getNewPointOnVector(currentCamPosition, storedMarkerPosition);
+  const markerPosition = new THREE.Vector3(...Object.values(newCameraTarget));
+  const startQuaternion = camera.quaternion.clone(camera.rotation);
+  camera.lookAt(storedMarkerPosition);
+  const endQuaternion = camera.quaternion.clone(camera.rotation);
+  camera.rotation.copy(startQuaternion);
+  new TWEEN.Tween(camera.rotation)
+    .to(
+      {
+        x: endQuaternion.x,
+        y: endQuaternion.y,
+        z: endQuaternion.z,
+      }, 500)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .onComplete(() => {
+      new TWEEN.Tween(camera.position)
+        .to({
+          x: marker.cameraPositionX,
+          y: camera.position.y,
+          z: marker.cameraPositionZ,
+        })
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .onUpdate(() => {
+          camera.lookAt(storedMarkerPosition);
+        })
+        .onComplete(() => {
+          camera.lookAt(storedMarkerPosition);
+          radius = Math.hypot(...Object.values(markerPosition));
+          phi = Math.acos(markerPosition.y / radius);
+          theta = Math.atan2(markerPosition.z, markerPosition.x);
+          lon = THREE.Math.radToDeg(theta);
+          lat = 90 - THREE.Math.radToDeg(phi);
+        })
+        .start();
+    })
+    .start();
+}
+    
 			function transform( targets, duration ) {
 
 				TWEEN.removeAll();
@@ -272,6 +308,9 @@ animation: glow 1s ease-in-out infinite alternate;
 				TWEEN.update();
 
 				controls.update();
+                
+                
+
 
 			}
 
