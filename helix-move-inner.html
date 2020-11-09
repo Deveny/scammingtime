@@ -93,7 +93,8 @@ a, button, input, select {
 				font-family: Helvetica, sans-serif;
 				text-align: center;
 				line-height: normal;
-				cursor: default;
+                cursor: default;}
+            d{
             -webkit-animation: glow 1s ease-in-out infinite alternate;
 -moz-animation: glow 1s ease-in-out infinite alternate;
 animation: glow 1s ease-in-out infinite alternate;
@@ -171,7 +172,7 @@ animation: glow 1s ease-in-out infinite alternate;
   var vector = new THREE.Vector3();
 
   // table
-  for (var i = 0; i < 6; i += 1) {
+  for (var i = 0; i < 7; i += 1) {
     var element = document.createElement("div");
     element.className = "element";
 
@@ -179,9 +180,9 @@ animation: glow 1s ease-in-out infinite alternate;
     scene.add(object);
       
     
-    var theta = i * 1.05 + Math.PI;
+    var theta = i * 0.90 + Math.PI;
     var y = -450;
-    object.position.setFromCylindricalCoords( 900, theta, 0 );      
+    object.position.setFromCylindricalCoords( 1100, theta, 0 );      
     objects.push(object);
     
     vector.x = object.position.x * 2;
@@ -234,47 +235,7 @@ const getNewPointOnVector = (p1, p2) => {
   let v = {x: distAway * vectorLength.x, y: distAway * vectorLength.y, z: distAway * vectorLength.z};
   return {x: p2.x + v.x, y: p2.y + v.y, z: p2.z + v.z};
 }
-function cameraToMarker(marker) {
-  const currentCamPosition = {x: marker.cameraPositionX, y: camera.positionY, z: marker.cameraPositionZ};
-  const storedMarkerPosition = new THREE.Vector3D(marker.positionX, marker.positionY, marker.positionZ);
-  const newCameraTarget = getNewPointOnVector(currentCamPosition, storedMarkerPosition);
-  const markerPosition = new THREE.Vector3D(...Object.values(newCameraTarget));
-  const startQuaternion = camera.quaternion.clone(camera.rotation);
-  camera.lookAt(storedMarkerPosition);
-  const endQuaternion = camera.quaternion.clone(camera.rotation);
-  camera.rotation.copy(startQuaternion);
-  new TWEEN.Tween(camera.rotation)
-    .to(
-      {
-        x: endQuaternion.x,
-        y: endQuaternion.y,
-        z: endQuaternion.z,
-      }, 500)
-    .easing(TWEEN.Easing.Quadratic.InOut)
-    .onComplete(() => {
-      new TWEEN.Tween(camera.position)
-        .to({
-          x: marker.cameraPositionX,
-          y: camera.position.y,
-          z: marker.cameraPositionZ,
-        })
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .onUpdate(() => {
-          camera.lookAt(storedMarkerPosition);
-        })
-        .onComplete(() => {
-          camera.lookAt(storedMarkerPosition);
-          radius = Math.hypot(...Object.values(markerPosition));
-          phi = Math.acos(markerPosition.y / radius);
-          theta = Math.atan2(markerPosition.z, markerPosition.x);
-          lon = THREE.Math.radToDeg(theta);
-          lat = 90 - THREE.Math.radToDeg(phi);
-        })
-        .start();
-    })
-    .start();
-}
-            
+        
  
 function transform( targets, duration ) {
 

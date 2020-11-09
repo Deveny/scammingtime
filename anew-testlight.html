@@ -235,9 +235,9 @@ animation: glow 1s ease-in-out infinite alternate;
 				scene.add( light );
 
 //lights                
-        addPointLight(0xff0000, new THREE.Vector3(-300, 0, 0), 'pl1');
-        addPointLight(0xff0000, new THREE.Vector3(-100, 0, 0), 'pl2');
-        addPointLight(0x0000ff, new THREE.Vector3(300, 0, 0), 'pl3');
+        //addPointLight(0xff0000, new THREE.Vector3(-300, 0, 0), 'pl1');
+        //addPointLight(0xff0000, new THREE.Vector3(-100, 0, 0), 'pl2');
+        //addPointLight(0x0000ff, new THREE.Vector3(300, 0, 0), 'pl3');
                 control = new function () {
             this.count = 0.01;    };
                       
@@ -263,9 +263,9 @@ animation: glow 1s ease-in-out infinite alternate;
         var depth = 512;
         var width = 512;
 
-        var spacingX = 3;
-        var spacingZ = 3;
-        var heightOffset =-4;
+        var spacingX = 1;
+        var spacingZ =1 ;
+        var heightOffset =3;
 
         var canvas = document.createElement('canvas');
         canvas.width = 512;
@@ -273,7 +273,7 @@ animation: glow 1s ease-in-out infinite alternate;
         var ctx = canvas.getContext('2d');
 
         var img = new Image();
-        img.src = "../assets/water.jpg";
+        img.src = "../assets/map3.jpg";
         img.onload = function () {
             // draw on canvas
             ctx.drawImage(img, 0, 0);

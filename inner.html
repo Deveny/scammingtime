@@ -2,72 +2,140 @@
   <head>
     <meta charset="utf-8">
     <meta name="generator" content="GitLab Pages">
-    <title>Three.js WebGL and CSS3D Demonstration</title>
+    <title>Zoom Outer</title>
       
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
           <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/CSSRulePlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="firstep/first.css">
       <style>
-      #css, #webgl {
+          
+@font-face {
+  font-family: "round";
+  src: url("/assets/fonts/ArialRoundedBold.ttf");
+}
+#css,
+#webgl, #episode {
   width: 100%;
   height: 100%;
   position: absolute;
-  top: 0; left: 0;
-  overflow: hidden;
+  top: 0;
+  left: 0;
+    text-align: center;
 }
 #css {
-  z-index: 1;
-    border: 3px solid red;
+      overflow: hidden;
+  z-index: 10;
 }
 #webgl {
-  z-index: 0;
+      overflow: hidden;
+  z-index: 5;
 }
+          #episode{
+              overflow-x: hidden;
+              overflow-y: hidden;
+              display: none;
+              z-index: 1;
+          }
 body {
   margin: 0;
-    background-color: lavender;
+  background-color: #f5d2b5;
 }
-          .element {
-				width: 20vw;
-				height: 20vh;
-				box-shadow: 0px 0px 12px lightgray;
-                background-color: lightgray;
-                opacity: 0.6;
-				border: 1px solid lightgray;
-              border-radius: 5px;
-				font-family: Helvetica, sans-serif;
-				text-align: center;
-				line-height: normal;
-				cursor: default;
-            -webkit-animation: glow 1s ease-in-out infinite alternate;
--moz-animation: glow 1s ease-in-out infinite alternate;
-animation: glow 1s ease-in-out infinite alternate;
-               transition: opacity 0.5s, background-color 1s;
-}        
+.element {
+  width: 20vw;
+  height: 20vh;
+  box-shadow: 0px 0px 12px lightgray;
+  background-color: lightgray;
+  opacity: 0.6;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  text-align: center;
+  line-height: normal;
+  cursor: default;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+  transition: opacity 0.5s, background-color 1s;
+}
+
 @-webkit-keyframes glow {
   from {
-      -webkit-appearance: none;
-    box-shadow: inset 0 0 1em white, 0 0 2em white, 0 0 3em lightsalmon, 0 0 4em lightsalmon, 0 0 5em lightsalmon;
-      -webkit-box-shadow: inset 0 0 1em white, 0 0 2em white, 0 0 3em lightsalmon, 0 0 4em lightsalmon, 0 0 5em lightsalmon;
+    -webkit-appearance: none;
+    box-shadow: inset 0 0 1em white, 0 0 2em white, 0 0 3em lightsalmon,
+      0 0 4em lightsalmon, 0 0 5em lightsalmon;
+    -webkit-box-shadow: inset 0 0 1em white, 0 0 2em white, 0 0 3em lightsalmon,
+      0 0 4em lightsalmon, 0 0 5em lightsalmon;
   }
   to {
-      -webkit-appearance: none;
-          box-shadow: inset 0 0 2em white, 0 0 3em lavender, 0 0 4em lavender, 0 0 5em lavender, 0 0 6em lavender;
+    -webkit-appearance: none;
+    box-shadow: inset 0 0 2em white, 0 0 3em lavender, 0 0 4em lavender,
+      0 0 5em lavender, 0 0 6em lavender;
 
-    -webkit-box-shadow: inset 0 0 2em white, 0 0 3em lavender, 0 0 4em lavender, 0 0 5em lavender, 0 0 6em lavender;
-  } 
-}    
-          .element:hover{
-                opacity: 1;
-                 background-image: url('assets/greek.jpg');
+    -webkit-box-shadow: inset 0 0 2em white, 0 0 3em lavender, 0 0 4em lavender,
+      0 0 5em lavender, 0 0 6em lavender;
+  }
+}
+.element:hover {
+  opacity: 1;
+  background-image: url("assets/greek.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-                transition: opacity 0.5s, background-color 1s;
-              cursor: pointer;
-            }
+  transition: opacity 0.5s, background-color 1s;
+  cursor: pointer;
+}
+.deeper{
+  opacity: 1;
+  background-image: url("assets/greek.jpg");
+  background-repeat: no-repeat;
+  background-size: cover; 
+    font-family: 'Round';
+
+                                font-size: 3vw;
+                                font-weight: bold;
+                color: rgba(255,255,255,1);
+                letter-spacing: 0.7px;
+                text-shadow: 0 0 8px pink; 
+                font-kerning: normal;
+          }
+.deeper:after {
+  content: "Dive in?";
+    opacity: 0.7;
+  display: none;
+}
+.deeper:hover:after {
+  display: block;
+    transition: display 1s, content 1s;
+}
+
 </style>
   </head>
   <body>
     <div id="css"></div>
     <div id="webgl"></div>
+      <div id="episode"> <div id='pp'></div>
+
+        <div id="p-one"><img src="/assets/firstepisode/pinkass.jpg"id="pinkass" width= '17%' onclick="toPoint()"></div>
+        <div id="again"><p>(and again)</p></div>
+        <div class="layed">
+                <img class="abacate" id='a1'src="/assets/firstepisode/abacate1.jpg" width='17%'><br>
+                <img class="abacate" id='a2'src="/assets/firstepisode/abacate2.jpg" width='17%'><br>
+                <img class="abacate" id='a3'src="/assets/firstepisode/abacate3.jpg" width='17%'></div>
+
+                <div id="p-txt"></div>
+        <div id="video">     
+
+                     <div id='wipe'></div>
+
+<video id='grass' width="100%" height="auto">
+            <source src="/assets/firstepisode/grass.mp4" type="video/mp4"></video>
+                                <img id="sheets" src="/assets/firstepisode/sheets.jpg" width="20%">
+<audio id="sound">
+  <source src="/assets/firstepisode/what.mp3" type="audio/mpeg">
+</audio>
+</div></div>
     <footer>
 
 
@@ -81,9 +149,7 @@ import {
   CSS3DObject
 } from "/three/examples/jsm/renderers/CSS3DRenderer.js";
 
-var control, controls, camera, scene, webGLrenderer, css3Drenderer, light, domElement;
-var objects = [];
-var targets = { helix: [] };
+var control, controls, camera, scene, webGLrenderer, css3Drenderer, light, domElement, group, HelixSpeed;
 
 init();
 animate();
@@ -91,12 +157,12 @@ animate();
 function init() {
   // Create the scene
   scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0xaaccff, 0.0003);
+  scene.fog = new THREE.FogExp2(0xffc494, 0.0003);
 
   // Create the camera
 
   camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight,1,100000);
-  camera.position.z = 1000;
+  camera.position.z = 30000;
     
   var light = new THREE.DirectionalLight(0xfff3d4);
   light.position.set(1, 1, 1);
@@ -109,37 +175,46 @@ function init() {
   var light = new THREE.AmbientLight(0x222222);
   scene.add(light);
 
-
+    group = new THREE.Group();
+    HelixSpeed = 0.001;
   //helix
-    for (var i = 0; i < 6; i += 1) {
+    for (var i = 0; i < 7; i += 1) {
     var hvector = new THREE.Vector3(); 
     var element = document.createElement("div");
     element.className = "element";
     var object = new CSS3DObject(element);
-    scene.add(object);
 
-    var theta = i * 1.05 + Math.PI;
+    var theta = i * 0.90 + Math.PI;
     var y = -450;
-    object.position.setFromCylindricalCoords(300, theta, 0);
-    objects.push(object);
-
+    object.position.setFromCylindricalCoords(400, theta, 0);
+    object.castShadow = true;
     hvector.x = object.position.x * 2;
     hvector.y = object.position.y;
     hvector.z = object.position.z * 2;
 
         
     object.lookAt(hvector);
-    targets.helix.push(object);
+        
+        group.add( object );
     element.parent = object;
     object.element.onclick = function () {
         // nvector.setFromCylindricalCoords(400, theta, 0);
     var nvector = new THREE.Vector3();
 //nvector.copy(this.parent.position);       nvector.negate();
         nvector.set(this.parent.position.x*2,0,this.parent.position.z*2);    
-        tweenCamera(nvector, 3000)
+        tweenCamera(nvector, 5000);
+       // this.classList.add("deeper");
+        $(this).addClass("deeper").delay(7000);
+        $(this).siblings('.element').removeClass('deeper');
+        
+        this.onclick = function (){
+            newPage();
+        }
   };
+        
   }
-  transform(targets.helix, 0);
+        scene.add(group);
+
 
   //Create the renderers
   var webGLrendererContainer = document.querySelector("#webgl");
@@ -155,20 +230,32 @@ function init() {
 
   // Create the controls
   controls = new OrbitControls(camera, css3Drenderer.domElement);
-  controls.minPolarAngle = Math.PI / 3;
+    	controls.enablePan = false;
+	controls.panSpeed = 0.1;
+	controls.screenSpacePanning = false; 
+  controls.minPolarAngle = Math.PI / 2.5;
   controls.maxPolarAngle = Math.PI / 2;
- // controls.minDistance = -1000;
- // controls.maxDistance = 10000;
+controls.minAzimuthAngle = 1.25* Math.PI;
+controls.maxAzimuthAngle = 1.25*Math.PI+0.001;
       controls.addEventListener("change", render);
-  // Create the event listener for on resize
   window.addEventListener("resize", onWindowResize, false);
   onWindowResize();
 
   createGeometryFromMap();
 
-  addPointLight(0xff0000, new THREE.Vector3(-300, 0, 0), "pl1");
-  addPointLight(0xff0000, new THREE.Vector3(-100, 0, 0), "pl2");
-  addPointLight(0x0000ff, new THREE.Vector3(300, 0, 0), "pl3");
+  var blueSpot = new THREE.PointLight();
+  blueSpot.color = new THREE.Color(0x0000ff);
+  blueSpot.intensity =1;
+  blueSpot.distance = 1000;
+
+  blueSpot.position.set(300, 70, 0);
+  blueSpot.name = 'blue1';
+  scene.add(blueSpot);
+    
+    
+  addPointLight(0xff0000, new THREE.Vector3(-400, 0, 0), "red1");
+  addPointLight(0xff0000, new THREE.Vector3(-100, 0, 0), "red2");
+ // addPointLight(0x0000ff, new THREE.Vector3(300, 70, 0), "blue1");
   control = new (function () {
     this.count = 0.01;
   })();
@@ -177,8 +264,9 @@ function init() {
 function addPointLight(color, position, name) {
   var pointLight = new THREE.PointLight();
   pointLight.color = new THREE.Color(color);
-  pointLight.intensity = 4;
-  pointLight.distance = 200;
+  pointLight.intensity =7;
+  pointLight.distance = 500;
+pointLight.castShadow = true;
 
   pointLight.position.copy(position);
   pointLight.name = name;
@@ -186,7 +274,7 @@ function addPointLight(color, position, name) {
 
   var bulbMat = new THREE.MeshBasicMaterial();
   bulbMat.color = new THREE.Color(color);
-  pointLight.add(new THREE.Mesh(new THREE.SphereGeometry(0.01), bulbMat));
+  pointLight.add(new THREE.Mesh(new THREE.SphereGeometry(0.001), bulbMat));
 }
 function createGeometryFromMap() {
   var depth = 1024;
@@ -258,40 +346,12 @@ function createGeometryFromMap() {
     mesh.translateZ(-zMax / 2);
     mesh.position.y = -70;
     scene.add(mesh);
-    mesh.name = "valley";
   };
-}
-function transform(targets, duration) {
-  TWEEN.removeAll();
-
-  for (var i = 0; i < objects.length; i++) {
-    var object = objects[i];
-    var target = targets[i];
-
-    new TWEEN.Tween(object.position)
-      .to(
-        { x: target.position.x, y: target.position.y, z: target.position.z },
-        Math.random() * duration + duration
-      )
-      .easing(TWEEN.Easing.Exponential.InOut)
-      .start();
-
-    new TWEEN.Tween(object.rotation)
-      .to(
-        { x: target.rotation.x, y: target.rotation.y, z: target.rotation.z },
-        Math.random() * duration + duration
-      )
-      .easing(TWEEN.Easing.Exponential.InOut)
-      .start();
-  }
-
-  new TWEEN.Tween(this).to({}, duration * 2).start();
 }
 function tweenCamera(targetPosition, duration) {
   controls.enabled = false;
-
+    
   var position = new THREE.Vector3().copy(camera.position);
-
   var tween = new TWEEN.Tween(position)
     .to(targetPosition, duration)
     .easing(TWEEN.Easing.Exponential.Out)
@@ -302,10 +362,19 @@ function tweenCamera(targetPosition, duration) {
     .onComplete(function () {
       camera.position.copy(targetPosition);
       camera.lookAt(controls.target);
-      controls.enabled = true;
+      //controls.enabled = true;
     })
     .start();
+    
+    $('.deeper').click(function(){
+        newPage;
+    });
 }
+    function newPage(){
+        $('#css, #webgl').fadeOut(2000);
+        $('#episode').fadeIn(1000);
+
+    }
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
@@ -314,30 +383,33 @@ function onWindowResize() {
 }
 function animate() {
   requestAnimationFrame( animate );
-  controls.update();
+  //controls.update();
   TWEEN.update();
+  render();
 }
 function render() {
   webGLrenderer.render(scene, camera);
   css3Drenderer.render(scene, camera);
-
+    
   var time = Date.now() * 0.00025;
-  var d = 500;
+  var d = 2000;
 
-  var light = scene.getObjectByName("pl1");
+  var light = scene.getObjectByName("red1");
   light.position.x = Math.cos(time * 0.3) * d;
   light.position.z = 2 * Math.sin(time * 0.7) * d;
   light.position.y = 2 * Math.sin((control.count += 0.005) + 0.5 * Math.PI);
 
-  var light = scene.getObjectByName("pl2");
+  var light = scene.getObjectByName("red2");
   light.position.x = Math.sin(time * 0.5) * d;
   light.position.z = Math.cos(time * 0.2) * d;
   light.position.y = 5 * Math.sin((control.count += 0.005) + 0.5 * Math.PI);
 
-  var light = scene.getObjectByName("pl3");
-  light.position.y = 50 * Math.sin((control.count += 0.005) + 1.5 * Math.PI); */
+  var light = scene.getObjectByName("blue1");
+      light.position.z = Math.cos(time * 0.2) * d;
+  light.position.y = 50 * Math.sin((control.count += 0.005) + 1.5 * Math.PI); 
 }
 
-</script>    </footer>
+</script> 
+<script src="firstep/first.js"></script></footer>
   </body>
 </html>
