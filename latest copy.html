@@ -55,42 +55,39 @@ body {
   text-align: center;
   line-height: normal;
   cursor: default;
+  transition: animation 2s;
+    box-shadow: inset 0 0 1em white;
+    -webkit-box-shadow: inset 0 0 1em white;
+}
+.element:hover {
+              
+  background: url('assets/surering.png') left top no-repeat, url('assets/greek.jpg') right bottom no-repeat, url('assets/grasstop.png') left top repeat;
+  padding: 15px;
+  background-size: 50px, 130px, auto;
+  transition: animation 2s;
+  cursor: pointer;
+    
+    -webkit-appearance: none;
+    box-shadow: inset 0 0 1em white, 0 0 1em white, 0 0 1em lightsalmon,
+      0 0 2em lightsalmon, 0 0 3em lightsalmon;
+    -webkit-box-shadow: inset 0 0 1em white, 0 0 1em white, 0 0 1em lightsalmon,
+      0 0 2em lightsalmon, 0 0 3em lightsalmon;
+}
+          .allglow{
+                background-image: url("assets/greek.jpg");
+              
+  background-repeat: no-repeat;
+  background-size: cover; 
   -webkit-animation: glow 1s ease-in-out infinite alternate;
   -moz-animation: glow 1s ease-in-out infinite alternate;
   animation: glow 1s ease-in-out infinite alternate;
-  transition: opacity 0.5s, background-color 1s;
-}
-
-@-webkit-keyframes glow {
-  from {
-    -webkit-appearance: none;
-    box-shadow: inset 0 0 1em white, 0 0 2em white, 0 0 3em lightsalmon,
-      0 0 4em lightsalmon, 0 0 5em lightsalmon;
-    -webkit-box-shadow: inset 0 0 1em white, 0 0 2em white, 0 0 3em lightsalmon,
-      0 0 4em lightsalmon, 0 0 5em lightsalmon;
-  }
-  to {
-    -webkit-appearance: none;
-    box-shadow: inset 0 0 2em white, 0 0 3em lavender, 0 0 4em lavender,
-      0 0 5em lavender, 0 0 6em lavender;
-
-    -webkit-box-shadow: inset 0 0 2em white, 0 0 3em lavender, 0 0 4em lavender,
-      0 0 5em lavender, 0 0 6em lavender;
-  }
-}
-.element:hover {
+          }
+          .allglow:hover{
+              opacity: 1;
+          }
+          .deeper{
   opacity: 1;
-  background-image: url("assets/greek.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  transition: opacity 0.5s, background-color 1s;
-  cursor: pointer;
-}
-.deeper{
-  opacity: 1;
-  background-image: url("assets/greek.jpg");
-  background-repeat: no-repeat;
-  background-size: cover; 
+              
     font-family: 'Round';
 
                                 font-size: 3vw;
@@ -99,16 +96,28 @@ body {
                 letter-spacing: 0.7px;
                 text-shadow: 0 0 8px pink; 
                 font-kerning: normal;
+
           }
-.deeper:after {
-  content: "Dive in?";
-    opacity: 0.7;
-  display: none;
+@-webkit-keyframes glow {
+  from {
+      
+    -webkit-appearance: none;
+    box-shadow: inset 0 0 1em white, 0 0 1em white, 0 0 1em lightsalmon,
+      0 0 2em lightsalmon, 0 0 3em lightsalmon;
+    -webkit-box-shadow: inset 0 0 1em white, 0 0 1em white, 0 0 1em lightsalmon,
+      0 0 2em lightsalmon, 0 0 3em lightsalmon;
+  }
+  to {
+    -webkit-appearance: none;
+    box-shadow: inset 0 0 2em white, 0 0 3em lavender, 0 0 4em lavender,
+      0 0 5em lavender, 0 0 6em lavender;
+
+    -webkit-box-shadow: inset 0 0 1em white, 0 0 1em lavender, 0 0 2em lavender,
+      0 0 3em lavender, 0 0 4em lavender;
+  }
 }
-.deeper:hover:after {
-  display: block;
-    transition: display 1s, content 1s;
-}
+
+
 
 </style>
   </head>
@@ -162,7 +171,7 @@ function init() {
   // Create the camera
 
   camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight,1,100000);
-  camera.position.z = 30000;
+  camera.position.z = 5000;
     
   var light = new THREE.DirectionalLight(0xfff3d4);
   light.position.set(1, 1, 1);
@@ -186,8 +195,8 @@ function init() {
 
     var theta = i * 0.90 + Math.PI;
     var y = -450;
-    object.position.setFromCylindricalCoords(400, theta, 0);
-    object.castShadow = true;
+    object.position.setFromCylindricalCoords(40, theta, 0);
+    object.scale.set(0.1, 0.1, 0.1);
     hvector.x = object.position.x * 2;
     hvector.y = object.position.y;
     hvector.z = object.position.z * 2;
@@ -198,14 +207,13 @@ function init() {
         group.add( object );
     element.parent = object;
     object.element.onclick = function () {
-        // nvector.setFromCylindricalCoords(400, theta, 0);
     var nvector = new THREE.Vector3();
-//nvector.copy(this.parent.position);       nvector.negate();
-        nvector.set(this.parent.position.x*2,0,this.parent.position.z*2);    
+nvector.copy(this.parent.position);       nvector.negate();
+        //nvector.set(this.parent.position.x*2,0,this.parent.position.z*2);    
         tweenCamera(nvector, 5000);
        // this.classList.add("deeper");
-        $(this).addClass("deeper").delay(7000);
-        $(this).siblings('.element').removeClass('deeper');
+        $(this).addClass("deeper").addClass('allglow');
+        $(this).siblings('.element').removeClass('deeper').addClass('allglow');
         
         this.onclick = function (){
             newPage();
@@ -213,6 +221,21 @@ function init() {
   };
         
   }
+    
+    
+    	var map = new THREE.TextureLoader().load( '/assets/st-l.png' );
+				map.wrapS = map.wrapT = THREE.RepeatWrapping;
+                map.repeat.set( 1, 1 );
+
+				var material = new THREE.MeshPhongMaterial( { map: map, side: THREE.DoubleSide, transparent: true} );
+
+
+
+				object = new THREE.Mesh( new THREE.CylinderBufferGeometry( 455, 455, 150, 40, 5, true ), material );
+				object.position.set( 0, 0, 0 );
+                object.name="surething"
+				group.add(object);
+    
         scene.add(group);
 
 
@@ -230,13 +253,11 @@ function init() {
 
   // Create the controls
   controls = new OrbitControls(camera, css3Drenderer.domElement);
-    	controls.enablePan = false;
-	controls.panSpeed = 0.1;
 	controls.screenSpacePanning = false; 
-  controls.minPolarAngle = Math.PI / 2.5;
-  controls.maxPolarAngle = Math.PI / 2;
-controls.minAzimuthAngle = 1.25* Math.PI;
-controls.maxAzimuthAngle = 1.25*Math.PI+0.001;
+ //controls.minPolarAngle = Math.PI / 2.5;
+ // controls.maxPolarAngle = Math.PI / 2;
+//controls.minAzimuthAngle = 1.25* Math.PI;
+//controls.maxAzimuthAngle = 1.25*Math.PI+0.001;
       controls.addEventListener("change", render);
   window.addEventListener("resize", onWindowResize, false);
   onWindowResize();
@@ -259,6 +280,8 @@ controls.maxAzimuthAngle = 1.25*Math.PI+0.001;
   control = new (function () {
     this.count = 0.01;
   })();
+    
+    
 }
 
 function addPointLight(color, position, name) {
@@ -277,20 +300,19 @@ pointLight.castShadow = true;
   pointLight.add(new THREE.Mesh(new THREE.SphereGeometry(0.001), bulbMat));
 }
 function createGeometryFromMap() {
-  var depth = 1024;
-  var width = 1024;
+  var depth = 512;
+  var width = 512;
 
-  var spacingX = 8;
-  var spacingZ = 8;
-  var heightOffset = -1;
-
-  var canvas = document.createElement("canvas");
-  canvas.width = 1024;
-  canvas.height = 1024;
-  var ctx = canvas.getContext("2d");
+        var spacingX = 2;
+        var spacingZ = 2;
+        var heightOffset =-6;
+        var canvas = document.createElement('canvas');
+        canvas.width = 512;
+        canvas.height = 512;
+        var ctx = canvas.getContext('2d');
 
   var img = new Image();
-  img.src = "../assets/waterLARGE.jpg";
+  img.src = "../assets/waterTINY.jpg";
   img.onload = function () {
     // draw on canvas
     ctx.drawImage(img, 0, 0);
@@ -382,14 +404,21 @@ function onWindowResize() {
   webGLrenderer.setSize(window.innerWidth, window.innerHeight);
 }
 function animate() {
-  requestAnimationFrame( animate );
-  //controls.update();
+    setTimeout( function() {
+
+        requestAnimationFrame( animate );
+
+    }, 1000 / 30 );  //controls.update();
   TWEEN.update();
   render();
 }
 function render() {
   webGLrenderer.render(scene, camera);
+    
   css3Drenderer.render(scene, camera);
+
+        group.rotation.y += 0.001;
+
     
   var time = Date.now() * 0.00025;
   var d = 2000;
@@ -407,8 +436,11 @@ function render() {
   var light = scene.getObjectByName("blue1");
       light.position.z = Math.cos(time * 0.2) * d;
   light.position.y = 50 * Math.sin((control.count += 0.005) + 1.5 * Math.PI); 
-}
+    var cyli = scene.getObjectByName("surething");
+    
 
+    
+}
 </script> 
 <script src="firstep/first.js"></script></footer>
   </body>
