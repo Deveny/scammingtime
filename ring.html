@@ -209,7 +209,7 @@ function init() {
     object.element.onclick = function () {
     var nvector = new THREE.Vector3();
 nvector.copy(this.parent.position);       nvector.negate();
-        //nvector.set(this.parent.position.x*2,0,this.parent.position.z*2);    
+          
         tweenCamera(nvector, 5000);
        // this.classList.add("deeper");
         $(this).addClass("deeper").addClass('allglow');

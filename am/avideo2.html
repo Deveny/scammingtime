@@ -37,8 +37,13 @@
 	<video id="video" loop crossOrigin="anonymous" autoplay playsinline style="display:none">
 			<source src="/assets/scheldepaars.mp4" type='video/mp4'>
 		</video>
-		<script>
-//chase
+
+<script type="module">
+import * as THREE from "/three/build/three.module.js";
+
+import { TWEEN } from "/three/examples/jsm/libs/tween.module.min.js";
+import { OrbitControls } from "/three/examples/jsm/controls/OrbitControls.js";
+    //chase
             var temp = new THREE.Vector3;
             var goal;
             var matrix = new THREE.Matrix4();
@@ -46,7 +51,7 @@
 var newPosition = new THREE.Vector3();
 
 
-			var camera, controls, scene, renderer, geom;
+			var camera, control, controls, scene, renderer, geom;
 			var worldWidth = 128, worldDepth = 128;
 
 			init();

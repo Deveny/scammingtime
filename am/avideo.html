@@ -4,16 +4,6 @@
 		<title>three.js webgl - orbit controls</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-             <script src="../libs/three.js"></script>
-    <script src="../libs/dat.gui.min.js"></script>
-            <script src="../libs/OrbitControls.js"></script>
-        
-    <script src="../libs/postprocessing/EffectComposer.js"></script>
-    <script src="../libs/postprocessing/RenderPass.js"></script>
-    <script src="../libs/postprocessing/ShaderPass.js"></script>
-            <script src="../libs/postprocessing/BloomPass.js"></script>
-    <script src="../libs/postprocessing/CopyShader.js"></script>
-
         
         
 
@@ -37,8 +27,13 @@
 	<video id="video" loop crossOrigin="anonymous" autoplay playsinline style="display:none">
 			<source src="/assets/scheldepaars.mp4" type='video/mp4'>
 		</video>
-		<script>
-//chase
+
+<script type="module">
+import * as THREE from "/three/build/three.module.js";
+
+import { TWEEN } from "/three/examples/jsm/libs/tween.module.min.js";
+import { OrbitControls } from "/three/examples/jsm/controls/OrbitControls.js";
+    //chase
             var temp = new THREE.Vector3;
             var goal;
             var matrix = new THREE.Matrix4();
@@ -46,7 +41,7 @@
 var newPosition = new THREE.Vector3();
 
 
-			var camera, controls, scene, renderer, geom;
+			var camera, control, controls, scene, renderer, geom;
 			var worldWidth = 128, worldDepth = 128;
 
 			init();
@@ -61,7 +56,7 @@ var newPosition = new THREE.Vector3();
 				renderer = new THREE.WebGLRenderer( { antialias: true , alpha: true} );
 				//renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
-                        renderer.shadowMapEnabled = true;
+                        renderer.shadowMap.enabled = true;
 
 				document.body.appendChild( renderer.domElement );
 
@@ -192,7 +187,7 @@ const video = document.getElementById( 'video' );
 const texture = new THREE.VideoTexture( video );
             
             var mesh = new THREE.Mesh(geom, new THREE.MeshPhongMaterial({
-                map:texture,
+                color: 0x0044ff,
                 shininess:50
             }));
             mesh.translateX(-xMax / 2);

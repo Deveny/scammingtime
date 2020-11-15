@@ -200,7 +200,7 @@ function init() {
     object.element.onclick = function () {
         // nvector.setFromCylindricalCoords(400, theta, 0);
     var nvector = new THREE.Vector3();
-//nvector.copy(this.parent.position);       nvector.negate();
+nvector.copy(this.parent.position);       nvector.negate();
         nvector.set(this.parent.position.x*2,0,this.parent.position.z*2);    
         tweenCamera(nvector, 5000);
        // this.classList.add("deeper");
@@ -232,7 +232,6 @@ function init() {
   controls = new OrbitControls(camera, css3Drenderer.domElement);
     	controls.enablePan = false;
 	controls.panSpeed = 0.1;
-	controls.screenSpacePanning = false; 
   controls.minPolarAngle = Math.PI / 2.5;
   controls.maxPolarAngle = Math.PI / 2;
 controls.minAzimuthAngle = 1.25* Math.PI;
