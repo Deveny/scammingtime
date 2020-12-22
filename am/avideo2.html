@@ -4,23 +4,13 @@
 		<title>three.js webgl - orbit controls</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-             <script src="../libs/three.js"></script>
-    <script src="../libs/dat.gui.min.js"></script>
-            <script src="../libs/OrbitControls.js"></script>
-        
-    <script src="../libs/postprocessing/EffectComposer.js"></script>
-    <script src="../libs/postprocessing/RenderPass.js"></script>
-    <script src="../libs/postprocessing/ShaderPass.js"></script>
-            <script src="../libs/postprocessing/BloomPass.js"></script>
-    <script src="../libs/postprocessing/CopyShader.js"></script>
-
-        
+  
         
 
 		<style>
             body {
 	margin: 0;
-  background-color: black;
+  background-color:lightblue;
 	color: #fff;
 	font-family: Monospace;
 	font-size: 13px;
@@ -51,7 +41,7 @@ import { OrbitControls } from "/three/examples/jsm/controls/OrbitControls.js";
 var newPosition = new THREE.Vector3();
 
 
-			var camera, control, controls, scene, renderer, geom;
+			var camera, control, controls, scene, renderer, geom, nvector;
 			var worldWidth = 128, worldDepth = 128;
 
 			init();
@@ -75,7 +65,7 @@ var newPosition = new THREE.Vector3();
     camera.position.set( 0, 100, - 2 );
         //(15,6,-15);
         camera.lookAt(scene.position);   
-                
+                	//controls = new OrbitControls( camera, renderer.domElement );
                 
 				// lights
 
@@ -94,12 +84,13 @@ var newPosition = new THREE.Vector3();
         
   
                 
-      //  addPointLight(0xff0000, new THREE.Vector3(-300, 0, 0), 'sl1');
         addPointLight(0xff0000, new THREE.Vector3(-100, 0, 0), 'sl2');
-       // addPointLight(0xffffff, new THREE.Vector3(750, -15, 0), 'sl3');
-       // addPointLight(0x0000ff, new THREE.Vector3(300, 0, 0), 'sl4');
+     
                 
-                    goal.position.set(0, 2, -2);
+                
+ // goal = new THREE.Object3D;
+    
+                    goal.position.set(0, 29, -29);
 
                 control = new function () {
 
@@ -108,7 +99,7 @@ var newPosition = new THREE.Vector3();
         };
                 
     
-      // createGeometryFromMap();
+       createGeometryFromMap();
 
                 
                 
@@ -134,7 +125,11 @@ var newPosition = new THREE.Vector3();
 
         var bulbMat = new THREE.MeshBasicMaterial();
         bulbMat.color = new THREE.Color(color);
-        pointLight.add(new THREE.Mesh(new THREE.SphereGeometry(1), bulbMat));
+        pointLight.add(new THREE.Mesh(new THREE.SphereGeometry(0.1), bulbMat));
+                  
+                      nvector = new THREE.Vector3();
+                    nvector.copy(pointLight.position);  
+                nvector.y = 0;
     }
 
              function createGeometryFromMap() {
@@ -203,7 +198,7 @@ const video = document.getElementById( 'video' );
 const texture = new THREE.VideoTexture( video );
             
             var mesh = new THREE.Mesh(geom, new THREE.MeshPhongMaterial({
-                map:texture,
+                color: 0x000000,
                 shininess:100
             }));
             var mish = new THREE.Mesh(geom, new THREE.MeshLambertMaterial({
@@ -215,6 +210,7 @@ const texture = new THREE.VideoTexture( video );
             mesh.translateZ(-zMax / 2);
             mesh.position.y=20;
             scene.add(mesh);
+
 
         };
 
@@ -258,17 +254,15 @@ const texture = new THREE.VideoTexture( video );
 
        
         var light = scene.getObjectByName('sl2');
-                light.position.x = Math.sin( time * 0.7 ) * d;
-                				light.position.z = Math.cos( time * 0.3 ) * d;
-
-
+       light.position.x = Math.sin( time * 0.7 ) * d;
+        light.position.z = Math.cos( time * 0.3 ) * d;
         light.position.y = 15 * Math.sin((control.count += 0.005) + 0.5 * Math.PI);
-            
-var sphere = scene.getObjectByName('sl2');
+         
+    var sphere = scene.getObjectByName('sl2');
     temp.setFromMatrixPosition(goal.matrixWorld);
 
     camera.position.lerp(temp, 0.2);
-    camera.lookAt(light.position );
+    camera.lookAt(light.position);
  
 			}
 

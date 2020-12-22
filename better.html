@@ -200,53 +200,28 @@ function init() {
   for (var i = 0; i < 6; i++){
         
         var superegg = new THREE.Shape();
-
-         if(i == 1||i==4){
-      ( function rounded( ctx, x, y, width, height, radius ) {
-					ctx.moveTo( x, y + radius );
-					ctx.lineTo( x, y + height - radius );
-					ctx.quadraticCurveTo( x, y + height, x + radius, y + height );
-					ctx.lineTo( x + width - radius, y + height );
-					ctx.quadraticCurveTo( x + width, y + height, x + width, y + height - radius );
-					ctx.lineTo( x + width, y + radius );
-					ctx.quadraticCurveTo( x + width, y, x + width - radius, y );
-					ctx.lineTo( x + radius, y );
-					ctx.quadraticCurveTo( x, y, x, y + radius );
-				} ) ( superegg, -8, -4.5, 16, 9, 1 );
+      
+  function rounded( ctx, x, y, width, height, radius ) {
+                    var x = - ( width / 2) ;
+                    var y = - (height / 2);
+					ctx.moveTo( x, y + radius ).lineTo( x, y + height - radius ).quadraticCurveTo( x, y + height, x + radius, y + height ).lineTo( x + width - radius, y + height ).quadraticCurveTo( x + width, y + height, x + width, y + height - radius ).lineTo( x + width, y + radius ).quadraticCurveTo( x + width, y, x + width - radius, y ).lineTo( x + radius, y ).quadraticCurveTo( x, y, x, y + radius );
+				}
+  if(i == 1||i==4){
+      
+      rounded(superegg, 16, 9, 1 );
 
 var map = new THREE.TextureLoader().load("/assets/firstepisode/sheets.jpg");
     }
 else if(i == 2||i==5){
-          ( function rounded( ctx, x, y, width, height, radius ) {
-					ctx.moveTo( x, y + radius );
-					ctx.lineTo( x, y + height - radius );
-					ctx.quadraticCurveTo( x, y + height, x + radius, y + height );
-					ctx.lineTo( x + width - radius, y + height );
-					ctx.quadraticCurveTo( x + width, y + height, x + width, y + height - radius );
-					ctx.lineTo( x + width, y + radius );
-					ctx.quadraticCurveTo( x + width, y, x + width - radius, y );
-					ctx.lineTo( x + radius, y );
-					ctx.quadraticCurveTo( x, y, x, y + radius );
-				} ) ( superegg, -3, -4.5, 6, 9, 1 );
+          rounded( superegg, 9, 16, 1 );
 
 var map = new THREE.TextureLoader().load("/assets/firstepisode/boobs.jpg");
 }
 else{
-          ( function rounded( ctx, x, y, width, height, radius ) {
-					ctx.moveTo( x, y + radius );
-					ctx.lineTo( x, y + height - radius );
-					ctx.quadraticCurveTo( x, y + height, x + radius, y + height );
-					ctx.lineTo( x + width - radius, y + height );
-					ctx.quadraticCurveTo( x + width, y + height, x + width, y + height - radius );
-					ctx.lineTo( x + width, y + radius );
-					ctx.quadraticCurveTo( x + width, y, x + width - radius, y );
-					ctx.lineTo( x + radius, y );
-					ctx.quadraticCurveTo( x, y, x, y + radius );
-				} ) ( superegg, -4.5, -4.5, 9, 9, 1 );
+          rounded( superegg, 12, 12, 1 );
 
   var map = new THREE.TextureLoader().load("/assets/firstepisode/pinkass.jpg");  
 }
-
 
 
       var theta = i * 1.05 + Math.PI;
@@ -289,29 +264,20 @@ else{
     scene.add( helix );
     	
   //fatring
-    var map = new THREE.TextureLoader().load( '/assets/surering.png' );
+    	var map = new THREE.TextureLoader().load( '/assets/st-l.png' );
 				map.wrapS = map.wrapT = THREE.RepeatWrapping;
-                map.repeat.set( 9, 1 );
+                map.repeat.set( 1, 1 );
 
-				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.FrontSide, transparent: true, color:new THREE.Color(0xffffff)});
+				var material = new THREE.MeshPhongMaterial( { map: map, side: THREE.DoubleSide, transparent: true} );
 
 
-                var object = new THREE.Mesh( new THREE.TorusBufferGeometry( 20, 1, 20, 20 ), material );
-				object.position.set( 0, 0, 0 );
-                object.rotation.x = 300;
-                object.name="banner";
 
-				//helix.add(object);
-  //banner
-    var map = new THREE.TextureLoader().load( '/assets/thick1.png' );
-				map.wrapS = map.wrapT = THREE.RepeatWrapping;
-                map.repeat.set( 4, 1 );
-
-				var material = new THREE.MeshBasicMaterial( { map: map, side: THREE.DoubleSide, transparent: true, opacity:0.5} );
-				object = new THREE.Mesh( new THREE.CylinderBufferGeometry( 15, 15, 3, 40, 5, true ), material );
-				object.position.set( 0, 0, 0 );
-                object.name="thing"
-				//scene.add(object);
+				var object = new THREE.Mesh( new THREE.CylinderBufferGeometry( 45, 45, 30, 40, 5, true ), material );
+				object.position.set( 0, -5, 0 );
+                object.name="surething"
+    
+        scene.add(object);
+    
   //window
   window.addEventListener("resize", onWindowResize, false);
   onWindowResize();

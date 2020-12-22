@@ -1,0 +1,592 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="GitLab Pages">
+    <title>Zoom Outer</title>
+      
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+          <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/CSSRulePlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
+
+  <link rel="stylesheet" href="firstep/first.css">
+      <style>
+          
+@font-face {
+  font-family: "round";
+  src: url("/assets/fonts/ArialRoundedBold.ttf");
+}
+#css,
+#webgl, #episode {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+    text-align: center;
+}
+          .algen,#scam{background-image:url('/assets/firstepisode/redone.png');
+            background-size: 100%;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+                z-index: 1000;
+              display: block;
+                position: absolute;
+                background-repeat: no-repeat;
+            }
+#webgl {
+      overflow: hidden;
+  z-index: 50;
+}
+          #episode{
+              overflow-x: hidden;
+              overflow-y: hidden;
+              display: none;
+              z-index: 1;
+          }
+body {
+  margin: 0;
+  background-color: #f5d2b5;
+}
+
+          .allglow{
+                background-image: url("assets/greek.jpg");
+              
+  background-repeat: no-repeat;
+  background-size: cover; 
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+          }
+          .allglow:hover{
+              opacity: 1;
+          }
+          .deeper{
+  opacity: 1;
+              
+    font-family: 'Round';
+
+                                font-size: 3vw;
+                                font-weight: bold;
+                color: rgba(255,255,255,1);
+                letter-spacing: 0.7px;
+                text-shadow: 0 0 8px pink; 
+                font-kerning: normal;
+
+          }
+
+
+
+
+</style>
+  </head>
+  <body>
+    <div class="algen" id="scam"></div>
+    <div id="webgl"></div>
+      <div id="episode"> <div id='pp'></div>
+
+        <div id="p-one"><img src="/assets/firstepisode/pinkass.jpg"id="pinkass" width= '17%' onclick="toPoint()"></div>
+        <div id="again"><p>(and again)</p></div>
+        <div class="layed">
+                <img class="abacate" id='a1'src="/assets/firstepisode/abacate1.jpg" width='17%'><br>
+                <img class="abacate" id='a2'src="/assets/firstepisode/abacate2.jpg" width='17%'><br>
+                <img class="abacate" id='a3'src="/assets/firstepisode/abacate3.jpg" width='17%'></div>
+
+                <div id="p-txt"></div>
+        <div id="video">     
+
+                     <div id='wipe'></div>
+
+<video id='grass' width="100%" height="auto">
+            <source src="/assets/firstepisode/grass.mp4" type="video/mp4"></video>
+                                <img id="sheets" src="/assets/firstepisode/sheets.jpg" width="20%">
+<audio id="sound">
+  <source src="/assets/firstepisode/what.mp3" type="audio/mpeg">
+</audio>
+</div></div>
+    <footer>
+<script>
+    $(document).ready(function() {
+    setTimeout(function(){
+        $('.algen').fadeOut("slow");
+    }, 3000);
+ 
+});
+        </script>
+<script type="module">
+import * as THREE from "/three/build/three.module.js";
+
+import { TWEEN } from "/three/examples/jsm/libs/tween.module.min.js";
+import { OrbitControls } from "/three/examples/jsm/controls/OrbitControls.js";
+
+import { EffectComposer } from '/three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from '/three/examples/jsm/postprocessing/RenderPass.js';
+import { ShaderPass } from '/three/examples/jsm/postprocessing/ShaderPass.js';
+import { OutlinePass } from '/three/examples/jsm/postprocessing/OutlinePass.js';
+    			import { Flow } from "/three/examples/jsm/modifiers/CurveModifier.js";
+//loading
+const manager = new THREE.LoadingManager();
+manager.onLoad = function ( ) {
+//$("#scam").fadeOut();
+	var loader = document.querySelector("#scam");
+ var tween = new TWEEN.Tween(loader).to({
+    opacity: 0
+  }, 2000).start();
+};
+//basics
+var controls, camera, scene, light, renderer, domElement;
+
+//oulinepass
+var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
+var selectedObjects = [];
+var composer, outlinePass;
+    
+//helix
+var helix, helixspeed, screen, flow, tl;
+    
+//andere : cleanup!!
+var control;
+
+
+
+init();
+animate();
+
+function init() {
+    
+  //renderer
+  var container = document.querySelector("#webgl");
+  document.body.appendChild( container );
+  renderer = new THREE.WebGLRenderer({antialias: true,alpha: true});
+  renderer.setPixelRatio( window.devicePixelRatio );
+  container.prepend(renderer.domElement);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  //basics
+  scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0xffc494, 0.0003);
+  camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight,1,15000);
+  camera.position.z = 10000;
+     //controls
+  controls = new OrbitControls(camera, renderer.domElement);
+  controls.screenSpacePanning = false; 
+//  controls.minPolarAngle = Math.PI / 2.5;
+ // controls.maxPolarAngle = Math.PI / 2;
+  controls.maxDistance=10000;
+  controls.minDistance=10;
+  controls.minAzimuthAngle = Math.PI;
+  controls.maxAzimuthAngle = Math.PI+0.0001;
+  controls.addEventListener("change", render);
+  //daylight
+  var light = new THREE.DirectionalLight(0xfff3d4);
+  light.position.set(1, 1, 1);
+  scene.add(light);
+  var light = new THREE.DirectionalLight(0x002288);
+  light.position.set(-1, -1, -1);
+  scene.add(light);
+  var light = new THREE.AmbientLight(0x222222);
+  scene.add(light);
+ //terrain
+  createTerrainFromMap();
+  //helix
+  helix = new THREE.Group();
+  helixspeed = 0.001;
+  var vector = new THREE.Vector3();
+           
+    helix.name = 'surething';
+   // scene.add( helix );
+                
+  
+//TRY STUFF
+  for (var i = 0; i < 6; i++){
+        
+        var superegg = new THREE.Shape();
+function rounded( ctx, width, height) {
+                    var radius = 10;
+                    var x = - (width/2);
+                    var y = - (height/2);
+					ctx.moveTo( x, y + radius );
+					ctx.lineTo( x, y + height - radius );
+					ctx.quadraticCurveTo( x, y + height, x + radius, y + height );
+					ctx.lineTo( x + width - radius, y + height );
+					ctx.quadraticCurveTo( x + width, y + height, x + width, y + height - radius );
+					ctx.lineTo( x + width, y + radius );
+					ctx.quadraticCurveTo( x + width, y, x + width - radius, y );
+					ctx.lineTo( x + radius, y );
+					ctx.quadraticCurveTo( x, y, x, y + radius );
+				}
+      
+   
+      
+         if(i == 1||i==4){
+             var width = 128;
+             var height = 96;
+var map = new THREE.TextureLoader().load("/assets/screens/sheets.jpg");
+    }
+else if(i == 2||i==5){
+    
+             var width = 96;
+             var height = 128;
+var map = new THREE.TextureLoader().load("/assets/screens/boobs.jpg");
+}
+else{
+             var width = 110;
+             var height = 110;
+  var map = new THREE.TextureLoader().load("/assets/screens/pinkass.jpg");
+}
+      rounded(superegg, width, height);
+      var theta = i * 1.05 + Math.PI;
+      var geometry = new THREE.ShapeBufferGeometry( superegg );
+      var material1 = new THREE.MeshBasicMaterial();
+      material1.side = THREE.BackSide;
+      material1.transparent=true;
+      material1.opacity=1;
+      material1.fog= false;
+      map.repeat.set((1/width),(1/height));
+      map.offset.y = 0.5;
+      map.offset.x = 0.5;
+
+      material1.map = map;
+      var material2 = new THREE.MeshBasicMaterial();
+      material2.side = THREE.FrontSide;
+      material2.transparent=true;
+      material2.opacity=0.7;
+     // material2.color = new THREE.Color(0xC0C0C0);
+      var texture = new THREE.TextureLoader().load("/assets/fake.jpg"); 
+      material2.map =texture;
+      texture.repeat.set((1/width),(1/height));
+      texture.offset= new THREE.Vector2( 0.5, 0.5 );
+      material2.fog= false;
+      var materials = [ material1, material2 ];
+      
+      var inside = new THREE.Mesh(geometry, material1);
+      var outside = new THREE.Mesh(geometry, material2);
+      inside.name="in";
+      outside.name="out";
+      var screen = new THREE.Group();
+      screen.add(inside);
+      screen.add(outside);
+      screen.position.setFromCylindricalCoords( 200, theta, 0 );
+      vector.x = screen.position.x * 2;
+      vector.y = screen.position.y;
+      vector.z = screen.position.z * 2;
+      
+      
+      var glowmap = new THREE.TextureLoader().load( '/assets/glow.png' );
+      glowmap.offset= new THREE.Vector2( 0.5, 0.5 );
+      glowmap.repeat.set((1/width),(1/height));
+var glowmaterial = new THREE.MeshBasicMaterial( { color: 0xfa8072, map:glowmap,
+transparent:true, side: THREE.DoubleSide, depthTest: false, depthWrite:false, opacity:0.5});
+ var glowobj = new THREE.Mesh(geometry, glowmaterial);
+      glowobj.userData.tag="border";
+      
+THREE.Object3D.prototype.getObjectsByTag = function( tag, result ) {
+  if ( this.userData.tag === tag ) result.push( this );
+	for ( var i = 0, l = this.children.length; i < l; i ++ ) {
+		var child = this.children[ i ];
+    child.getObjectsByTag( tag, result );
+	}
+  return result;
+};
+      
+glowobj.scale.set(1.25, 1.25, 1.25);
+screen.add( glowobj );
+      
+      
+      screen.lookAt( vector );
+      screen.name = 'screen';
+      helix.add( screen );
+      
+  
+    }          
+    scene.add( helix );
+    	
+ 
+  //banner
+    
+const curve = new THREE.CatmullRomCurve3(
+                     [new THREE.Vector3( 200, 0, -200 ),
+	new THREE.Vector3( 200, 0, 200 ),
+	new THREE.Vector3( -200, 0,200 ),
+	new THREE.Vector3( -200, 0, -200 )
+] 
+                );
+				curve.curveType = "centripetal";
+				curve.closed = true;
+
+				const loader = new THREE.FontLoader();
+
+				loader.load( "three/examples/fonts/helvetiker_regular.typeface.json", function (
+					font
+				) {
+
+					const geometry = new THREE.TextBufferGeometry( "sure thing", {
+						font: font,
+						size:100,
+						height: 0,
+						curveSegments:4,
+						bevelEnabled: true,
+						bevelThickness: 0.02,
+						bevelSize: 0.01,
+						bevelOffset: 0,
+						bevelSegments: 5,			} );
+
+					geometry.rotateX( Math.PI );
+
+					const material = new THREE.MeshStandardMaterial( {
+						color: 0xFFB6C1,
+                        opacity:0.7
+					} );
+
+					const objectToCurve = new THREE.Mesh( geometry, material );
+
+					flow = new Flow( objectToCurve );
+					flow.updateCurve( 0, curve );
+					scene.add( flow.object3D );
+
+				} );
+  //window
+  window.addEventListener("resize", onWindowResize, false);
+  onWindowResize();
+
+  //postprocessing
+   
+	renderer.domElement.style.touchAction = 'none';
+	renderer.domElement.addEventListener( 'pointermove', onPointerMove, false );
+   // renderer.domElement.addEventListener( 'click', onDocumentMouseClick, false );
+    
+    
+}
+    
+    	function onDocumentMouseClick( event ) {
+
+				event.preventDefault();
+
+				mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+				mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+				raycaster.setFromCamera( mouse, camera );
+				var intersects = raycaster.intersectObject( scene, true );
+				if ( intersects.length > 0 && intersects[0].object.name == 'in'){
+				var chosen = intersects[ 0 ].object;
+                var nvector = new THREE.Vector3();
+                    nvector.copy(chosen.position);       nvector.negate();
+          
+                tweenCamera(nvector, 5000);
+                //chosen.onclick = function (){newPage();}
+				//	object.layers.toggle( BLOOM_SCENE );
+				//	render();
+                    
+
+				}
+        }
+        function tweenCamera(targetPosition, duration) {
+  controls.enabled = false;
+    
+  var position = new THREE.Vector3().copy(camera.position);
+  var tween = new TWEEN.Tween(position)
+    .to(targetPosition, duration)
+    .easing(TWEEN.Easing.Exponential.Out)
+    .onUpdate(function () {
+      camera.position.copy(position);
+      camera.lookAt(controls.target);
+    })
+    .onComplete(function () {
+      camera.position.copy(targetPosition);
+      camera.lookAt(controls.target);
+      //controls.enabled = true;
+    })
+    .start();
+}   
+      
+        function onPointerMove( event ) {
+					if ( event.isPrimary === false ) return;
+					mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+					mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+					checkIntersection();
+				}
+function colorHover(x, status) {   
+    
+    for (var i = 0; i < x.length; i++) {
+        
+     var col = new THREE.Color('#b57edc');
+     var vol = new THREE.Color('#ffa07a');
+        tl = new TimelineMax({paused:true});
+tl.fromTo(x[i].material.color, {
+  r: col.r,
+  g: col.g,
+  b: col.b
+}, {
+  r: vol.r,
+  g: vol.g,
+  b: vol.b,duration:2
+}).fromTo(x[i].material, {opacity:0.5}, {opacity:0.1,duration:3}); 
+                    if (status){
+                                        x[i].material.color = new THREE.Color('#FF0000');
+tl.kill();
+
+            }else{                              
+                x[i].material.color = new THREE.Color('#0000ff');
+
+            }
+    }
+                         
+}
+     function checkIntersection() {
+                    raycaster.setFromCamera( mouse, camera );
+					var intersects = raycaster.intersectObject( scene, true );
+					if ( intersects.length > 0 && intersects[0].object.name == 'in'){
+                       colorHover(scene.getObjectsByTag( 'border', [] ), true);} 
+         else{ colorHover(scene.getObjectsByTag( 'border', [] ), false);
+         }
+				}
+    
+    
+function createTerrainFromMap() {
+    /*
+        var depth = 512;
+        var width = 512;
+
+        var spacingX = 3;
+        var spacingZ = 3;
+        var heightOffset =-3;
+
+        var canvas = document.createElement('canvas');
+        canvas.width = 512;
+        canvas.height = 512;
+        var ctx = canvas.getContext('2d');
+
+        var img = new Image();
+        img.src = "../assets/water.jpg";
+    */
+  var depth = 712;
+  var width = 712;
+
+  var spacingX = 8;
+  var spacingZ = 8;
+  var heightOffset = -1;
+
+  var canvas = document.createElement("canvas");
+  canvas.width = 712;
+  canvas.height = 712;
+  var ctx = canvas.getContext("2d");
+
+  var img = new Image();
+  img.src = "../assets/waterLARGE.jpg";
+    
+  img.onload = function () {
+    // draw on canvas
+    ctx.drawImage(img, 0, 0);
+    var pixel = ctx.getImageData(0, 0, width, depth);
+
+    var geom = new THREE.Geometry();
+    var output = [];
+    for (var x = 0; x < depth; x++) {
+      for (var z = 0; z < width; z++) {
+        var yValue = pixel.data[z * 4 + depth * x * 4] / heightOffset;
+        var vertex = new THREE.Vector3(x * spacingX, yValue, z * spacingZ);
+        geom.vertices.push(vertex);
+      }
+    }
+
+    // we create a rectangle between four vertices, and we do
+    // that as two triangles.
+    for (var z = 0; z < depth - 1; z++) {
+      for (var x = 0; x < width - 1; x++) {
+        // we need to point to the position in the array
+        // a - - b
+        // |  x  |
+        // c - - d
+        var a = x + z * width;
+        var b = x + 1 + z * width;
+        var c = x + (z + 1) * width;
+        var d = x + 1 + (z + 1) * width;
+
+        var face1 = new THREE.Face3(a, b, d);
+        var face2 = new THREE.Face3(d, c, a);
+
+        geom.faces.push(face1);
+        geom.faces.push(face2);
+      }
+    }
+
+    geom.computeVertexNormals(true);
+    geom.computeFaceNormals();
+    geom.computeBoundingBox();
+
+    var zMax = geom.boundingBox.max.z;
+    var xMax = geom.boundingBox.max.x;
+
+    var mesh = new THREE.Mesh(
+      geom,
+      new THREE.MeshPhongMaterial({
+        color: 0x2ad9c6,
+        shininess: 40,
+        specular: 0x161616
+      })
+    );
+    mesh.translateX(-xMax / 2);
+    mesh.translateZ(-zMax / 2);
+    mesh.position.y = 0;
+    scene.add(mesh);
+  };
+}
+function addPointLight(color, position, name) {
+  var pointLight = new THREE.PointLight();
+  pointLight.color = new THREE.Color(color);
+  pointLight.intensity =7;
+  pointLight.distance = 500;
+pointLight.castShadow = true;
+
+  pointLight.position.copy(position);
+  pointLight.name = name;
+  scene.add(pointLight);
+
+  var bulbMat = new THREE.MeshBasicMaterial();
+  bulbMat.color = new THREE.Color(color);
+  pointLight.add(new THREE.Mesh(new THREE.SphereGeometry(0.001), bulbMat));
+}
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
+function animate() {
+         helix.rotation.y -= 0.01;
+  //  var ban = scene.getObjectByName("thing");
+   // ban.rotation.y -=0.01
+		if ( flow ) {
+
+					flow.moveAlongCurve( 0.001 );
+
+				}
+
+    setTimeout( function() {
+        requestAnimationFrame( animate );
+    }, 1000 / 30 );  //controls.update();
+  TWEEN.update();
+  composer.render();
+
+}
+function render() {
+  renderer.render(scene, camera);
+    
+
+
+    
+  var time = Date.now() * 0.00025;
+  var d = 2000;
+
+    
+
+    
+}
+</script> 
+<script src="firstep/first.js"></script></footer>
+  </body>
+</html>

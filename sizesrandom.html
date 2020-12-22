@@ -151,7 +151,7 @@ function init() {
   controls = new OrbitControls(camera, renderer.domElement);
     	controls.screenSpacePanning = false; 
   controls.minPolarAngle = Math.PI / 2.5;
-  controls.maxPolarAngle = Math.PI / 2;
+ // controls.maxPolarAngle = Math.PI / 2;
   controls.minAzimuthAngle = 1.25* Math.PI;
   controls.maxAzimuthAngle = 1.25*Math.PI+0.001;
   controls.addEventListener("change", render);
@@ -234,7 +234,7 @@ else{
       material.side = THREE.DoubleSide;
       material.transparent=true;
       material.opacity=0.7;
-      material.shadowSide = THREE.BackSide;
+     // material.shadowSide = THREE.BackSide;
   
 
 				map.wrapS = map.wrapT = THREE.RepeatWrapping;
@@ -263,18 +263,21 @@ else{
     scene.add( helix );
     	
   //fatring
-    var map = new THREE.TextureLoader().load( '/assets/surering.png' );
+    
+var map = new THREE.TextureLoader().load( '/assets/st-l.png' );
 				map.wrapS = map.wrapT = THREE.RepeatWrapping;
-                map.repeat.set( 9, 1 );
+                map.repeat.set( 1, 1 );
 
-				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.FrontSide, transparent: false, color:new THREE.Color(0xffffff)});
+				var material = new THREE.MeshPhongMaterial( { map: map, side: THREE.DoubleSide, transparent: true} );
 
 
-                var object = new THREE.Mesh( new THREE.TorusBufferGeometry( 20, 1, 20, 20 ), material );
+
+				var object = new THREE.Mesh( new THREE.CylinderBufferGeometry( 25, 25, 30, 40, 5, true ), material );
+    
 				object.position.set( 0, 0, 0 );
-                object.rotation.x = 300;
+                //object.rotation.x = 300;
                 object.name="banner";
-
+    
 				helix.add(object);
   //window
   window.addEventListener("resize", onWindowResize, false);
