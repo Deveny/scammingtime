@@ -148,7 +148,7 @@ var selectedObjects = [];
 var composer, outlinePass;
     
 //helix
-var helix, helixspeed, screen, flow, tl;
+var helix, helixspeed, screen, flow, tl, isRan;
     
 //andere : cleanup!!
 var control;
@@ -177,11 +177,12 @@ function init() {
   controls.screenSpacePanning = false; 
 //  controls.minPolarAngle = Math.PI / 2.5;
  // controls.maxPolarAngle = Math.PI / 2;
-  controls.maxDistance=10000;
+  controls.maxDistance=1000;
   controls.minDistance=10;
   controls.minAzimuthAngle = Math.PI;
   controls.maxAzimuthAngle = Math.PI+0.0001;
   controls.addEventListener("change", render);
+    controls.zoomSpeed = 1.5;
   //daylight
   var light = new THREE.DirectionalLight(0xfff3d4);
   light.position.set(1, 1, 1);
@@ -193,6 +194,7 @@ function init() {
   scene.add(light);
  //terrain
   createTerrainFromMap();
+    
   //helix
   helix = new THREE.Group();
   helixspeed = 0.001;
@@ -201,7 +203,7 @@ function init() {
     helix.name = 'surething';
    // scene.add( helix );
                 
-  
+  isRan = true;
 //TRY STUFF
   for (var i = 0; i < 6; i++){
         
@@ -284,6 +286,7 @@ else{
       inside.userData.tag="fadein";
 
       var screen = new THREE.Group();
+      screen.name = "gotis";
       screen.add(outside);
       screen.add(inside);
       screen.add(hide);
@@ -409,12 +412,21 @@ const curve = new THREE.CatmullRomCurve3(
 				raycaster.setFromCamera( mouse, camera );
 				var intersects = raycaster.intersectObject( scene, true );
 				if ( intersects.length > 0 && intersects[0].object.name == 'in'){
-				var chosen = intersects[ 0 ].object;
+				var chosen = intersects[ 0 ].object.parent;
                 var nvector = new THREE.Vector3();
                     nvector.copy(chosen.position);       nvector.negate();
-          
+
+  if(isRan)
+  {
                 tweenCamera(nvector, 5000);
-                //chosen.onclick = function (){newPage();}
+    isRan = false;
+  }else{
+                     newPage();
+
+  }
+      
+                    
+                    
 				//	object.layers.toggle( BLOOM_SCENE );
 				//	render();
                     
@@ -422,6 +434,9 @@ const curve = new THREE.CatmullRomCurve3(
 				}
         }
         function tweenCamera(targetPosition, duration) {
+
+
+      
   controls.enabled = false;
     
   var position = new THREE.Vector3().copy(camera.position);
@@ -438,8 +453,7 @@ const curve = new THREE.CatmullRomCurve3(
       //controls.enabled = true;
     })
     .start();
-}   
-      
+}     
         function onPointerMove( event ) {
 					if ( event.isPrimary === false ) return;
 					mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
@@ -463,8 +477,7 @@ const curve = new THREE.CatmullRomCurve3(
              $('html,body').css('cursor', 'default');
 
          }
-				}
-    
+				}    
 function tweenIn(x){
     var tween = new TWEEN.Tween(x.material).to({opacity:0.7}, 100).start();
 }
@@ -580,6 +593,11 @@ function onWindowResize() {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
+function newPage(){
+        $('#webgl').fadeOut(2000).remove();
+        $('#episode').fadeIn(1000);
+
+    }
 function animate() {
          helix.rotation.y -= 0.01;
   //  var ban = scene.getObjectByName("thing");
