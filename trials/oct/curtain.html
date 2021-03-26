@@ -441,7 +441,7 @@
 				// cloth material
 
 				var loader = new THREE.TextureLoader();
-				var clothTexture = loader.load( '/assets/martijn.JPG' );
+				var clothTexture = loader.load( '/assets/greekbg.png' );
 				clothTexture.anisotropy = 16;
 
 				var clothMaterial = new THREE.MeshLambertMaterial( {
@@ -475,7 +475,7 @@ const ballGeo = new THREE.SphereBufferGeometry( ballSize, 32, 16 );
 				sphere.castShadow = true;
 				sphere.receiveShadow = true;
 				sphere.visible = false;
-				scene.add( sphere );
+				//scene.add( sphere );
 
 				
 				// ground

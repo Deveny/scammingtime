@@ -18,7 +18,7 @@
   font-family: "round";
   src: url("/assets/fonts/ArialRoundedBold.ttf");
 }
-#css,
+
 #webgl, #episode {
   width: 100%;
   height: 100%;
@@ -42,6 +42,31 @@
 #webgl {
       overflow: hidden;
   z-index: 50;
+}
+          #webgl:after{
+  animation: grain 8s steps(10) infinite;
+  background-image: url(assets/noise2.png);
+  content: "";
+  height: 300%;
+  left: -50%;
+  opacity: 0.3;
+  position: fixed;
+  top: -110%;
+  width: 300%;
+              pointer-events: none;
+
+          }
+          @keyframes grain {
+  0%, 100% { transform:translate(0, 0) }
+  10% { transform:translate(-5%, -10%) }
+  20% { transform:translate(-15%, 5%) }
+  30% { transform:translate(7%, -25%) }
+  40% { transform:translate(-5%, 25%) }
+  50% { transform:translate(-15%, 10%) }
+  60% { transform:translate(15%, 0%) }
+  70% { transform:translate(0%, 15%) }
+  80% { transform:translate(3%, 35%) }
+  90% { transform:translate(-10%, 10%) }
 }
           #episode{
               overflow-x: hidden;
@@ -124,11 +149,10 @@ import * as THREE from "/three/build/three.module.js";
 import { TWEEN } from "/three/examples/jsm/libs/tween.module.min.js";
 import { OrbitControls } from "/three/examples/jsm/controls/OrbitControls.js";
 
-import { EffectComposer } from '/three/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from '/three/examples/jsm/postprocessing/RenderPass.js';
-import { ShaderPass } from '/three/examples/jsm/postprocessing/ShaderPass.js';
-import { OutlinePass } from '/three/examples/jsm/postprocessing/OutlinePass.js';
-    			import { Flow } from "/three/examples/jsm/modifiers/CurveModifier.js";
+			import { GUI } from '/three/examples/jsm/libs/dat.gui.module.js';
+
+			import { CinematicCamera } from '/three/examples/jsm/cameras/CinematicCamera.js';
+
 //loading
 const manager = new THREE.LoadingManager();
 manager.onLoad = function ( ) {
@@ -136,24 +160,22 @@ manager.onLoad = function ( ) {
 	var loader = document.querySelector("#scam");
  var tween = new TWEEN.Tween(loader).to({
     opacity: 0
-  }, 2000).start();
+  }, 200).start();
 };
 //basics
 var controls, camera, scene, light, renderer, domElement;
 
-//oulinepass
+//mouse
 var raycaster = new THREE.Raycaster();
-var mouse = new THREE.Vector2();
-var selectedObjects = [];
-var composer, outlinePass;
-    
+var mouse = new THREE.Vector2(1,1);
+   
 //helix
-var helix, helixspeed, screen, flow, tl, isRan;
-    
+const helix = new THREE.Object3D;
+const screens= new THREE.Object3D;
+var helixspeed, screen, flow, tl, isRan;
+var executed = false;
+
 //andere : cleanup!!
-var control;
-
-
 
 init();
 animate();
@@ -169,20 +191,21 @@ function init() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   //basics
   scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0xffc494, 0.0003);
+  scene.fog = new THREE.FogExp2(0xffc494, 0.0004);
   camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight,1,15000);
   camera.position.z = 10000;
+  camera.focus = 1;
      //controls
   controls = new OrbitControls(camera, renderer.domElement);
   controls.screenSpacePanning = false; 
-//  controls.minPolarAngle = Math.PI / 2.5;
- // controls.maxPolarAngle = Math.PI / 2;
-  controls.maxDistance=1000;
-  controls.minDistance=10;
+  controls.minPolarAngle = Math.PI / 2.5;
+  controls.maxPolarAngle = Math.PI / 2;
+  controls.maxDistance=10000;
+  controls.minDistance=-10000;
   controls.minAzimuthAngle = Math.PI;
   controls.maxAzimuthAngle = Math.PI+0.0001;
   controls.addEventListener("change", render);
-    controls.zoomSpeed = 1.5;
+    //controls.zoomSpeed = 1.5;
   //daylight
   var light = new THREE.DirectionalLight(0xfff3d4);
   light.position.set(1, 1, 1);
@@ -196,15 +219,14 @@ function init() {
   createTerrainFromMap();
     
   //helix
-  helix = new THREE.Group();
+  //helix = new THREE.Object3D();
   helixspeed = 0.001;
   var vector = new THREE.Vector3();
            
     helix.name = 'surething';
-   // scene.add( helix );
                 
   isRan = true;
-//TRY STUFF
+//each screen
   for (var i = 0; i < 6; i++){
         
         var superegg = new THREE.Shape();
@@ -224,7 +246,7 @@ function rounded( ctx, width, height) {
 				}
       
    
-      
+   //sizes 
          if(i == 1||i==4){
              var width = 128;
              var height = 96;
@@ -244,39 +266,44 @@ else{
       rounded(superegg, width, height);
       var theta = i * 1.05 + Math.PI;
       var geometry = new THREE.ShapeBufferGeometry( superegg );
-      var material1 = new THREE.MeshBasicMaterial();
-      material1.map = map;
-      material1.side = THREE.BackSide;
-      material1.transparent=true;
-      material1.opacity=0;
-      material1.fog= false;
+            var texture = new THREE.TextureLoader().load("/assets/fake.jpg"); 
+//imgside
+      var material1 = new THREE.MeshBasicMaterial({
+          map: map,
+          side: THREE.BackSide,
+          transparent: true,
+          opacity:0,
+          fog:false,
+          polygonOffset : true,  
+          polygonOffsetFactor : -0.8
+      });
       map.repeat.set((1/width),(1/height));
       map.offset.y = 0.5;
       map.offset.x = 0.5;
-
-      var material2 = new THREE.MeshBasicMaterial();
-      material2.side = THREE.FrontSide;
-      material2.transparent=true;
-      material2.opacity=0.7;
-     // material2.color = new THREE.Color(0xC0C0C0);
-      var texture = new THREE.TextureLoader().load("/assets/fake.jpg"); 
-      material2.map =texture;
+//outside
+      var material2 = new THREE.MeshBasicMaterial({
+          
+      side: THREE.FrontSide,
+      transparent: true,
+      opacity: 0.7,
+     // color : new THREE.Color(0xC0C0C0),
+      map :texture,
+            fog : false,
+      });
       texture.repeat.set((1/width),(1/height));
       texture.offset= new THREE.Vector2( 0.5, 0.5 );
-      material2.fog= false;
-      
-      var material3 = new THREE.MeshBasicMaterial();
-      material3.side = THREE.BackSide;
-      material3.transparent=true;
-      material3.opacity=0.7;
-      material3.map =texture;
-      texture.repeat.set((1/width),(1/height));
-      texture.offset= new THREE.Vector2( 0.5, 0.5 );
-      material3.fog= false;
-      
+//non-hovering both side
+      var material3 = new THREE.MeshBasicMaterial({ 
+      side: THREE.BackSide,
+      transparent: true,
+      opacity: 0.7,
+     // color : new THREE.Color(0xC0C0C0),
+      map :texture,
+            fog : false,
+      });
+            var hide = new THREE.Mesh(geometry, material3);
       var inside = new THREE.Mesh(geometry, material1);
       var outside = new THREE.Mesh(geometry, material2);
-      var hide = new THREE.Mesh(geometry, material3);
 
       inside.name="in";
       outside.name="out";
@@ -286,25 +313,32 @@ else{
       inside.userData.tag="fadein";
 
       var screen = new THREE.Group();
-      screen.name = "gotis";
+      screen.name = "screen";
+            screen.add(hide);
       screen.add(outside);
       screen.add(inside);
-      screen.add(hide);
 
       screen.position.setFromCylindricalCoords( 200, theta, 0 );
       vector.x = screen.position.x * 2;
       vector.y = screen.position.y;
       vector.z = screen.position.z * 2;
       
-      
+//glowborder-img  
       var glowmap = new THREE.TextureLoader().load( '/assets/glow.png' );
       glowmap.offset= new THREE.Vector2( 0.5, 0.5 );
       glowmap.repeat.set((1/width),(1/height));
-var glowmaterial = new THREE.MeshBasicMaterial( { color: 0xfa8072, map:glowmap,
-transparent:true, side: THREE.DoubleSide, depthTest: false, depthWrite:false, opacity:0.5});
+var glowmaterial = new THREE.MeshBasicMaterial( { 
+    color: 0xfa8072, 
+    map:glowmap,
+    transparent:true, 
+    side: THREE.DoubleSide, 
+    polygonOffset : true,  
+    polygonOffsetFactor : -0.1, 
+    depthWrite:false, 
+    opacity:0.5});
  var glowobj = new THREE.Mesh(geometry, glowmaterial);
-      
-      
+    glowobj.name="glow";
+   //glowwtween   
       var col = new THREE.Color('#E6E6FA');
      var vol = new THREE.Color('#ffa07a');
         tl = new TimelineLite({repeat:-1, yoyo:true});
@@ -334,109 +368,85 @@ screen.add( glowobj );
       
       screen.lookAt( vector );
       screen.name = 'screen';
-      helix.add( screen );
-      
+      screens.add( screen );
+    }   
+    helix.add(screens);
+    //cylinder
+    
+    	var map = new THREE.TextureLoader().load( '/assets/st-l.png' );
+				map.wrapS = map.wrapT = THREE.RepeatWrapping;
+                map.repeat.set( 1.25, 1 );
+				var material = new THREE.MeshPhongMaterial( { 
+            map: map
+            , side: THREE.FrontSide
+            , transparent: true
+                    ,        color:  0x2ad9c6
+          //  , blending: THREE.NormalBlending
+          //  , depthWrite: false
+          //   , depthTest:false
+                } );
+    var material2 = new THREE.MeshPhongMaterial( {
+        map: map,
+        side: THREE.BackSide,
+        transparent: true,
+        color:  0x2ad9c6
+    });
+    var object2 = new THREE.Mesh( new THREE.CylinderBufferGeometry(  245, 245, 230, 240, 25, true ), material2 );
+    var object = new THREE.Mesh( new THREE.CylinderBufferGeometry( 245, 245, 230, 240, 25, true ), material );
   
-    }          
+                object2.position.set( 0, -5, 0 );
+				object.position.set( 0, -5, 0 );
+                object.name="buitenring";
+                object2.name="binnenring";
+    
+                helix.add(object2);
+				helix.add(object);
+    
     scene.add( helix );
     	
  
-  //banner
-    
-const curve = new THREE.CatmullRomCurve3(
-                     [new THREE.Vector3( 200, 0, -200 ),
-                      new THREE.Vector3( 275, 0, -0 ),
-	                   new THREE.Vector3( 200, 0, 200 ),
-                      	new THREE.Vector3( 0, 0, 275 ),
-	                   new THREE.Vector3( -200, 0,200 ),
-                      	new THREE.Vector3( -275, 0,0 ),
-	                   new THREE.Vector3( -200, 0, -200 ),
-                      	new THREE.Vector3( 0, 0, -275 )
-
-] 
-                );
-				curve.curveType = "centripetal";
-				curve.closed = true;
-
-				const loader = new THREE.FontLoader();
-
-				loader.load( "three/examples/fonts/helvetiker_regular.typeface.json", function (
-					font
-				) {
-
-					const geometry = new THREE.TextBufferGeometry( "sure thing", {
-						font: font,
-						size:100,
-						height: 0,
-						curveSegments:4,
-						bevelEnabled: true,
-						bevelThickness: 0.02,
-						bevelSize: 0.01,
-						bevelOffset: 0,
-						bevelSegments: 5,			} );
-
-					geometry.rotateX( Math.PI );
-
-					const material = new THREE.MeshStandardMaterial( {
-						color: 0xFFB6C1,
-                        opacity:0.7
-					} );
-
-					const objectToCurve = new THREE.Mesh( geometry, material );
-
-					flow = new Flow( objectToCurve );
-					flow.updateCurve( 0, curve );
-					scene.add( flow.object3D );
-
-				} );
+  
   //window
   window.addEventListener("resize", onWindowResize, false);
+  document.addEventListener( 'pointermove', onPointerMove, false );
+  document.addEventListener( 'click', onClicker, false );
   onWindowResize();
 
   //postprocessing
    
 	renderer.domElement.style.touchAction = 'none';
-	renderer.domElement.addEventListener( 'pointermove', onPointerMove, false );
-    renderer.domElement.addEventListener( 'click', onDocumentMouseClick, false );
-    
-    
+    renderer.sortObjects = false;
+    renderer.renderLists.dispose();
 }
     
-    	function onDocumentMouseClick( event ) {
-
+    	function onClicker( event ) {
 				event.preventDefault();
 
 				mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 				mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
 				raycaster.setFromCamera( mouse, camera );
-				var intersects = raycaster.intersectObject( scene, true );
-				if ( intersects.length > 0 && intersects[0].object.name == 'in'){
+				var intersects = raycaster.intersectObject( screens, true );
+				if ( intersects.length > 0){
+                    
+        var fadein = scene.getObjectsByTag('fadein',[]);
+
+                fadein.forEach(tweenIn);
 				var chosen = intersects[ 0 ].object.parent;
                 var nvector = new THREE.Vector3();
                     nvector.copy(chosen.position);       nvector.negate();
 
   if(isRan)
   {
-                tweenCamera(nvector, 5000);
+    tweenCamera(nvector, 5000);
     isRan = false;
   }else{
-                     newPage();
-
-  }
-      
-                    
-                    
-				//	object.layers.toggle( BLOOM_SCENE );
-				//	render();
-                    
-
-				}
+    newPage();
+  }                    
+}
         }
         function tweenCamera(targetPosition, duration) {
 
-
-      
   controls.enabled = false;
     
   var position = new THREE.Vector3().copy(camera.position);
@@ -455,35 +465,47 @@ const curve = new THREE.CatmullRomCurve3(
     .start();
 }     
         function onPointerMove( event ) {
-					if ( event.isPrimary === false ) return;
+					//if ( event.isPrimary === false ) return;
+            	event.preventDefault();
+
 					mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 					mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-					checkIntersection();
 				}
      function checkIntersection() {
-                             var fadein = scene.getObjectsByTag('fadein',[]);
-                   var fadeout = scene.getObjectsByTag('fadeout',[]);
+         raycaster.setFromCamera( mouse, camera );
+    
+        var fadein = scene.getObjectsByTag('fadein',[]);
+        var fadeout = scene.getObjectsByTag('fadeout',[]);
 
-                    raycaster.setFromCamera( mouse, camera );
-					var intersects = raycaster.intersectObject( scene, true );
-					if (intersects.length > 0 && intersects[0].object.name == 'in'){
-                          fadeout.forEach(tweenOut);
-                          fadein.forEach(tweenIn);
-                                $('html,body').css('cursor', 'pointer');
+        var intersects = raycaster.intersectObject(screens, true );
+         if (intersects.length > 0){
+
+               // fadeout.forEach(tweenOut);
+                 fadein.forEach(tweenIn);
+            $('html,body').css('cursor', 'pointer');
 
  }else{
-               fadeout.forEach(tweenIn);
+              // fadeout.forEach(tweenIn);
                  fadein.forEach(tweenOut);
              $('html,body').css('cursor', 'default');
 
          }
 				}    
 function tweenIn(x){
-    var tween = new TWEEN.Tween(x.material).to({opacity:0.7}, 100).start();
+var tween = new TWEEN.Tween(x.material).to({opacity:1}, 100).start();
 }
     function tweenOut(x){
     var tween = new TWEEN.Tween(x.material).to({opacity:0}, 100).start();
 }
+    function onMove(){
+        if  (-3000 < camera.position.z && camera.position.z < 3000 && !executed){
+                        executed = true;
+controls.maxAzimuthAngle = 0;
+controls.minAzimuthAngle = 0;
+  controls.maxDistance=3000;
+  controls.minDistance=-3000;
+    }
+    }
 function createTerrainFromMap() {
     /*
         var depth = 512;
@@ -558,18 +580,25 @@ function createTerrainFromMap() {
 
     var zMax = geom.boundingBox.max.z;
     var xMax = geom.boundingBox.max.x;
+      
+    var huh = new THREE.TextureLoader().load( '/assets/textures/sand1.jpg' );
+				//huh.wrapS = huh.wrapT = THREE.RepeatWrapping;
+               // huh.repeat.set( 1, 1 );
 
     var mesh = new THREE.Mesh(
       geom,
       new THREE.MeshPhongMaterial({
-        color: 0x2ad9c6,
-        shininess: 40,
-        specular: 0x161616
+          map:huh,
+        //color: 0x2ad9c6,
+      //  shininess: 40,
+      //  specular: 0x161616,
+         // dithering:true
       })
     );
     mesh.translateX(-xMax / 2);
     mesh.translateZ(-zMax / 2);
     mesh.position.y = 0;
+    mesh.name = "terra"
     scene.add(mesh);
   };
 }
@@ -600,32 +629,27 @@ function newPage(){
     }
 function animate() {
          helix.rotation.y -= 0.01;
-  //  var ban = scene.getObjectByName("thing");
-   // ban.rotation.y -=0.01
-		if ( flow ) {
-
-					flow.moveAlongCurve( 0.001 );
-
-				}
 
     setTimeout( function() {
         requestAnimationFrame( animate );
-    }, 1000 / 30 );  //controls.update();
+    }, 1000 / 30 );  
+    
+    //controls.update();
   TWEEN.update();
  render();
 
+onMove();
 }
 function render() {
+     if(isRan)
+  {checkIntersection();
+  }else{  }                    
+
+
+    
   renderer.render(scene, camera);
-    
-
-
-    
   var time = Date.now() * 0.00025;
   var d = 2000;
-
-    
-
     
 }
 </script> 

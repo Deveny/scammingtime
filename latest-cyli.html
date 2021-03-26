@@ -227,7 +227,13 @@ nvector.copy(this.parent.position);       nvector.negate();
 				map.wrapS = map.wrapT = THREE.RepeatWrapping;
                 map.repeat.set( 1, 1 );
 
-				var material = new THREE.MeshPhongMaterial( { map: map, side: THREE.DoubleSide, transparent: true} );
+				var material = new THREE.MeshPhongMaterial( { 
+            map: map
+            , side: THREE.DoubleSide
+            , transparent: true
+            , depthWrite: false
+             , depthTest:false
+                } );
 
 
 
