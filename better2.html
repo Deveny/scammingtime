@@ -79,31 +79,120 @@ body {
   background-color: #f5d2b5;
 }
 
-          .allglow{
-                background-image: url("assets/greek.jpg");
-              
-  background-repeat: no-repeat;
-  background-size: cover; 
-  -webkit-animation: glow 1s ease-in-out infinite alternate;
-  -moz-animation: glow 1s ease-in-out infinite alternate;
-  animation: glow 1s ease-in-out infinite alternate;
-          }
-          .allglow:hover{
-              opacity: 1;
-          }
-          .deeper{
-  opacity: 1;
-              
-    font-family: 'Round';
+                #p-txt{
+                z-index: 1;
+    width: 100vw;
+                height: 415vw;
+                background-image: url('/assets/firstepisode/largetxt.png');
+                background-size: 100%;
+                                display: none;
+                position:relative;
+                opacity: 0.8;
+                mix-blend-mode: multiply;
+                background-repeat: no-repeat;
+            }
+          
+          
+               .layed img{
+                box-shadow: 0 0 20px hotpink;
+      -webkit-box-shadow: 0 0 20px hotpink;
+            }
+            
+       
+            .lighted{
+filter: drop-shadow(0 0 5px pink);            }
+            #again{
+                transform: translateX(45.6vw) translateY(262.1vw);
+                                position: absolute;
+                                padding:0;
+                z-index: 20;
+                cursor: url(/assets/firstepisode/tf.png),pointer;
 
-                                font-size: 3vw;
+            }       
+            .layed{
+                                padding:0;
+                position: absolute;
+                z-index: -10;
+            }
+            #a1
+            {
+             transform: translateY(83vw);
+            }
+            #a2
+            {
+             transform: translateY(206.5vw);
+            }
+            #a3{
+             transform: translateY(290vw);
+            }
+            #video{
+                transform: translateY(-50%);
+                width: 100vw;
+                height: 70.7vh;
+                padding: 0;
+                display: none;
+                position: relative;
+                z-index: -300;
+            }
+            video{
+                border: 4px solid transparent;
+            }
+            #wipe{
+                width: 100vw;
+                height: 70.7vh;
+               background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 74%,rgba(255,255,255,0) 100%); 
+                z-index: 200;
+                position: absolute;
+         }
+            #sheets{
+            position: absolute;
+                transform: translateX(-100%);
+            z-index: 1000;
+                box-shadow: 0 0 20px lightgreen;
+      -webkit-box-shadow: 0 0 20px lightgreen;
+                cursor: url(/assets/firstepisode/tf.png),pointer;
+                display: none;
+            }
+            #pp{
+                background-image: url('/assets/firstepisode/pp.png');
+                background-size: 100%;
+                background-repeat: none;
+                width: 35vw;
+            height: 20vw;
+            transform: translate(-50%,-50%);
+                margin-top: 50vh;
+                margin-left: 50vw;
+                position: fixed;
+                z-index: 900;
+                display: none;
+            cursor: url(/assets/firstepisode/tf.png),pointer;}
+            #again p{
+                background-color: white;
+                opacity: 0.8;
+                padding: 0;
+                margin: 0;
+                transform: scale(1,0.9);
+                                font-size: 3.4vw;
                                 font-weight: bold;
-                color: rgba(255,255,255,1);
+                color: rgba(0,166,255,1);
+                -webkit-text-stroke: 1px rgba(0,166,255,1);
                 letter-spacing: 0.7px;
                 text-shadow: 0 0 8px pink; 
                 font-kerning: normal;
-
-          }
+              -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+            }
+            
+     @-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 4px pink, 0 0 5px pink, 0 0 6px pink, 0 0 17px pink;
+  }
+  
+  to {
+    text-shadow:0 0 5px hotpink, 0 0 6px hotpink, 0 0 7px hotpink, 0 0 18px hotpink;
+  }
+}
 
 
 
@@ -115,7 +204,6 @@ body {
     <div id="webgl"></div>
       <div id="episode"> <div id='pp'></div>
 
-        <div id="p-one"><img src="/assets/firstepisode/pinkass.jpg"id="pinkass" width= '17%' onclick="toPoint()"></div>
         <div id="again"><p>(and again)</p></div>
         <div class="layed">
                 <img class="abacate" id='a1'src="/assets/firstepisode/abacate1.jpg" width='17%'><br>
@@ -135,6 +223,123 @@ body {
 </audio>
 </div></div>
     <footer>
+        
+<script>
+        gsap.registerPlugin(ScrollTrigger);
+function hitIt(){
+    $('#grass').delay(1000).get(0).play();
+    $('#pp').fadeOut('500');
+    document.getElementById('grass').addEventListener('ended',myHandler,false);
+    function myHandler(e) {
+$('#sheets').fadeIn(1000);
+        gsap.to('#sheets',{duration:2,scale:1,y:20, yoyo: true, 
+    repeat: -1, 
+    ease: "power1.inOut"});
+    }
+    
+}
+       
+        function toPoint(){
+            $('body').css('background-color','white');
+            $('#episode').css('overflowY','scroll');
+            $('#p-txt,#video').fadeIn(800);
+            $('#p-one').delay(500).fadeOut(1000, function(){
+            });  
+             gsap.to('video',{
+                scrollTrigger:{
+                    trigger:'video',
+                    start: 'top center',
+                    end: 'bottom 60%',
+                    scrub:true,
+                    toggleActions: 'restart pause resume reverse',
+                onLeave:hitIt},
+                duration:3,
+                 transform: 'translateY(50vh)'});
+        }
+        $(document).ready(function(){
+                            var audio = $('audio');
+
+        var myAudio = document.getElementById("sound");
+
+function togglePlay() {
+  return myAudio.paused ? myAudio.play() : myAudio.pause();
+};
+            $('#again').click(function(){
+                $('#pp').fadeToggle(500);
+                togglePlay();
+        
+            });
+            $('#p-txt').click(function(){
+                    $('#pp').fadeOut();
+                                togglePlay();
+
+                });
+            
+            
+            $('#pp').click(function(){
+                     if(audio.paused){
+                    audio.get(0).play(); 
+                         mover.play();
+            } else {
+                    audio.get(0).pause(); 
+                mover.pause();
+            }
+                });
+            
+          
+            
+            var mover = gsap.to('#pp',{paused: true, duration:2,scale:1,y:10, yoyo: true, 
+    repeat: -1, 
+    ease: "power1.inOut"});
+            
+            $('#pp').hover(function(){
+                mover.play();
+            },function(){
+                mover.pause();
+            })
+            
+            
+            
+            gsap.from('#a1',{
+                scrollTrigger:{
+                    trigger:'#a1',
+                    start: 'top bottom',
+                    end: 'bottom center',
+                    scrub: 1,
+                    toggleActions: 'restart pause resume reverse'},
+                duration:3,
+                scale:0.5,
+                opacity:0.5,
+                ease: "power1.inOut"});
+            
+            gsap.from('#a2',{
+                scrollTrigger:{
+                    trigger:'#a2',
+                    start: 'top bottom',
+                    end: 'bottom center',
+                    scrub: 1,
+                    toggleActions: 'restart pause resume reverse'},
+                duration:3,
+                scale:0.5,
+                opacity:0.5,
+                ease: "power1.inOut"});
+            
+            gsap.from('#a3',{
+                scrollTrigger:{
+                    trigger:'#a3',
+                    start: 'top bottom',
+                    end: 'bottom center',
+                    scrub: 1,
+                    toggleActions: 'restart pause resume reverse'},
+                duration:3,
+                scale:0.5,
+                opacity:0.5,
+                ease: "power1.inOut"});
+            
+           
+            
+             
+        });</script>
 <script>
     $(document).ready(function() {
     setTimeout(function(){
@@ -380,7 +585,7 @@ screen.add( glowobj );
             map: map
             , side: THREE.FrontSide
             , transparent: true
-                    ,        color:  0x2ad9c6
+                    ,        color:  0xFCD5D5
           //  , blending: THREE.NormalBlending
           //  , depthWrite: false
           //   , depthTest:false
@@ -588,11 +793,11 @@ function createTerrainFromMap() {
     var mesh = new THREE.Mesh(
       geom,
       new THREE.MeshPhongMaterial({
-          map:huh,
-        //color: 0x2ad9c6,
-      //  shininess: 40,
-      //  specular: 0x161616,
-         // dithering:true
+         // map:huh,
+        color: 0x2ad9c6,
+        shininess: 40,
+        specular: 0x161616,
+          dithering:true
       })
     );
     mesh.translateX(-xMax / 2);
@@ -624,7 +829,20 @@ function onWindowResize() {
 }
 function newPage(){
         $('#webgl').fadeOut(2000).remove();
-        $('#episode').fadeIn(1000);
+            $('body').css('background-color','white');
+            $('#episode').css('overflowY','scroll');
+        $('#episode, #p-txt, #video').fadeIn(1000, function(){
+            });  
+             gsap.to('video',{
+                scrollTrigger:{
+                    trigger:'video',
+                    start: 'top center',
+                    end: 'bottom 60%',
+                    scrub:true,
+                    toggleActions: 'restart pause resume reverse',
+                onLeave:hitIt},
+                duration:3,
+                 transform: 'translateY(50vh)'});
 
     }
 function animate() {
@@ -652,7 +870,6 @@ function render() {
   var d = 2000;
     
 }
-</script> 
-<script src="firstep/first.js"></script></footer>
+</script> </footer>
   </body>
 </html>
