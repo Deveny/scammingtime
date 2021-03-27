@@ -85,7 +85,6 @@ body {
                 height: 415vw;
                 background-image: url('/assets/firstepisode/largetxt.png');
                 background-size: 100%;
-                                display: none;
                 position:relative;
                 opacity: 0.8;
                 mix-blend-mode: multiply;
@@ -379,7 +378,7 @@ const helix = new THREE.Object3D;
 const screens= new THREE.Object3D;
 var helixspeed, screen, flow, tl, isRan;
 var executed = false;
-
+var control;
 //andere : cleanup!!
 
 init();
@@ -413,15 +412,32 @@ function init() {
     //controls.zoomSpeed = 1.5;
   //daylight
   var light = new THREE.DirectionalLight(0xfff3d4);
-  light.position.set(1, 1, 1);
+  light.position.set(1, 3, 15);
   scene.add(light);
-  var light = new THREE.DirectionalLight(0x002288);
+  var light = new THREE.DirectionalLight(0xff2288);
   light.position.set(-1, -1, -1);
   scene.add(light);
   var light = new THREE.AmbientLight(0x222222);
   scene.add(light);
  //terrain
   createTerrainFromMap();
+ 
+  var blueSpot = new THREE.PointLight();
+  blueSpot.color = new THREE.Color(0x0000ff);
+  blueSpot.intensity =1;
+  blueSpot.distance = 1000;
+
+  blueSpot.position.set(300, 70, 0);
+  blueSpot.name = 'blue1';
+  scene.add(blueSpot);
+    
+    
+  addPointLight(0xff0000, new THREE.Vector3(-400, 0, 0), "red1");
+  addPointLight(0xff0000, new THREE.Vector3(-100, 0, 0), "red2");
+ // addPointLight(0x0000ff, new THREE.Vector3(300, 70, 0), "blue1");
+  control = new (function () {
+    this.count = 0.01;
+  })();
     
   //helix
   //helix = new THREE.Object3D();
@@ -490,7 +506,7 @@ else{
           
       side: THREE.FrontSide,
       transparent: true,
-      opacity: 0.7,
+      opacity: 0.5,
      // color : new THREE.Color(0xC0C0C0),
       map :texture,
             fog : false,
@@ -501,7 +517,7 @@ else{
       var material3 = new THREE.MeshBasicMaterial({ 
       side: THREE.BackSide,
       transparent: true,
-      opacity: 0.7,
+      opacity: 0.5,
      // color : new THREE.Color(0xC0C0C0),
       map :texture,
             fog : false,
@@ -555,7 +571,7 @@ tl.fromTo(glowmaterial.color, {
   r: vol.r,
   g: vol.g,
   b: vol.b,duration:2
-}).fromTo(glowmaterial, {opacity:0.9}, {opacity:0.3,duration:3}); 
+}).fromTo(glowmaterial, {opacity:1}, {opacity:0.1,duration:1}); 
                    
       
 THREE.Object3D.prototype.getObjectsByTag = function( tag, result ) {
@@ -831,7 +847,7 @@ function newPage(){
         $('#webgl').fadeOut(2000).remove();
             $('body').css('background-color','white');
             $('#episode').css('overflowY','scroll');
-        $('#episode, #p-txt, #video').fadeIn(1000, function(){
+        $('#episode, #video').fadeIn(1000, function(){
             });  
              gsap.to('video',{
                 scrollTrigger:{
