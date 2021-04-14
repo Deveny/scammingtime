@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- Metas -->
+		<title>tryingthisthing</title>
+        
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+          <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/CSSRulePlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
+        
+        
+		<style>
+
+@font-face {
+  font-family: "round";
+  src: url("/assets/fonts/ArialRoundedBold.ttf");
+}
+
+body {
+    padding: 0;
+    margin: 0;
+  font-family: "Round";
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 100vw;
+    text-align: center;
+            }
+            #p-txt{
+                z-index: 1;
+    width: 100vw;
+                height: 497vw;
+                background-image: url('/assets/firstepisode/2txt.png');
+                background-size: 100%;
+                position:relative;
+                opacity: 0.8;
+                mix-blend-mode: multiply;
+                background-repeat: no-repeat;
+                                transform: translateZ(0);
+
+            }
+          
+            .layed{
+                                padding:0;
+                width: 100%;
+                position: absolute;
+                z-index: -10;
+                transform: translateZ(0);
+            }
+            #c1
+            {
+             transform: translateY(93.6vw);
+                position: relative;
+            }
+            #c2
+            {
+             transform: translateY(240.5vw);
+                                position: relative;
+
+            }
+            #c3{
+             transform: translateY(301.5vw);
+                                position: relative;
+
+            }
+            #portal{
+               /* transform: translateY(-50%); */
+                width: 100vw;
+                height: 100vh;
+                padding: 0;
+display: block;
+                position: relative;
+                z-index: -300;
+            }
+          
+            #boobs{             transform: translateY(471.5vw);
+
+            z-index: 1000;
+                box-shadow: 0 0 20px yellow;
+      -webkit-box-shadow: 0 0 20px yellow;
+                cursor: url(/assets/firstepisode/tf.png),pointer;
+            }
+          
+            .circular{
+                position: absolute;
+            }
+   
+		</style>
+	</head>
+	<body>
+
+        <div class="layed">
+                <img class="circular" id='c1'src="/assets/firstepisode/circular1.png" width='26.5%'><br>
+                <img class="circular" id='c2'src="/assets/firstepisode/circular2.png" width='24%'><br>
+                <img class="circular" id='c3'src="/assets/firstepisode/circular3.png" width='24%'>
+                       <br>
+                                        <img id='boobs'src="/assets/firstepisode/boobs.png" width='17%'>
+
+</div>
+
+                <div id="p-txt">
+</div>
+        <div id="portal">     
+
+                     <div id='wpe'></div>
+<img src="/assets/firstepisode/flowers.jpg" width='100%'>
+
+</div>
+	</body>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+function hitIt(){
+    $('#grass').delay(1000).get(0).play();
+    $('#pp').fadeOut('500');
+    document.getElementById('grass').addEventListener('ended',myHandler,false);
+    function myHandler(e) {
+$('#boobs').fadeIn(1000);
+        gsap.to('#boobs',{duration:2,scale:1,y:20, yoyo: true, 
+    repeat: -1, 
+    ease: "power1.inOut"});
+    }
+    
+}
+       
+        function toPoint(){
+            $('body').css('overflowY','scroll');
+            $('#p-txt,#video').fadeIn(800);
+            $('#pinkass').fadeOut(500);
+            $('#p-one').delay(500).fadeOut(1000, function(){
+            });  
+             gsap.to('video',{
+                scrollTrigger:{
+                    trigger:'video',
+                    start: 'top center',
+                    end: 'bottom 60%',
+                    scrub:true,
+                    toggleActions: 'restart pause resume reverse',
+                onLeave:hitIt},
+                duration:3,
+                 transform: 'translateY(50vh)'});
+        }
+        $(document).ready(function(){
+       
+            var shake = gsap.to('#pinkass',{duration:2,scale:1,y:20, yoyo: true, 
+    repeat: -1, 
+    ease: "power1.inOut"});
+            
+            $('#pinkass').hover(function(){
+                shake.pause();
+                $(this).addClass('lighted');
+            },function(){
+                shake.resume();
+                $(this).removeClass('lighted');
+            })
+            
+          
+            
+            
+            gsap.from('#c1',{
+                scrollTrigger:{
+                    trigger:'#c1',
+                    start: 'top bottom',
+                    end: 'bottom center',
+                    markers:true,
+                    scrub: 1,
+                    toggleActions: 'restart pause resume reverse'},
+                duration:3,
+                scale:0.5,
+                opacity:0.5,
+                ease: "power1.inOut"});
+            
+            gsap.from('#c2',{
+                scrollTrigger:{
+                    trigger:'#c2',
+                    start: 'top bottom',
+                    end: 'bottom center',
+                    scrub: 1,
+                    toggleActions: 'restart pause resume reverse'},
+                duration:3,
+                scale:0.5,
+                opacity:0.5,
+                ease: "power1.inOut"});
+            
+            gsap.from('#c3',{
+                scrollTrigger:{
+                    trigger:'#c3',
+                    start: 'top bottom',
+                    end: 'bottom center',
+                    scrub: 1,
+                    toggleActions: 'restart pause resume reverse'},
+                duration:3,
+                scale:0.5,
+                opacity:0.5,
+                ease: "power1.inOut"});
+             gsap.from('#boobs',{
+                scrollTrigger:{
+                    trigger:'#boobs',
+                    start: 'top bottom',
+                    end: 'bottom center',
+                    scrub: 1,
+                    toggleActions: 'restart pause resume reverse'},
+                duration:3,
+                scale:0.5,
+                opacity:0.5,
+                ease: "power1.inOut"});
+           
+            
+             
+        });
+    </script>
+</html>
