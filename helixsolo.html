@@ -169,7 +169,7 @@ object.element.onclick = function() { cameraToMarker(this); };
 				var vector = new THREE.Vector3();
 				for ( var i = 0, l = objects.length; i < 9; i ++ ) {
 
-					var theta = i *10 + Math.PI;
+					var theta = i *2.1 + Math.PI;
 					var y = - 450;
 
 					var object = new THREE.Object3D();
@@ -177,12 +177,13 @@ object.element.onclick = function() { cameraToMarker(this); };
 					object.position.y = 0;
 					object.position.z = -10+(i*2000);
                     
+					object.position.setFromCylindricalCoords(200, theta, y);
 
 					vector.x = object.position.x * 2;
 					vector.y = object.position.y;
 					vector.z = object.position.z * 2;
 
-					//object.lookAt( vector );
+					object.lookAt( vector );
 
 					targets.helix.push( object );
 
