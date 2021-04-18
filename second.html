@@ -13,16 +13,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
         
 <script src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>  
+<link href="/transition.css" rel="stylesheet">
 
 		<style>
-.transition-fade {
-  transition: 0.4s;
-  opacity: 1;
-}
-
-html.is-animating .transition-fade {
-  opacity: 0;
-}
 
 @font-face {
   font-family: "round";
@@ -54,7 +47,7 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: url(assets/surething/scroll.png);
+  background: url(assets/surething/pt2/scroll.png);
     background-repeat:no-repeat;
     background-size:cover;    opacity: 1;
         border-radius: 10px;
@@ -71,7 +64,7 @@ body {
                 z-index: 100;
     width: 100vw;
                 height: 497vw;
-                background-image: url('/assets/surething/2txt.png');
+                background-image: url('/assets/surething/pt2/text-layer.png');
                 background-size: 100%;
                 position:relative;
                 opacity: 1;
@@ -142,12 +135,12 @@ padding-top: 30rem;    cursor: url(/assets/surething/tf.png),pointer;
                 
 </div>
         <div class="layed">
-                <img class="white" src="/assets/surething/2lay/1.png"><img class="circular" id='c1'src="/assets/surething/2lay/2.png"><img class="white" src="/assets/surething/2lay/3.png"><img class="circular" id='c2'src="/assets/surething/2lay/4.png"><img class="white" src="/assets/surething/2lay/5.png"><img class="circular" id='c3'src="/assets/surething/2lay/6.png"><img class="white" src="/assets/surething/2lay/7.png">
+                <img class="white" src="/assets/surething/pt2/gsap/1.png"><img class="circular" id='c1'src="/assets/surething/pt2/gsap/2.png"><img class="white" src="/assets/surething/pt2/gsap/3.png"><img class="circular" id='c2'src="/assets/surething/pt2/gsap/4.png"><img class="white" src="/assets/surething/pt2/gsap/5.png"><img class="circular" id='c3'src="/assets/surething/pt2/gsap/6.png"><img class="white" src="/assets/surething/pt2/gsap/7.png">
             <div class="banner">
-                  <img class="green" src="/assets/surething/2lay/8.png">
+                  <img class="green" src="/assets/surething/pt2/gsap/8.png">
 <div class="marquee">Here you go hun, i thought you said you wanted to hallucinate: welcome to the land of all alone to the apathetic detachment veiling your every move fictions running through the boundless mental space of your silence and you’ve arrived. Your glasses as foggy as the air outside drawn inwards to the body-less presence emanating of all the voices digitalia brings you in touch with. The self-sufficient individual and the lonely hacker: holy capable and alone. Parallelly runs the image of your freckled body on all fours on the ugly blue couch, one hand thrusting and twisting the other resting gently on your lower back pinching grabbing stroking and slap slap slap the energy piles up condensates and the weather now provides us with foggy windows and we smoke and listen to the drone of the cars sliding on water and my lucky heating system already on and still september - our voices so present (...)</div>            </div>
-        <img class="white" src="/assets/surething/2lay/9.png">
-    <img class="" id="boobs" src="/assets/surething/2lay/boobs.png" width='20%'>
+        <img class="white" src="/assets/surething/pt2/gsap/9.png">
+    <img class="" id="boobs" src="/assets/surething/pt2/gsap/boobs.png" width='20%'>
             
             
 
@@ -155,11 +148,13 @@ padding-top: 30rem;    cursor: url(/assets/surething/tf.png),pointer;
         <div id="portal">     
 
                      <div id='wpe'></div>
-<img src="/assets/surething/flowers.jpg" width='100%'>
+<img src="/assets/surething/pt2/flowers.jpg" width='100%'>
 
 </div>
 </main>
-<script>const swup = new Swup(); // only this line when included with script tag
+<script> 
+import Swup from 'swup';
+const swup = new Swup(); // only this line when included with script tag
 </script>
 	</body>
     <script>

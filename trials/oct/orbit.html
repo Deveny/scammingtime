@@ -4,13 +4,6 @@
 		<title>three.js webgl - orbit controls</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-             <script src="../libs/three.js"></script>
-    <script src="../libs/dat.gui.min.js"></script>
-            <script src="../libs/OrbitControls.js"></script>
-        
-    <script src="../libs/postprocessing/EffectComposer.js"></script>
-    <script src="../libs/postprocessing/RenderPass.js"></script>
-    <script src="../libs/postprocessing/ShaderPass.js"></script>
         
         
 
@@ -185,9 +178,12 @@ animation: glow 1s ease-in-out infinite alternate;
 		</div>
 
 	
-		<script>
-
-
+		<script type="module">
+			import * as THREE from "/three/build/three.module.js";
+			import { TWEEN } from "/three/examples/jsm/libs/tween.module.min.js";
+			import { OrbitControls } from "/three/examples/jsm/controls/OrbitControls.js";
+			import { GUI } from '/three/examples/jsm/libs/dat.gui.module.js';
+	  
 
 			var camera, controls, scene, renderer;
 
@@ -203,7 +199,7 @@ animation: glow 1s ease-in-out infinite alternate;
 				renderer = new THREE.WebGLRenderer( { antialias: true , alpha: true} );
 				//renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
-                        renderer.shadowMapEnabled = true;
+                        renderer.shadowMap.enabled = true;
 
 				document.body.appendChild( renderer.domElement );
 
@@ -212,7 +208,7 @@ animation: glow 1s ease-in-out infinite alternate;
 
 				// controls
 
-				controls = new THREE.OrbitControls( camera, renderer.domElement );
+				controls = new OrbitControls( camera, renderer.domElement );
 
 				//controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
 
@@ -228,8 +224,9 @@ animation: glow 1s ease-in-out infinite alternate;
 //particles
                       //  setupParticleSystem(100, 100);
                          
-	// SKYBOX
-	var imagePrefix = "assets/car/";
+
+					  //SKYBOX
+					  var imagePrefix = "/assets/car/";
 	var directions  = ["right", "left", "top", "bottom", "front", "back"];
 	var imageSuffix = ".png";
 	var skyGeometry = new THREE.CubeGeometry( 5000, 5000, 5000 );	
@@ -237,12 +234,13 @@ animation: glow 1s ease-in-out infinite alternate;
 	var materialArray = [];
 	for (var i = 0; i < 6; i++)
 		materialArray.push( new THREE.MeshBasicMaterial({
-			map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
+			map: new THREE.TextureLoader().load( imagePrefix + directions[i] + imageSuffix ),
 			side: THREE.BackSide
 		}));
-	var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
-	var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
-	//scene.add( skyBox );
+	//var skyMaterial = new THREE.MeshMaterial( materialArray );
+	var skyBox = new THREE.Mesh( skyGeometry, materialArray );
+	scene.add( skyBox );
+
 
 
 				// lights
@@ -259,20 +257,12 @@ animation: glow 1s ease-in-out infinite alternate;
 				scene.add( light );
 
                 
-        addPointLight(0xff0000, new THREE.Vector3(-300, 0, 0), 'sl1');
-        addPointLight(0xff0000, new THREE.Vector3(-100, 0, 0), 'sl2');
-       // addPointLight(0xffffff, new THREE.Vector3(750, -15, 0), 'sl3');
-        addPointLight(0x0000ff, new THREE.Vector3(300, 0, 0), 'sl4');
-                control = new function () {
-
-
-            this.count = 0.01;
-        };
+       
                 
     
             //           addFloor();
-                addHelix();
-       createGeometryFromMap();
+                //addHelix();
+       //createGeometryFromMap();
                 
                 
                 
@@ -283,20 +273,7 @@ animation: glow 1s ease-in-out infinite alternate;
        window.addEventListener( 'resize', onWindowResize, false );
          
 			}
-              function addPointLight(color, position, name) {
-        var pointLight = new THREE.PointLight();
-        pointLight.color = new THREE.Color(color);
-        pointLight.intensity = 2;
-        pointLight.distance = 200;
-
-        pointLight.position.copy(position);
-        pointLight.name = name;
-        scene.add(pointLight);
-
-        var bulbMat = new THREE.MeshBasicMaterial();
-        bulbMat.color = new THREE.Color(color);
-        pointLight.add(new THREE.Mesh(new THREE.SphereGeometry(0.1), bulbMat));
-    }
+         
 
               function createGeometryFromMap() {
         var depth = 512;
@@ -381,20 +358,7 @@ animation: glow 1s ease-in-out infinite alternate;
 
         return Math.max(v1, v2, v3);
     }
-  function addFloor() {
-        var floorGeometry = new THREE.PlaneGeometry(1600, 1600, 20, 20);
-        var floorMaterial = new THREE.MeshPhongMaterial();
-        floorMaterial.map = THREE.ImageUtils.loadTexture("../assets/textures/sand3.jpg");
 
-        floorMaterial.map.wrapS = floorMaterial.map.wrapT = THREE.RepeatWrapping;
-        floorMaterial.map.repeat.set(20, 20);
-        floorMaterial.side = THREE.DoubleSide;
-        var floorMesh = new THREE.Mesh(floorGeometry, floorMaterial);
-        floorMesh.receiveShadow = true;
-        floorMesh.rotation.x = -0.5 * Math.PI;
-      floorMesh.position.y = -15;
-        scene.add(floorMesh);
-    }
             
              function addHelix() {
                 var vector = new THREE.Vector3();
@@ -466,25 +430,7 @@ helix.add( helixMesh );
 				var time = Date.now() * 0.00025;
 				var d = 500;
 
-        var light = scene.getObjectByName('sl1');
-                
-				light.position.x = Math.sin( time * 0.7 ) * d;
-				light.position.z = Math.cos( time * 0.3 ) * d;
-              //  light.position.y = 15 * Math.sin((control.count += 0.005) + 0.5 * Math.PI);
-        light.position.y = 15 * Math.sin((control.count += 0.005) + 0.5 * Math.PI);
-
-        var light = scene.getObjectByName('sl2');
-                light.position.x = Math.sin( time * 0.7 ) * d;
-                				light.position.z = Math.cos( time * 0.3 ) * d;
-
-        light.position.y = 15 * Math.sin((control.count += 0.005) + 0.5 * Math.PI);
-        var light = scene.getObjectByName('sl3');
-      //  light.position.y = 15 * Math.sin((control.count += 0.005) + 1.0 * Math.PI);
-        var light = scene.getObjectByName('sl4');
-        light.position.y = 15 * Math.sin((control.count += 0.005) + 1.5 * Math.PI);
-                     //   scene.getObjectByName('group').rotation.y += 0.005;
-
-
+     
 			}
 
 		</script>

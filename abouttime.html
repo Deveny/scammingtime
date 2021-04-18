@@ -13,16 +13,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>  
 
-        
+        <link href="transition.css" rel="stylesheet">
   <style>
-.transition-fade {
-transition: 2s;
-opacity: 1;
-}
 
-html.is-animating .transition-fade {
-opacity: 0;
-}
 
     @font-face {
       font-family: "round";
@@ -45,7 +38,9 @@ body{
 }
 #front{
   pointer-events: none;
-  z-index: 300;
+  z-index: 3000;
+  position: fixed;
+  display: none;
 }
 .pt1{
   background-image: url('/assets/tst.png');
@@ -59,6 +54,8 @@ body{
   text-align: left;
   padding: 1.5rem;
   mix-blend-mode: multiply;
+  color: hotpink;
+  opacity: 0.5;
 }
 .title h1, p{
   padding: 0;
@@ -85,7 +82,7 @@ body{
       z-index: 50;
     }
 
-    #webl:after {
+    #webgl:after {
       animation: grain 8s steps(10) infinite;
       background-image: url(assets/scene/noise2.png);
       content: "";
@@ -154,7 +151,7 @@ body{
   <main id="swup" class="transition-fade">
   <div class="algen" id="scam"></div>
   <div class="bg" id="back"> </div>
-  <div class="bg" id="font"><div class="title"><h1>scammingtime</h1><p>brings you</p></div> </div>
+  <div class="bg" id="front"><div class="title"><h1>scammingtime</h1><p>brings you</p></div> </div>
   <div id="webgl"></div>
 
   <footer>
@@ -214,7 +211,7 @@ body{
         scene.fog = new THREE.FogExp2(0xffc494, 0.0005);
         //0,0004
         //camera = new THREE.OrthographicCamera( 0.5 * 600 * 1.7 / - 2, 0.5 * 600 * 1.7 / 2, 600 / 2, 600 / - 2, 150, 1000 );
-        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 20000);
         //1, 15000 in last version
         camera.position.z = 600;
         camera.position.y = 100;
@@ -318,7 +315,7 @@ body{
           rounded(superegg, width, height);
           var theta = i * 2.10 + Math.PI;
           var geometry = new THREE.ShapeBufferGeometry(superegg);
-          var texture = new THREE.TextureLoader().load("/assets/scene/screens/fake.jpg");
+          var texture = new THREE.TextureLoader().load("/assets/scene/screens/fake-square.png");
           //imgside
           var material1 = new THREE.MeshBasicMaterial({
             map: map,
@@ -351,7 +348,7 @@ body{
           var material3 = new THREE.MeshBasicMaterial({
             side: THREE.BackSide,
             transparent: true,
-            opacity: 0.5,
+            opacity: 0.7,
             // color : new THREE.Color(0xC0C0C0),
             map: texture,
             fog: true,
@@ -381,7 +378,7 @@ body{
           vector.z = screen.position.z * 2;
 
           //glowborder-img  
-          var glowmap = new THREE.TextureLoader().load('/assets/scene/screens/glow-cut.png');
+          var glowmap = new THREE.TextureLoader().load('/assets/scene/screens/bigglow.png');
           glowmap.offset = new THREE.Vector2(0.5, 0.5);
           glowmap.repeat.set((1 / width), (1 / height));
           var glowmaterial = new THREE.MeshBasicMaterial({
@@ -407,8 +404,8 @@ body{
           }, {
             r: vol.r,
             g: vol.g,
-            b: vol.b, duration: 2
-          }).fromTo(glowmaterial, { opacity: 1 }, { opacity: 0.1, duration: 1 });
+            b: vol.b, duration: 3
+          }).fromTo(glowmaterial, { opacity: 1 }, { opacity: 0.3, duration: 1.5 }, "<");
 
 
           THREE.Object3D.prototype.getObjectsByTag = function (tag, result) {
@@ -420,7 +417,7 @@ body{
             return result;
           };
 
-          glowobj.scale.set(1.25, 1.25, 1.25);
+          glowobj.scale.set(2.5, 2.5, 2.5);
           screen.add(glowobj);
 
 
@@ -431,13 +428,13 @@ body{
         helix.rotation.y = 0;
 
         //movement helix
-        movement = new TimelineLite({ repeat: -1, yoyo: true });
-        movement.to(helix.rotation, {
-          y: 10, ease:
-            Back.
-              easeInOut.config(
-                1.7), duration: 30
+        movement = new TimelineLite({ 
+          //repeat: -1
         });
+        movement.to(helix.rotation, {
+          y: Math.PI * 2 ,  duration: 10
+        })
+        //.to(helix.rotation, { y:0, duration: 10} );
 
         //cylinder
         ring = new THREE.Group();
@@ -476,7 +473,21 @@ body{
         helix.add(ring);
         scene.add(helix);
 
-
+// SKYBOX
+var imagePrefix = "/assets/car/";
+	var directions  = ["right", "left", "top", "bottom", "front", "back"];
+	var imageSuffix = ".png";
+	var skyGeometry = new THREE.CubeGeometry( 5000, 5000, 5000 );	
+	
+	var materialArray = [];
+	for (var i = 0; i < 6; i++)
+		materialArray.push( new THREE.MeshBasicMaterial({
+			map: new THREE.TextureLoader().load( imagePrefix + directions[i] + imageSuffix ),
+			side: THREE.BackSide
+		}));
+	//var skyMaterial = new THREE.MeshMaterial( materialArray );
+	var skyBox = new THREE.Mesh( skyGeometry, materialArray );
+	//scene.add( skyBox );
 
         //window
         window.addEventListener("resize", onWindowResize, false);
@@ -501,15 +512,29 @@ body{
         raycaster.setFromCamera(mouse, camera);
         var intersects = raycaster.intersectObject(screens, true);
         if (intersects.length > 0) {
+          //movement.pause();
           movement.pause();
+          var axis = new THREE.Vector3( 0, 1, 0 );
+          var angle = (helix.rotation.y / Math.PI) * Math.PI;
+          console.log(angle);
 
+          /*
+   TweenMax.to(movement, movement.duration() - movement.time(), {
+    progress: 1,
+    onComplete: function() {
+      movement.kill();
+    }
+  }); */
           var fadein = scene.getObjectsByTag('fadein', []);
 
           fadein.forEach(tweenIn);
           var chosen = intersects[0].object.parent;
           var nvector = new THREE.Vector3();
           nvector.copy(chosen.position);
+          console.log(chosen.position);
           nvector.negate();
+          nvector.applyAxisAngle( axis, angle );
+          console.log(nvector);
 
           if (isRan) {
             tweenCamera(nvector, 1500, chosen.name);
@@ -716,7 +741,9 @@ body{
     </script>
   </footer>
 </main>
-<script>const swup = new Swup(); // only this line when included with script tag
+<script>
+import Swup from 'swup';
+const swup = new Swup(); // only this line when included with script tag
 </script>
 </body>
 

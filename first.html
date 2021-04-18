@@ -12,17 +12,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>  
+<link href="/transition.css" rel="stylesheet">
 
         
 		<style>
-.transition-fade {
-  transition: 0.4s;
-  opacity: 1;
-}
 
-html.is-animating .transition-fade {
-  opacity: 0;
-}
 
 @font-face {
   font-family: "round";
@@ -198,7 +192,10 @@ filter: drop-shadow(0 0 5px pink);            }
 </audio>
 </div>
 </main>
-<script>const swup = new Swup(); // only this line when included with script tag
+<script>
+
+import Swup from 'swup';
+const swup = new Swup(); // only this line when included with script tag
 </script>
 	</body>
 
