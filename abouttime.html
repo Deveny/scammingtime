@@ -7,10 +7,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/CSSRulePlugin.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>  
 
         <link href="transition.css" rel="stylesheet">
@@ -81,65 +78,6 @@ body{
       overflow: hidden;
       z-index: 50;
     }
-
-    #wbgl:after {
-      animation: grain 8s steps(10) infinite;
-      background-image: url(assets/scene/noise2.png);
-      content: "";
-      height: 300%;
-      left: -50%;
-      opacity: 0.3;
-      position: fixed;
-      top: -110%;
-      width: 300%;
-      pointer-events: none;
-
-    }
-
-    @keyframes grain {
-
-      0%,
-      100% {
-        transform: translate(0, 0)
-      }
-
-      10% {
-        transform: translate(-5%, -10%)
-      }
-
-      20% {
-        transform: translate(-15%, 5%)
-      }
-
-      30% {
-        transform: translate(7%, -25%)
-      }
-
-      40% {
-        transform: translate(-5%, 25%)
-      }
-
-      50% {
-        transform: translate(-15%, 10%)
-      }
-
-      60% {
-        transform: translate(15%, 0%)
-      }
-
-      70% {
-        transform: translate(0%, 15%)
-      }
-
-      80% {
-        transform: translate(3%, 35%)
-      }
-
-      90% {
-        transform: translate(-10%, 10%)
-      }
-    }
-
     body {
       margin: 0;
       background-color: white;
@@ -171,14 +109,7 @@ body{
       import { GUI } from '/three/examples/jsm/libs/dat.gui.module.js';
 
       //loading
-      const manager = new THREE.LoadingManager();
-      manager.onLoad = function () {
-        //$("#scam").fadeOut();
-        var loader = document.querySelector("#scam");
-        var tween = new TWEEN.Tween(loader).to({
-          opacity: 0
-        }, 200).start();
-      };
+      
       //basics
       var controls, camera, scene, light, renderer, domElement;
 
@@ -219,6 +150,7 @@ body{
         camera.focus = 1;
         //controls
         controls = new OrbitControls(camera, renderer.domElement);
+        /*
         controls.screenSpacePanning = false;
         controls.keyPanSpeed = 30;
         controls.minPolarAngle = Math.PI / 2.5;
@@ -228,6 +160,8 @@ body{
         //10000
         controls.minAzimuthAngle = Math.PI;
         controls.maxAzimuthAngle = Math.PI + 0.0001;
+        */
+       controls.enabled = false;
         controls.addEventListener("change", render);
         //controls.zoomSpeed = 1.5;
         //daylight
@@ -239,25 +173,6 @@ body{
         //scene.add(light);
         var light = new THREE.AmbientLight(0x222222);
         scene.add(light);
-        //terrain
-        //createTerrainFromMap();
-
-        var blueSpot = new THREE.PointLight();
-        blueSpot.color = new THREE.Color(0x0000ff);
-        blueSpot.intensity = 1;
-        blueSpot.distance = 1000;
-
-        blueSpot.position.set(300, 70, 0);
-        blueSpot.name = 'blue1';
-        //scene.add(blueSpot);
-
-
-        //addPointLight(0xff0000, new THREE.Vector3(-400, 0, 0), "red1");
-        //addPointLight(0xff0000, new THREE.Vector3(-100, 0, 0), "red2");
-        // addPointLight(0x0000ff, new THREE.Vector3(300, 70, 0), "blue1");
-        control = new (function () {
-          this.count = 0.01;
-        })();
 
         //helix
         //helix = new THREE.Object3D();
@@ -499,7 +414,6 @@ var imagePrefix = "/assets/car/";
 
         renderer.domElement.style.touchAction = 'none';
         //renderer.sortObjects = false;
-        
         renderer.renderLists.dispose();
       }
 
@@ -518,13 +432,6 @@ var imagePrefix = "/assets/car/";
           var angle = (helix.rotation.y / Math.PI) * Math.PI;
           console.log(angle);
 
-          /*
-   TweenMax.to(movement, movement.duration() - movement.time(), {
-    progress: 1,
-    onComplete: function() {
-      movement.kill();
-    }
-  }); */
           var fadein = scene.getObjectsByTag('fadein', []);
 
           fadein.forEach(tweenIn);
@@ -602,111 +509,6 @@ var imagePrefix = "/assets/car/";
       function tweenOut(x) {
         var tween = new TWEEN.Tween(x.material).to({ opacity: 0 }, 100).start();
       }
-      function onMove() {
-        if (-3000 < camera.position.z && camera.position.z < 3000 && !executed) {
-          executed = true;
-          controls.maxAzimuthAngle = 0;
-          controls.minAzimuthAngle = 0;
-          controls.maxDistance = 3000;
-          controls.minDistance = -3000;
-        }
-      }
-      function createTerrainFromMap() {
-        /*
-            var depth = 512;
-            var width = 512;
-    
-            var spacingX = 3;
-            var spacingZ = 3;
-            var heightOffset =-3;
-    
-            var canvas = document.createElement('canvas');
-            canvas.width = 512;
-            canvas.height = 512;
-            var ctx = canvas.getContext('2d');
-    
-            var img = new Image();
-            img.src = "../assets/scene/water.jpg";
-        */
-        var depth = 712;
-        var width = 712;
-
-        var spacingX = 8;
-        var spacingZ = 8;
-        var heightOffset = -1;
-
-        var canvas = document.createElement("canvas");
-        canvas.width = 712;
-        canvas.height = 712;
-        var ctx = canvas.getContext("2d");
-
-        var img = new Image();
-        img.src = "../assets/scene/waterLARGE.jpg";
-
-        img.onload = function () {
-          // draw on canvas
-          ctx.drawImage(img, 0, 0);
-          var pixel = ctx.getImageData(0, 0, width, depth);
-
-          var geom = new THREE.Geometry();
-          var output = [];
-          for (var x = 0; x < depth; x++) {
-            for (var z = 0; z < width; z++) {
-              var yValue = pixel.data[z * 4 + depth * x * 4] / heightOffset;
-              var vertex = new THREE.Vector3(x * spacingX, yValue, z * spacingZ);
-              geom.vertices.push(vertex);
-            }
-          }
-
-          // we create a rectangle between four vertices, and we do
-          // that as two triangles.
-          for (var z = 0; z < depth - 1; z++) {
-            for (var x = 0; x < width - 1; x++) {
-              // we need to point to the position in the array
-              // a - - b
-              // |  x  |
-              // c - - d
-              var a = x + z * width;
-              var b = x + 1 + z * width;
-              var c = x + (z + 1) * width;
-              var d = x + 1 + (z + 1) * width;
-
-              var face1 = new THREE.Face3(a, b, d);
-              var face2 = new THREE.Face3(d, c, a);
-
-              geom.faces.push(face1);
-              geom.faces.push(face2);
-            }
-          }
-
-          geom.computeVertexNormals(true);
-          geom.computeFaceNormals();
-          geom.computeBoundingBox();
-
-          var zMax = geom.boundingBox.max.z;
-          var xMax = geom.boundingBox.max.x;
-
-          var huh = new THREE.TextureLoader().load('/assets/textures/sand1.jpg');
-          //huh.wrapS = huh.wrapT = THREE.RepeatWrapping;
-          // huh.repeat.set( 1, 1 );
-
-          var mesh = new THREE.Mesh(
-            geom,
-            new THREE.MeshPhongMaterial({
-              // map:huh,
-              color: 0x2ad9c6,
-              shininess: 40,
-              specular: 0x161616,
-              dithering: true
-            })
-          );
-          mesh.translateX(-xMax / 2);
-          mesh.translateZ(-zMax / 2);
-          mesh.position.y = 0;
-          mesh.name = "terra"
-          scene.add(mesh);
-        };
-      }
       function onWindowResize() {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
@@ -724,7 +526,6 @@ var imagePrefix = "/assets/car/";
         TWEEN.update();
         render();
 
-        onMove();
       }
       function render() {
         if (isRan) {
@@ -734,8 +535,6 @@ var imagePrefix = "/assets/car/";
 
 
         renderer.render(scene, camera);
-        var time = Date.now() * 0.00025;
-        var d = 2000;
 
       }
     </script>
