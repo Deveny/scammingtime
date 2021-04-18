@@ -151,7 +151,7 @@ body{
   <main id="swup" class="transition-fade">
   <div class="algen" id="scam"></div>
   <div class="bg" id="back"> </div>
-  <div class="bg" id="front"><div class="title"><h1>scammingtime</h1><p>brings you</p></div> </div>
+  <div class="bg" id="front"><div class="title"><h1>scammingtime</h1><p>brings you</p></div><div class="menu"><img src=""></div> </div>
   <div id="webgl"></div>
 
   <footer>
@@ -429,7 +429,7 @@ body{
 
         //movement helix
         movement = new TimelineLite({ 
-          //repeat: -1
+          repeat: -1
         });
         movement.to(helix.rotation, {
           y: Math.PI * 2 ,  duration: 10
