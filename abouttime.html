@@ -431,10 +431,10 @@ body{
         movement = new TimelineLite({ 
           repeat: -1
         });
-        movement.to(helix.rotation, {
+        movement.to(screens.rotation, {
           y: Math.PI * 4 ,  duration: 20
         })
-        .to(helix.rotation, { y:0, duration: 20} );
+        .to(screens.rotation, { y:0, duration: 20} );
 
         //cylinder
         ring = new THREE.Group();
