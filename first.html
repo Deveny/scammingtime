@@ -18,6 +18,32 @@
 		<style>
 
 
+
+    /* width */
+    ::-webkit-scrollbar {
+      width: 20px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: transparant;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: url(assets/surething/pt1/scroll.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 1;
+      border-radius: 10px;
+
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
 @font-face {
   font-family: "round";
   src: url("/assets/fonts/ArialRoundedBold.ttf");
@@ -28,7 +54,7 @@ body {
     margin: 0;
   font-family: "Round";
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: overlay;
     width: 100vw;
     text-align: center;
             }
@@ -68,15 +94,7 @@ body {
       -webkit-box-shadow: 0 0 20px hotpink;
             }
             
-            #pinkass{
-                cursor: url(/assets/surething/tf.png),pointer;
-                                border-radius: 10px;
-              -webkit-animation: glow 1s ease-in-out infinite alternate;
-  -moz-animation: glow 1s ease-in-out infinite alternate;
-  animation: glow 1s ease-in-out infinite alternate;
-            }
-            .lighted{
-filter: drop-shadow(0 0 5px pink);            }
+        
             #again{
                 transform: translateX(45.6vw) translateY(262.1vw);
                                 position: absolute;
@@ -184,7 +202,7 @@ filter: drop-shadow(0 0 5px pink);            }
 
                      <div id='wipe'></div>
 
-<video id='grass' width="100%" height="auto">
+<video id='grass' onclick="toggleVid()" width="100%" height="auto">
             <source src="/assets/surething/pt1/grass.mp4" type="video/mp4"></video>
                             <a href="/second.html">    <img id="sheets" src="/assets/surething/pt1/sheets.jpg" width="20%"></a>
 <audio id="sound">
@@ -214,10 +232,15 @@ $('#sheets').fadeIn(500);
     
 }
        
-        
+function toggleVid() {
+                var video = $('#grass');
+  return video.paused ? video.play() : video.get(0).pause();
+};
         
         $(document).ready(function(){
                             
+        
+
         var audio = $('audio');
 
         var myAudio = document.getElementById("sound");
@@ -251,18 +274,16 @@ function togglePlay() {
 
             } else {
                 mover.play();
-
             }
-            
                 });
             
             
             $('#pinkass').hover(function(){
                 shake.pause();
-                $(this).addClass('lighted');
+                //$(this).addClass('lighted');
             },function(){
                 shake.resume();
-                $(this).removeClass('lighted');
+               // $(this).removeClass('lighted');
             })
             
             var mover = gsap.to('#pp-btn',{paused: true, duration:1,scale:1,y:10, yoyo: true, 

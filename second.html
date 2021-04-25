@@ -1,239 +1,293 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<!-- Metas -->
-		<title>tryingthisthing</title>
-        
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-          <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
-        
-<script src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>  
-<link href="/transition.css" rel="stylesheet">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<style>
+  <!-- Metas -->
+  <title>tryingthisthing</title>
 
-@font-face {
-  font-family: "round";
-  src: url("/assets/fonts/ArialRoundedBold.ttf");
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
+
+  <script src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>
+  <link href="/transition.css" rel="stylesheet">
+
+  <style>
+    @font-face {
+      font-family: "round";
+      src: url("/assets/fonts/ArialRoundedBold.ttf");
+    }
+
+    html {
+      padding: 0;
+      margin: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      padding: 0;
+      margin: 0;
+      font-family: "Round";
+      overflow-x: hidden;
+      overflow-y: overlay;
+      width: 100vw;
+      text-align: center;
+
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+      width: 20px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: transparant;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: url(assets/surething/pt2/scroll.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 1;
+      border-radius: 10px;
+
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+
+    #p-txt {
+      z-index: 100;
+      width: 100vw;
+      height: 497vw;
+      background-image: url('/assets/surething/pt2/text-layer.png');
+      background-size: 100%;
+      position: relative;
+      opacity: 1;
+      mix-blend-mode: multiply;
+      background-repeat: no-repeat;
+      transform: translateZ(0);
+      pointer-events: none;
+    }
+
+    .layed {
+      padding: 0;
+      width: 100%;
+      top: 0;
+      position: absolute;
+      z-index: 10;
+    }
+
+    .white,
+    .bgimg,
+    .green {
+      position: relative;
+      display: block;
+      width: 100vw;
+    }
+
+
+    .flowers{
+  background-image: url(/assets/surething/pt2/gsap/portalbg.jpg);
+  background-position: center center;
 }
-
-            html{padding: 0;
-            margin: 0;
-            scroll-behavior: smooth;}         
-body {
-    padding: 0;
-    margin: 0;
-  font-family: "Round";
-    overflow-x: hidden;
-    overflow-y: scroll;
-    width: 100vw;
-    text-align: center;
-
-            }
-            /* width */
-::-webkit-scrollbar {
-  width: 20px;
+.portal{
+  width: 100%;
+  height: 100vh;
+  max-height: 70vw;
+  text-align: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: transparant;
+#portalglow{
+  margin: 0;
+  margin-top: 25vh;
+  width: 24vw;
+  opacity: 0;
 }
+   
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: url(assets/surething/pt2/scroll.png);
-    background-repeat:no-repeat;
-    background-size:cover;    opacity: 1;
-        border-radius: 10px;
+    .banner {
+      height: 5vw;
+      cursor: url(/assets/surething/tf.png), pointer;
+    }
 
-}
+    .green {
+      width: 100vw;
+      position: absolute;
+    }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-            
-            
-            #p-txt{
-                z-index: 100;
-    width: 100vw;
-                height: 497vw;
-                background-image: url('/assets/surething/pt2/text-layer.png');
-                background-size: 100%;
-                position:relative;
-                opacity: 1;
-                mix-blend-mode: multiply;
-                background-repeat: no-repeat;
-                                transform: translateZ(0);
-pointer-events: none;
-            }
-          
-            .layed{
-                padding:0;
-                width: 100%;
-                top:0;
-                position: absolute;
-                z-index: 10;
-            }
-            .white, .circular, .green{
-                position: relative;
-                display: block;
-                width: 100vw;
-            }
-          
-          
-           
-    #boobs{            
-padding-top: 30rem;    cursor: url(/assets/surething/tf.png),pointer;
-        
-            }
-            .banner{
-                height: 5vw;
-    cursor: url(/assets/surething/tf.png),pointer;
-            }
-            .green{
-                                width: 100vw;
-                position: absolute;
-            }
-            
-.marquee {
-  display: inline-block;
-  white-space: nowrap;
-/*   animation: scrollLeft 38s linear infinite; */
-  padding-left: 101%;
-    font-size: 1.5vw;
-    padding-top: 0.75vw;
-    color: hotpink;
-    z-index: 10;
-}
+    .marquee {
+      display: inline-block;
+      white-space: nowrap;
+      /*   animation: scrollLeft 38s linear infinite; */
+      padding-left: 101%;
+      font-size: 1.5vw;
+      padding-top: 0.75vw;
+      color: hotpink;
+      z-index: 10;
+    }
 
-.marquee:hover {
-   animation-play-state: paused
-}
+    .marquee:hover {
+      animation-play-state: paused
+    }
 
-@keyframes scrollLeft {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%)
-  }
-}    
-		</style>
-	</head>
+    @keyframes scrollLeft {
+      0% {
+        transform: translateX(0%);
+      }
+
+      100% {
+        transform: translateX(-100%)
+      }
+    }
+  </style>
+</head>
+
 <body>
   <main id="swup" class="transition-fade">
 
-<div id="p-txt">
+    <div id="p-txt">
 
-                
-</div>
-        <div class="layed">
-                <img class="white" src="/assets/surething/pt2/gsap/1.png"><img class="circular" id='c1'src="/assets/surething/pt2/gsap/2.png"><img class="white" src="/assets/surething/pt2/gsap/3.png"><img class="circular" id='c2'src="/assets/surething/pt2/gsap/4.png"><img class="white" src="/assets/surething/pt2/gsap/5.png"><img class="circular" id='c3'src="/assets/surething/pt2/gsap/6.png"><img class="white" src="/assets/surething/pt2/gsap/7.png">
-            <div class="banner">
-                  <img class="green" src="/assets/surething/pt2/gsap/8.png">
-<div class="marquee">Here you go hun, i thought you said you wanted to hallucinate: welcome to the land of all alone to the apathetic detachment veiling your every move fictions running through the boundless mental space of your silence and you’ve arrived. Your glasses as foggy as the air outside drawn inwards to the body-less presence emanating of all the voices digitalia brings you in touch with. The self-sufficient individual and the lonely hacker: holy capable and alone. Parallelly runs the image of your freckled body on all fours on the ugly blue couch, one hand thrusting and twisting the other resting gently on your lower back pinching grabbing stroking and slap slap slap the energy piles up condensates and the weather now provides us with foggy windows and we smoke and listen to the drone of the cars sliding on water and my lucky heating system already on and still september - our voices so present (...)</div>            </div>
-        <img class="white" src="/assets/surething/pt2/gsap/9.png">
-    <img class="" id="boobs" src="/assets/surething/pt2/gsap/boobs.png" width='20%'>
-            
-            
 
-</div>
-        <div id="portal">     
+    </div>
+    <div class="layed">
+      <img class="white" src="/assets/surething/pt2/gsap/1.png">
+      <img class="bgimg" id='c1' src="/assets/surething/pt2/gsap/2.png">
+      <img class="white" src="/assets/surething/pt2/gsap/3.png">
+      <img class="bgimg" id='c2' src="/assets/surething/pt2/gsap/4.png">
+      <img class="white" src="/assets/surething/pt2/gsap/5.png">
+      <img class="bgimg" id='c3' src="/assets/surething/pt2/gsap/6.png">
+      <img class="white" src="/assets/surething/pt2/gsap/7.png">
+      <div class="banner">
+        <img class="green" src="/assets/surething/pt2/gsap/8.png">
+        <div class="marquee">Here you go hun, i thought you said you wanted to hallucinate: welcome to the land of all
+          alone to the apathetic detachment veiling your every move fictions running through the boundless mental space
+          of your silence and you’ve arrived. Your glasses as foggy as the air outside drawn inwards to the body-less
+          presence emanating of all the voices digitalia brings you in touch with. The self-sufficient individual and
+          the lonely hacker: holy capable and alone. Parallelly runs the image of your freckled body on all fours on the
+          ugly blue couch, one hand thrusting and twisting the other resting gently on your lower back pinching grabbing
+          stroking and slap slap slap the energy piles up condensates and the weather now provides us with foggy windows
+          and we smoke and listen to the drone of the cars sliding on water and my lucky heating system already on and
+          still september - our voices so present (...)</div>
+      </div>
+      <img class="white" src="/assets/surething/pt2/gsap/9.png">
+      <div class="portal flowers">
+        <a href="/third.html">  <img id="portalglow" src="/assets/surething/pt2/gsap/portalglow.png" width='20%'></a>
+      </div>
 
-                     <div id='wpe'></div>
-<img src="/assets/surething/pt2/flowers.jpg" width='100%'>
 
-</div>
-</main>
-<script> 
-import Swup from 'swup';
-const swup = new Swup(); // only this line when included with script tag
-</script>
-	</body>
-    <script>
-        gsap.registerPlugin(ScrollTrigger);
-        window.scrollTo(0, 0);
-
-       
-      
-        $(document).ready(function(){
-       
-         var shake = gsap.to('#boobs',{duration:1,scale:1,y:20, yoyo: true, 
-    repeat: -1, 
-    ease: "power1.inOut"});
-            
-            $('#boobs').hover(function(){
-                shake.pause();
-                $(this).addClass('lighted');
-            },function(){
-                shake.resume();
-                $(this).removeClass('lighted');
-            })
-            
-          
-               gsap.from('#c1',{
-                scrollTrigger:{
-                    trigger:'#c1',
-                    start: 'top bottom',
-                    end: 'top center',
-                    scrub: 1,
-                    toggleActions: 'restart pause resume reverse'},
-                duration:3,
-                scale:0.5,
-                opacity:0.5,
-                ease: "Expo. easeOut"});
-            
-          
-            gsap.from('#c2',{
-                scrollTrigger:{
-                    trigger:'#c2',
-                    start: 'top bottom',
-                    end: 'top center',
-                    scrub: 1,
-                    toggleActions: 'restart pause resume reverse'},
-                duration:3,
-                scale:0.5,
-                opacity:0.5,
-                ease:"Expo. easeOut"});
-            
-            gsap.from('#c3',{
-                scrollTrigger:{
-                    trigger:'#c3',
-                    start: 'top bottom',
-                    end: 'top center',
-                    scrub: 1,
-                    toggleActions: 'restart pause resume reverse'},
-                duration:3,
-                scale:0.5,
-              //  opacity:0.5,
-                ease:"Expo. easeOut"});
-            
-           
-                  
-        var marquee = document.querySelector('.marquee');
-
-var marqueeLength = marquee.clientWidth;
-
-var marqueeTravelTime = Math.ceil( marqueeLength / 100 );
-
-marquee.style.animation = `scrollLeft ${marqueeTravelTime}s linear infinite`;
-
-marquee.addEventListener('mouseover', (e)=>{
-  marquee.style['animation-play-state'] = 'paused';
-})
-
-marquee.addEventListener('mouseout', (e)=>{
-  marquee.style['animation-play-state'] = 'running';
-})
-             
-        });
+    </div>
   
-    </script>
+  </main>
+  <script>
+    const swup = new Swup(); // only this line when included with script tag
+  </script>
+</body>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  window.scrollTo(0, 0);
+
+
+
+  $(document).ready(function () {
+    gsap.to('#portalglow',{
+                scrollTrigger:{
+                    trigger:'.portal',
+                    start: 'top center',
+                    end: 'bottom bottom',
+                    toggleActions: 'play none none none'},
+                    delay: 0.5,
+                duration:1,
+                 opacity: 1});
+
+    var shake = gsap.to('#portalglow', {
+      duration: 1, scale: 1, y: 20, yoyo: true,
+      repeat: -1,
+      ease: "power1.inOut"
+    });
+
+    $('#portalglow').hover(function () {
+      shake.pause();
+      //$(this).addClass('lighted');
+    }, function () {
+      shake.resume();
+      //$(this).removeClass('lighted');
+    })
+
+
+    gsap.from('#c1', {
+      scrollTrigger: {
+        trigger: '#c1',
+        start: 'top bottom',
+        end: 'top center',
+        scrub: 1,
+        toggleActions: 'restart pause resume reverse'
+      },
+      duration: 3,
+      scale: 0.5,
+      opacity: 0.5,
+      ease: "Expo. easeOut"
+    });
+
+
+    gsap.from('#c2', {
+      scrollTrigger: {
+        trigger: '#c2',
+        start: 'top bottom',
+        end: 'top center',
+        scrub: 1,
+        toggleActions: 'restart pause resume reverse'
+      },
+      duration: 3,
+      scale: 0.5,
+      opacity: 0.5,
+      ease: "Expo. easeOut"
+    });
+
+    gsap.from('#c3', {
+      scrollTrigger: {
+        trigger: '#c3',
+        start: 'top bottom',
+        end: 'top center',
+        scrub: 1,
+        toggleActions: 'restart pause resume reverse'
+      },
+      duration: 3,
+      scale: 0.5,
+      //  opacity:0.5,
+      ease: "Expo. easeOut"
+    });
+
+
+
+    var marquee = document.querySelector('.marquee');
+
+    var marqueeLength = marquee.clientWidth;
+
+    var marqueeTravelTime = Math.ceil(marqueeLength / 100);
+
+    marquee.style.animation = `scrollLeft ${marqueeTravelTime}s linear infinite`;
+
+    marquee.addEventListener('mouseover', (e) => {
+      marquee.style['animation-play-state'] = 'paused';
+    })
+
+    marquee.addEventListener('mouseout', (e) => {
+      marquee.style['animation-play-state'] = 'running';
+    })
+
+  });
+
+</script>
+
 </html>

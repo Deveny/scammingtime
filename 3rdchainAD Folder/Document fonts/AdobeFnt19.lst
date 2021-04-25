@@ -1,0 +1,83 @@
+%!Adobe-FontList 1.19
+%Locale:0x409
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:CurlzMT
+FamilyName:Curlz MT
+StyleName:Regular
+MenuName:Curlz MT
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:Curlz MT
+WritingScript:Roman
+OutlineFileName:\Curlz MT
+DataFormat:sfntResource
+ResourceID:4096
+hasSVG:no
+VariableFontType:NonVariableFont
+FileLength:67344
+FileModTime:1433408400
+NameArray:0,Mac,4,Curlz MT
+NameArray:0,Win,1,Curlz MT
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:CurlzMT
+OutlineFileName:\Curlz MT
+ResourceID:1024
+MacStyle:0
+FileLength:67344
+FileModTime:1433408400
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:CurlzMT
+OutlineFileName:\Curlz MT
+ResourceID:1024
+MacStyle:1
+FileLength:67344
+FileModTime:1433408400
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:Geneva
+FamilyName:Geneva
+StyleName:Regular
+MenuName:Geneva
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:Geneva
+WritingScript:Roman
+OutlineFileName:\Geneva.dfont
+DataFormat:sfntResource
+ResourceID:19492
+hasSVG:no
+VariableFontType:NonVariableFont
+FileLength:754882
+FileModTime:1539231823
+NameArray:0,Mac,4,Geneva
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Suitcase
+FontName:Geneva
+OutlineFileName:\Geneva.dfont
+ResourceID:3
+MacStyle:0
+FileLength:754882
+FileModTime:1539231823
+%EndFont
+
