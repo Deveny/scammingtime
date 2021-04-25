@@ -4,6 +4,6 @@
     }
     
     html.is-animating .transition-fade {
-    opacity: 1;
+    opacity: 0;
 
     }
