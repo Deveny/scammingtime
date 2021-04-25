@@ -309,7 +309,7 @@ body{
           var glowobj = new THREE.Mesh(geometry, glowmaterial);
           glowobj.name = "glow";
           //glowwtween   
-          var col = new THREE.Color('#b57edc');
+          var col = new THREE.Color('#E6E6FA');
           var vol = new THREE.Color('#fbbda4');
           tl = new TimelineLite({ repeat: -1, yoyo: true });
           tl.fromTo(glowmaterial.color, {
@@ -332,7 +332,7 @@ body{
             return result;
           };
 
-          glowobj.scale.set(2.5, 2.5, 2.5);
+          glowobj.scale.set(2.1, 2.1, 2.1);
           screen.add(glowobj);
 
 
