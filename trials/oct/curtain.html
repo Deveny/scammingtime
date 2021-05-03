@@ -32,9 +32,9 @@
 				togglePins: togglePins
 			};
 
-			var DAMPING = 0.03;
+			var DAMPING = 0.;
 			var DRAG = 1 - DAMPING;
-			var MASS = 0.05;
+			var MASS = 0.5;
 			var restDistance = 45;
 
 			var xSegs = 10;
@@ -441,7 +441,7 @@
 				// cloth material
 
 				var loader = new THREE.TextureLoader();
-				var clothTexture = loader.load( '/assets/greekbg.png' );
+				var clothTexture = loader.load( '/assets/bgomg.png' );
 				clothTexture.anisotropy = 16;
 
 				var clothMaterial = new THREE.MeshLambertMaterial( {
@@ -475,7 +475,7 @@ const ballGeo = new THREE.SphereBufferGeometry( ballSize, 32, 16 );
 				sphere.castShadow = true;
 				sphere.receiveShadow = true;
 				sphere.visible = false;
-				//scene.add( sphere );
+				scene.add( sphere );
 
 				
 				// ground
