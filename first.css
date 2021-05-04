@@ -84,27 +84,21 @@
   z-index: 10;
   }
       .txt {
+        padding: 0;
+        margin:0;
         z-index: 100;
         width: 100vw;
         height: 470vw;
         position: absolute;
-        background-repeat: no-repeat;
-        background-size: 100%;
         transform: translateZ(0);
         pointer-events: none;
       }
+      .txt img{width: 100%;}
       .txt.multiply {
         opacity: 0.8;
         mix-blend-mode: multiply;
       }
   
-      .txt.pt1.top {
-        background-image: url('/assets/surething/pt1/text-top.png');
-      }
-  
-      .txt.pt1.multiply {
-        background-image: url('/assets/surething/pt1/text-multiply.png')
-      }
       .layed {
         padding: 0;
         width: 100%;
