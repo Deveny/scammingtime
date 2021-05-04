@@ -58,8 +58,6 @@ body{
   <div id="webgl"></div>
 
   <footer>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
 
     <script type="module">
@@ -438,12 +436,14 @@ body{
 
           // fadeout.forEach(tweenOut);
           fadein.forEach(tweenIn);
-          $('html,body').css('cursor', 'pointer');
+         document.body.style.cursor = "url('/assets/surething/tf.png'), pointer";
+
 
         } else {
           // fadeout.forEach(tweenIn);
           fadein.forEach(tweenOut);
-          $('html,body').css('cursor', 'default');
+          document.body.style.cursor = "default";
+
 
         }
       }
