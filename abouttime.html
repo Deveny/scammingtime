@@ -10,7 +10,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
   <script src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>  
 
-        <link href="transition.css" rel="stylesheet">
   <style>
 
 
@@ -83,24 +82,24 @@ body{
       background-color: white;
     }
     .about{
-      background-image: url(/assets/scene/sceneicon.png);
       background-size: contain;
       width: 10rem;
       height: 10rem;
       position: fixed;
-      top: -2rem;
-      right: 2rem;
+      top: 0;
+      right: 0;
       cursor: pointer;
+      font-size: 3rem;
+      float: right;
+      text-align: right;
+    
     }
   </style>
 </head>
 
 <body>
-  <main id="swup" class="transition-fade">
-    <div class="about"></div>
-  <div class="algen" id="scam"></div>
-  <div class="bg" id="back"> </div>
-  <div class="bg" id="front"><div class="title"><h1>scammingtime</h1><p>brings you</p></div><div class="menu"><img src=""></div> </div>
+  <main class="transition-fade">
+    <div class="about">?</div>
   <div id="webgl"></div>
 
   <footer>
@@ -437,10 +436,10 @@ var imagePrefix = "/assets/car/";
         raycaster.setFromCamera(mouse, camera);
         var intersects = raycaster.intersectObject(screens, true);
         if (intersects.length > 0) {
-          //movement.pause();
           movement.pause();
           var axis = new THREE.Vector3( 0, 1, 0 );
-          var angle = (helix.rotation.y / Math.PI) * Math.PI;
+          var angle = (screens.rotation.y / Math.PI) * Math.PI;
+          console.log(screens.rotation.y);
           console.log(angle);
 
           var fadein = scene.getObjectsByTag('fadein', []);
@@ -551,10 +550,6 @@ var imagePrefix = "/assets/car/";
     </script>
   </footer>
 </main>
-<script>
-import Swup from 'swup';
-const swup = new Swup(); // only this line when included with script tag
-</script>
 </body>
 
 </html>

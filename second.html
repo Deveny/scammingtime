@@ -6,197 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <!-- Metas -->
-  <title>tryingthisthing</title>
+  <title>SCAMMING TIME brings you</title>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
-
-  <script src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>
-  <link href="/transition.css" rel="stylesheet">
+  <script src="/npm/swup/body-class-plugin/dist/SwupBodyClassPlugin.js"></script>
+  <script src="/npm/swup/dist/swup.js"></script>
+  <link href="/second.css" rel="stylesheet">
 
   <style>
-    @font-face {
-      font-family: "round";
-      src: url("/assets/fonts/ArialRoundedBold.ttf");
-    }
-
-    html {
-      padding: 0;
-      margin: 0;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      padding: 0;
-      margin: 0;
-      font-family: "Round";
-      overflow-x: hidden;
-      overflow-y: overlay;
-      width: 100vw;
-      text-align: center;
-
-    }
-
-    /* width */
-    ::-webkit-scrollbar {
-      width: 20px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: transparant;
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: url(assets/surething/pt2/scroll.png);
-      background-repeat: no-repeat;
-      background-size: cover;
-      opacity: 1;
-      border-radius: 10px;
-
-    }
-
-    .nav {
-      width: 10vw;
-      position: fixed;
-      right: 2rem;
-      top: 4rem;
-      z-index: 1000;
-    }
-
-    .nav img {
-      margin-top: -2.2rem;
-      opacity: 0.4;
-    }
-
-    .nav img.active,
-    .nav img:hover {
-      opacity: 1;
-    }
-
-    .txt {
-      z-index: 100;
-      width: 100vw;
-      height: 497vw;
-      position: absolute;
-      background-repeat: no-repeat;
-      transform: translateZ(0);
-      pointer-events: none;
-    }
-    .txt.top {
-      background-image: url('/assets/surething/pt2/text-top.png');
-      background-size: 100%;
-    }
-
-    .txt.multiply {
-      background-image: url('/assets/surething/pt2/text-multiply.png');
-      background-size: 100%;
-      opacity: 0.8;
-      mix-blend-mode: multiply;
-    }
-
-    .layed {
-      padding: 0;
-      width: 100%;
-      top: 0;
-      position: absolute;
-      z-index: 10;
-    }
-
-    .white,
-    .bgimg,
-    .green {
-      position: relative;
-      display: block;
-      width: 100vw;
-      z-index: -1;
-
-    }
-
-    .alge {
-      background-image: url(/assets/surething/pt3/gsap/portalbg.png);
-    }
-
-    .flowers {
-      background-image: url(/assets/surething/pt2/gsap/portalbg.jpg);
-      background-position: center center;
-    }
-
-    .portal {
-      width: 100%;
-      height: 100vh;
-      max-height: 70vw;
-      text-align: center;
-      background-size: 100%;
-      background-repeat: no-repeat;
-    }
-
-    .portalglow {
-      margin: 0;
-      margin-top: 25vh;
-      width: 24vw;
-      opacity: 0;
-      cursor: url(/assets/surething/tf.png), pointer;
-
-    }
-
-    /*SECOND-SPECIFIC*/
-    .banner {
-      height: 5vw;
-    }
-
-    .green {
-      width: 100vw;
-      position: absolute;
-    }
-
-    .marquee {
-      display: inline-block;
-      white-space: nowrap;
-      /*  animation: scrollLeft 48s linear infinite; */
-      padding-left: 101%;
-      font-size: 1.5vw;
-      padding-top: 0.75vw;
-      color: hotpink;
-      z-index: 10;
-      cursor: grabbing;
-    }
-
-    .marquee:hover {
-      animation-play-state: paused;
-    }
-
-    @keyframes scrollLeft {
-      0% {
-        transform: translateX(0%);
-      }
-
-      100% {
-        transform: translateX(-100%)
-      }
-    }
   </style>
 </head>
 
 <body>
-  <main id="swup" class="transition-fade">
-  <div class="nav">
-    <a href="/first.html"><img src="/assets/surething/nav/menu1.png" width="100%"></a>
-    <a href="/second.html"></a><img class="active" src="/assets/surething/nav/menu2.png" width="100%"></a>
-    <a href="/third.html"></a><img src="/assets/surething/nav/menu3.png" width="100%"></a>
-  </div>
-    <div class="txt multiply"></div>
-    <div class="txt top"></div>
+    <div class="nav">
+      <a href="/first.html"><img src="/assets/surething/nav/menu1.png" width="100%"></a>
+      <a href="/second.html"><img class="active" src="/assets/surething/nav/menu2.png" width="100%"></a>
+      <a href="/third.html"><img src="/assets/surething/nav/menu3.png" width="100%"></a>
+    </div>
+    <div class="txt pt2 multiply"></div>
+    <div class="txt pt2 top"></div>
     <div class="layed">
       <img class="white" src="/assets/surething/pt2/gsap/1.png">
-      <img class="bgimg" id='c1' src="/assets/surething/pt2/gsap/2.png">
+      <img class="bgimg" id='c4' src="/assets/surething/pt2/gsap/2.png">
       <img class="white" src="/assets/surething/pt2/gsap/3.png">
-      <img class="bgimg" id='c2' src="/assets/surething/pt2/gsap/4.png">
+      <img class="bgimg" id='c5' src="/assets/surething/pt2/gsap/4.png">
       <img class="white" src="/assets/surething/pt2/gsap/5.png">
-      <img class="bgimg" id='c3' src="/assets/surething/pt2/gsap/6.png">
+      <img class="bgimg" id='c6' src="/assets/surething/pt2/gsap/6.png">
       <img class="white" src="/assets/surething/pt2/gsap/7.png">
       <div class="banner">
         <img class="green" src="/assets/surething/pt2/gsap/8.png">
@@ -212,14 +49,12 @@
       </div>
       <img class="white" src="/assets/surething/pt2/gsap/9.png">
       <div class="portal flowers">
-        <a href="/third.html"> <img class="portalglow" src="/assets/surething/pt2/gsap/portalglow.png" width='16%'></a>
+        <a href="/third.html"> <img class="portalglow" id="boobs" src="/assets/surething/pt2/gsap/portalglow.png"
+            width='16%'></a>
       </div>
     </div>
 
-  </main>
-  <script>
-    const swup = new Swup(); // only this line when included with script tag
-  </script>
+
 </body>
 <script>
   gsap.registerPlugin(ScrollTrigger);
@@ -235,12 +70,10 @@
         end: 'bottom bottom',
         toggleActions: 'play none none none'
       },
-      delay: 0.5,
       duration: 1,
-      opacity: 1
-    });
-
-    var shake = gsap.to('.portalglow', {
+      opacity: 1,
+      onComplete:function(){
+        var shake = gsap.to('.portalglow', {
       duration: 1, scale: 1, y: 20, yoyo: true,
       repeat: -1,
       ease: "power1.inOut"
@@ -253,14 +86,18 @@
       shake.resume();
       //$(this).removeClass('lighted');
     })
+      }
+    });
+
+    
 
 
-    gsap.from('#c1', {
+    gsap.from('#c4', {
       scrollTrigger: {
-        trigger: '#c1',
+        trigger: '#c4',
         start: 'top bottom',
-        end: 'top center',
-        scrub: 1,
+        end: 'center center',
+        scrub: 0.75,
         toggleActions: 'restart pause resume reverse'
       },
       duration: 3,
@@ -270,12 +107,12 @@
     });
 
 
-    gsap.from('#c2', {
+    gsap.from('#c5', {
       scrollTrigger: {
-        trigger: '#c2',
+        trigger: '#c5',
         start: 'top bottom',
-        end: 'top center',
-        scrub: 1,
+        end: 'center center',
+        scrub: 0.75,
         toggleActions: 'restart pause resume reverse'
       },
       duration: 3,
@@ -284,17 +121,17 @@
       ease: "Expo. easeOut"
     });
 
-    gsap.from('#c3', {
+    gsap.from('#c6', {
       scrollTrigger: {
-        trigger: '#c3',
+        trigger: '#c6',
         start: 'top bottom',
-        end: 'top center',
-        scrub: 1,
+        end: 'center center',
+        scrub: 0.75,
         toggleActions: 'restart pause resume reverse'
       },
       duration: 3,
       scale: 0.5,
-      //  opacity:0.5,
+      opacity: 0.5,
       ease: "Expo. easeOut"
     });
 
@@ -316,6 +153,22 @@
       marquee.style['animation-play-state'] = 'running';
     })
 
+    $(".nav").on({
+    mouseenter: function(){
+      gsap.to('.nav img', {
+      duration: 0.3,
+      marginTop: "-1.9rem",
+      ease: "Expo. easeOut"
+    });
+  },
+
+    mouseleave: function(){
+        gsap.to('.nav img', {
+      duration: 0.3,
+      marginTop: "-2.5rem",
+      ease: "Expo. easeOut"
+    });     }
+});
   });
 
 </script>

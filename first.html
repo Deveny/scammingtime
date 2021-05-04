@@ -6,237 +6,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <!-- Metas -->
-  <title>tryingthisthing</title>
+  <title>SCAMMING TIME brings you</title>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
-  <script src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>
-  <link href="/transition.css" rel="stylesheet">
+  <script src="/npm/swup/dist/swup.js"></script>
+  <script src="/npm/swup/body-class-plugin/dist/SwupBodyClassPlugin.js"></script>
+  <link href="/first.css" rel="stylesheet">
 
 
   <style>
-  
-  @font-face {
-      font-family: "round";
-      src: url("/assets/fonts/ArialRoundedBold.ttf");
-    }
-
-    html {
-      padding: 0;
-      margin: 0;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      padding: 0;
-      margin: 0;
-      font-family: "Round";
-      overflow-x: hidden;
-      overflow-y: overlay;
-      width: 100vw;
-      text-align: center;
-
-    }
-
-    /* width */
-    ::-webkit-scrollbar {
-      width: 20px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: transparant;
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: url(assets/surething/pt1/scroll.png);
-      background-repeat: no-repeat;
-      background-size: cover;
-      opacity: 1;
-      border-radius: 10px;
-
-    }
-    .nav{
-  width: 10vw;
-  position:fixed;
-  right: 2rem;
-  top: 4rem;
-  z-index: 1000;
-}
-.nav img{
-  margin-top: -2.2rem;
-  opacity: 0.4;
-}
-.nav img.active, .nav img:hover{
-  opacity: 1;
-}
-    .txt {
-      z-index: 100;
-      width: 100vw;
-      height: 470vw;
-      position: absolute;
-      background-repeat: no-repeat;
-      transform: translateZ(0);
-      pointer-events: none;
-    }
-    .txt.top {
-      background-image: url('/assets/surething/pt1/text-top.png');
-      background-size: 100%;
-    }
-
-    .txt.multiply {
-      background-image: url('/assets/surething/pt1/text-multiply.png');
-      background-size: 100%;
-      opacity: 0.8;
-      mix-blend-mode: multiply;
-    }
-
-    .layed {
-      padding: 0;
-      width: 100%;
-      top: 0;
-      position: relative;
-      z-index: 0;
-    }
-
-    .white,
-    .bgimg, .green {
-      position: relative;
-      display: block;
-      width: 100vw;
-      z-index: -1;
-
-    }
-  
-.portal{
-  width: 100%;
-  height: 100vh;
-  max-height: 70vw;
-  text-align: center;
-  background-size: 100%;
-  background-repeat: no-repeat;
-}
-.portalglow{
-  margin: 0;
-  margin-top: 25vh;
-display: none;
-;  z-index: 2000;
-}
-
-.nav {
-      width: 10vw;
-      position: fixed;
-      right: 2rem;
-      top: 4rem;
-      z-index: 1000;
-    }
-
-    .nav img {
-      margin-top: -2.2rem;
-      opacity: 0.4;
-    }
-
-    .nav img.active,
-    .nav img:hover {
-      opacity: 1;
-    }
-/*FIRST-SPECIFIC*/
-
-    #again {
-      transform: translateX(45.6vw) translateY(262.1vw);
-      position: absolute;
-      padding: 0;
-      z-index: 20;
-      cursor: url(/assets/surething/tf.png), pointer;
-    }
-
-
-    #video {
-      transform: translateY(-50%);
-      width: 100vw;
-      height: 70.7vh;
-      padding: 0;
-      position: relative;
-      z-index: -300;
-    }
-
-    #wipe {
-      width: 100vw;
-      height: 70vh;
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 74%, rgba(255, 255, 255, 0) 100%);
-      z-index: 200;
-      position: absolute;
-    }
-
-    #sheets {
-      width: 24vw;
-
-    }
-
-    #pp-btn {
-      background-image: url('/assets/surething/pt1/pp.png');
-      background-size: 100%;
-      background-repeat: none;
-      width: 35vw;
-      height: 20vw;
-      transform: translate(-50%, -50%);
-      margin-top: 50vh;
-      margin-left: 50vw;
-      position: fixed;
-      z-index: 900;
-      display: none;
-      cursor: url(/assets/surething/tf.png), pointer;
-    }
-
-    #again p {
-      background-color: white;
-      opacity: 0.8;
-      padding: 0;
-      margin: 0;
-      transform: scale(1, 0.9);
-      font-size: 3.4vw;
-      font-weight: bold;
-      color: rgba(90, 191, 245, 0.836);
-      -webkit-text-stroke: 1px (90, 191, 245, 0.836);
-      letter-spacing: 0.7px;
-      text-shadow: 0 0 8px pink;
-      font-kerning: normal;
-      -webkit-animation: glow 1s ease-in-out infinite alternate;
-      -moz-animation: glow 1s ease-in-out infinite alternate;
-      animation: glow 1s ease-in-out infinite alternate;
-    }
-
   </style>
 </head>
 
 <body>
   <div class="nav">
-    <a href="/first.html"><img class="active" src="/assets/surething/nav/menu1.png" width="100%"></a>
-    <a href="/second.html"></a><img src="/assets/surething/nav/menu2.png" width="100%"></a>
-    <a href="/third.html"></a><img src="/assets/surething/nav/menu3.png" width="100%"></a>
+    <a href="/first.html"><img id="p1" class="active" src="/assets/surething/nav/menu1.png" width="100%"></a>
+    <a href="/second.html"><img id="p2" src="/assets/surething/nav/menu2.png" width="100%"></a>
+    <a href="/third.html"><img id="p3" src="/assets/surething/nav/menu3.png" width="100%"></a>
   </div>
-  <main id="swup" class="transition-fade">
     <div id='pp-btn'></div>
 
     <div id="again">
-      <p>(and again)</p>
+      <img src="/assets/surething/pt1/and-againd.png">
     </div>
 
-    <div class="txt multiply">
+    <div class="txt pt1 multiply">
     </div>
-    <div class="txt top">
+    <div class="txt pt1 top">
     </div>
     <div class="layed">
-      <img class="white" id='c1' src="/assets/surething/pt1/gsap/1.png">
-      <img class="bgimg" src="/assets/surething/pt1/gsap/2.png">
-      <img class="white" id='c2' src="/assets/surething/pt1/gsap/3.png">
-      <img class="bgimg" src="/assets/surething/pt1/gsap/4.png">
-      <img class="white" id='c3' src="/assets/surething/pt1/gsap/5.png">
-      <img class="bgimg" src="/assets/surething/pt1/gsap/6.png">
-      <img class="white" id='c4' src="/assets/surething/pt1/gsap/7.png">
+      <img class="white" src="/assets/surething/pt1/gsap/1.png">
+      <img class="bgimg" id='c1' src="/assets/surething/pt1/gsap/2.png">
+      <img class="white" src="/assets/surething/pt1/gsap/3.png">
+      <img class="bgimg" id='c2' src="/assets/surething/pt1/gsap/4.png">
+      <img class="white" src="/assets/surething/pt1/gsap/5.png">
+      <img class="bgimg" id='c3' src="/assets/surething/pt1/gsap/6.png">
+      <img class="white" src="/assets/surething/pt1/gsap/7.png">
     </div>
     <div id="video">
 
@@ -250,10 +57,7 @@ display: none;
         <source src="/assets/surething/pt1/androgyn.mp3" type="audio/mpeg">
       </audio>
     </div>
-  </main>
-  <script>
-    const swup = new Swup(); // only this line when included with script tag
-  </script>
+
 </body>
 
 <script>
@@ -303,7 +107,6 @@ display: none;
     $('.txt, .layed').click(function () {
       $('#pp-btn').fadeOut();
       myAudio.pause()
-      alert('kk')
 
     });
 
@@ -344,8 +147,12 @@ display: none;
 
 
 
-    
 
+      gsap.to('#again', {
+        duration: 1, opacity:0, yoyo: true,
+        repeat: -1,
+        ease: "power1.inOut"
+      });
 
     gsap.to('#grass', {
       scrollTrigger: {
@@ -354,12 +161,75 @@ display: none;
         end: 'bottom 60%',
         scrub: true,
         toggleActions: 'restart pause resume reverse',
-        onLeave: hitIt
+        onLeave: hitIt,
+        onEnterBack: function(){
+          var video = $('#grass');
+          video.get(0).pause();
+          }
       },
       duration: 3,
       transform: 'translateY(50vh)'
     });
 
+    gsap.from('#c1', {
+      scrollTrigger: {
+        trigger: '#c1',
+        start: 'top bottom',
+        end: 'center center',
+        scrub: 0.75,
+        toggleActions: 'restart pause resume reverse'
+      },
+      duration: 3,
+      scale: 0.5,
+      opacity: 0.5,
+      ease: "Expo. easeOut"
+    });
+
+
+    gsap.from('#c2', {
+      scrollTrigger: {
+        trigger: '#c2',
+        start: 'top bottom',
+        end: 'center center',
+        scrub: 0.75,
+        toggleActions: 'restart pause resume reverse'
+      },
+      duration: 3,
+      scale: 0.5,
+      opacity: 0.5,
+      ease: "Expo. easeOut"
+    });
+
+    gsap.from('#c3', {
+      scrollTrigger: {
+        trigger: '#c3',
+        start: 'top bottom',
+        end: 'center center',
+        scrub: 0.75,
+        toggleActions: 'restart pause resume reverse'
+      },
+      duration: 3,
+      scale: 0.5,
+      opacity: 0.5,
+      ease: "Expo. easeOut"
+    });
+
+    $(".nav").on({
+    mouseenter: function(){
+      gsap.to('.nav img', {
+      duration: 0.3,
+      marginTop: "-1.9rem",
+      ease: "Expo. easeOut"
+    });
+  },
+
+    mouseleave: function(){
+        gsap.to('.nav img', {
+      duration: 0.3,
+      marginTop: "-2.5rem",
+      ease: "Expo. easeOut"
+    });     }
+});
 
   });
 </script>

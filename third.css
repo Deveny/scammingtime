@@ -1,0 +1,208 @@
+
+    @font-face {
+        font-family: "round";
+        src: url("/assets/fonts/ArialRoundedBold.ttf");
+      }
+  
+      html {
+        padding: 0;
+        margin: 0;
+        scroll-behavior: smooth;
+      }
+  
+      body {
+        padding: 0;
+        margin: 0;
+        font-family: "Round";
+        overflow-x: hidden;
+        overflow-y: overlay;
+        width: 100vw;
+        text-align: center;
+      }
+  .noscroll{
+    overflow-y: hidden;
+  }
+      /* width */
+      ::-webkit-scrollbar {
+        width: 20px;
+      }
+  
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: transparant;
+      }
+  
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: url(assets/surething/pt3/scroll.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        opacity: 1;
+        border-radius: 10px;
+  
+      }
+  
+      .nav {
+        width: 10vw;
+        position: fixed;
+        right: 2rem;
+        top: 4rem;
+        z-index: 1000;
+      }
+  
+      .nav img {
+        margin-top: -2.5rem;
+        opacity: 0.4;
+        cursor: url(/assets/surething/tf.png), pointer;
+        -webkit-transform: translateZ(0);
+        -moz-transform: rotate(0);
+        border: 1px solid transparent;
+        transition: opacity 0.3s;
+  
+      }
+  
+      .nav img.active,
+      .nav img:hover {
+        opacity: 1;
+        transition: opacity 0.3s;
+      }
+      .nav img.active:hover{
+        opacity: 0.7;
+        transition: opacity 0.3s;
+  
+      }
+      .nav img:hover ~ img.active{
+        opacity: 0.1;
+        transition: opacity 0.3s;
+      }
+  #p1{
+    z-index: 30;
+  }
+  #p2{
+  z-index: 20;
+  }
+  #p3{
+  z-index: 10;
+  }
+  
+      .txt {
+        z-index: 100;
+        width: 100%;
+        height: 570vw;
+        position: absolute;
+        opacity: 1;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        transform: translateZ(0);
+        pointer-events: none;
+      }
+      .txt.multiply {
+        opacity: 0.8;
+        mix-blend-mode: multiply;
+      }
+  
+      .txt.pt3.top {
+        background-image: url('/assets/surething/pt3/text-top.png');
+      }
+  
+      .txt.pt3.multiply {
+        background-image: url('/assets/surething/pt3/text-multiply.png');
+      }
+  
+      .layed {
+        padding: 0;
+        width: 100%;
+        top: 0;
+        position: relative;
+        z-index: 10;
+      }
+  
+  
+      .white,
+      .bgimg,
+      .green {
+        position: relative;
+        display: block;
+        width: 100vw;
+        z-index: -1;
+      }
+  
+  
+  
+      .portal {
+        width: 100%;
+        height: 100vh;
+        max-height: 70vw;
+        text-align: center;
+        background-size: 100%;
+        background-repeat: no-repeat;
+      }
+  
+      .portalglow {
+        margin: 0;
+        opacity: 0;
+        cursor: url(/assets/surething/tf.png), pointer;
+        opacity: 0;
+
+      }
+  
+  
+  
+      /*THIRD-SPECIFIC*/
+      #pinkass {
+        margin-top: 18vw;
+        width: 21vw;
+      }
+  
+      .alge {
+        background-image: url(/assets/surething/pt3/gsap/portalbg.png);
+      }
+  
+      #ad-time {
+        opacity: 0;
+      }
+  
+      .popup {
+        background-image: url(/assets/surething/pt3/gsap/popup.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 32vw;
+        width: 48vw;
+        position: fixed;
+        margin: auto;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        text-align: center;
+        z-index: 2000;
+        opacity: 1;
+        display: none;
+      }
+  
+      .overlay {
+        background-color: rgba(0, 0, 0, 0.5);
+        width: 100vw;
+        height: 100vw;
+        position: fixed;
+        z-index: 1888;
+      }
+  
+      .close {
+        width: 3.5vw;
+        height: 3.5vw;
+        position: absolute;
+        background-image: url(/assets/surething/pt3/adclose.png);
+        background-size: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        top: 1.5vw;
+        right: 4.3vw;
+        opacity: 0.5;
+        cursor: pointer;
+      }
+  
+      .close:hover {
+        opacity: 1;
+      }
