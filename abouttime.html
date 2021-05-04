@@ -1,14 +1,11 @@
+<!DOCTYPE html>
 <html>
 
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="GitLab Pages">
-  <title>Zoom Outer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>scamming time</title>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
-  <script src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>  
 
   <style>
 
@@ -29,49 +26,7 @@ body{
       text-align: center;
 
     }
-#back{
-  z-index: -100;
-}
-#front{
-  pointer-events: none;
-  z-index: 3000;
-  position: fixed;
-  display: none;
-}
-.pt1{
-  background-image: url('/assets/tst.png');
-  background-size: 100%;
-  background-repeat: no-repeat;
-  filter: blur(5px);
-  display: none;
-}
-.title{
-  font-size: 5rem;
-  text-align: left;
-  padding: 1.5rem;
-  mix-blend-mode: multiply;
-  color: hotpink;
-  opacity: 0.5;
-}
-.title h1, p{
-  padding: 0;
-  margin: 0;
-}
-    .algen,
-    #scam {
-      background-image: url('/assets/surething/redone.png');
-      background-size: 100%;
-      width: 100%;
-      height: 100%;
-      padding: 0;
-      margin: 0;
-      text-align: center;
-      z-index: 1000;
-      display: block;
-      position: absolute;
-      background-repeat: no-repeat;
-      display: none;
-    }
+
 
     #webgl {
       overflow: hidden;
@@ -104,19 +59,13 @@ body{
 
   <footer>
 
-    <script>
-      $(document).ready(function () {
-        setTimeout(function () {
-          $('.algen').fadeOut("slow");
-        }, 3000);
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
 
-      });
-    </script>
     <script type="module">
       import * as THREE from "/three/build/three.module.js";
       import { TWEEN } from "/three/examples/jsm/libs/tween.module.min.js";
       import { OrbitControls } from "/three/examples/jsm/controls/OrbitControls.js";
-      import { GUI } from '/three/examples/jsm/libs/dat.gui.module.js';
 
       //loading
       
@@ -398,21 +347,6 @@ body{
         helix.add(ring);
         scene.add(helix);
 
-// SKYBOX
-var imagePrefix = "/assets/car/";
-	var directions  = ["right", "left", "top", "bottom", "front", "back"];
-	var imageSuffix = ".png";
-	var skyGeometry = new THREE.CubeGeometry( 5000, 5000, 5000 );	
-	
-	var materialArray = [];
-	for (var i = 0; i < 6; i++)
-		materialArray.push( new THREE.MeshBasicMaterial({
-			map: new THREE.TextureLoader().load( imagePrefix + directions[i] + imageSuffix ),
-			side: THREE.BackSide
-		}));
-	//var skyMaterial = new THREE.MeshMaterial( materialArray );
-	var skyBox = new THREE.Mesh( skyGeometry, materialArray );
-	//scene.add( skyBox );
 
         //window
         window.addEventListener("resize", onWindowResize, false);
