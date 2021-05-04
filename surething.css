@@ -1,209 +1,119 @@
-@font-face {
-    font-family: "round";
-    src: url("/assets/fonts/ArialRoundedBold.ttf");
-  }
 
-  html {
-    padding: 0;
-    margin: 0;
-    scroll-behavior: smooth;
-  }
+    @font-face {
+      font-family: "round";
+      src: url("/assets/fonts/ArialRoundedBold.ttf");
+    }
 
-  body {
-    padding: 0;
-    margin: 0;
-    font-family: "Round";
-    overflow-x: hidden;
-    overflow-y: overlay;
-    width: 100vw;
-    text-align: center;
+    html {
+      padding: 0;
+      margin: 0;
+      scroll-behavior: smooth;
+    }
 
-  }
-
-    /* width */
-    ::-webkit-scrollbar {
-        width: 20px;
-      }
-  
-      /* Track */
-      ::-webkit-scrollbar-track {
-        background: transparant;
-      }
-  
-      /* Handle */
-      ::-webkit-scrollbar-thumb {
-        background: url(assets/surething/pt1/scroll.png);
-        background-repeat: no-repeat;
-        background-size: cover;
-        opacity: 1;
-        border-radius: 10px;
-  
-      }
-  
-      .nav {
-        width: 10vw;
-        position: fixed;
-        right: 2rem;
-        top: 4rem;
-        z-index: 1000;
-      }
-  
-      .nav img {
-        margin-top: -2.5rem;
-        opacity: 0.4;
-        cursor: url(/assets/surething/tf.png), pointer;
-        -webkit-transform: translateZ(0);
-        -moz-transform: rotate(0);
-        border: 1px solid transparent;
-        transition: opacity 0.3s;
-  
-      }
-  
-      .nav img.active,
-      .nav img:hover {
-        opacity: 1;
-        transition: opacity 0.3s;
-      }
-      .nav img.active:hover{
-        opacity: 0.7;
-        transition: opacity 0.3s;
-  
-      }
-      .nav img:hover ~ img.active{
-        opacity: 0.1;
-        transition: opacity 0.3s;
-      }
-  #p1{
-    z-index: 30;
-  }
-  #p2{
-  z-index: 20;
-  }
-  #p3{
-  z-index: 10;
-  }
-      .txt {
-        z-index: 100;
-        width: 100vw;
-        height: 470vw;
-        position: absolute;
-        background-repeat: no-repeat;
-        background-size: 100%;
-        transform: translateZ(0);
-        pointer-events: none;
-      }
-      .txt.multiply {
-        opacity: 0.8;
-        mix-blend-mode: multiply;
-      }
-  
-      .txt.pt1.top {
-        background-image: url('/assets/surething/pt1/text-top.png');
-      }
-  
-      .txt.pt1.multiply {
-        background-image: url('/assets/surething/pt1/text-multiply.png')
-      }
-  
-      .layed {
-        padding: 0;
-        width: 100%;
-        top: 0;
-        position: relative;
-        z-index: 0;
-      }
-  
-      .layed img {
-        display: block;
-        background-color: white;
-  
-      }
-  
-      .white,
-      .bgimg,
-      .green {
-        position: relative;
-        display: block;
-        width: 100vw;
-        z-index: -1;
-        font-size: 0px;
-      }
-  
-  
-      .portal {
-        width: 100%;
-        height: 100vh;
-        max-height: 70vw;
-        text-align: center;
-        background-size: 100%;
-        background-repeat: no-repeat;
-      }
-  
-      .portalglow {
-        display: none;
-        z-index: 1000;
-        cursor: url(/assets/surething/tf.png), pointer;
-  
-      }
-  
+    body {
+      padding: 0;
+      margin: 0;
+      font-family: "Round";
+      overflow-x: hidden;
+      overflow-y: overlay;
+      width: 100vw;
+      text-align: center;
+    }
 
 
-    /*FIRST-SPECIFIC*/
+    .nav {
+      width: 10vw;
+      position: fixed;
+      right: 2rem;
+      top: 4rem;
+      z-index: 1000;
+    }
 
-    #sheets {
-      
-        position: absolute;
-  width: 28vw;
-  bottom: -29vw;
-  left:27%;
-  
-      }
-  
-      #again {
-        transform: translateX(45.26vw) translateY(262.24vw);
-        position: absolute;
-        padding: 0;
-        text-align: center;
-        z-index: 200;
-        opacity: 0.7;
-        cursor: url(/assets/surething/tf.png), pointer;
-      }
-  
-      #again img {
-        width: 19.64vw;
-      }
-  
-  
-  
-      #video {
-        transform: translateY(-50%);
-        width: 100vw;
-        height: 70.7vh;
-        padding: 0;
-        position: relative;
-        z-index: -300;
-      }
-  
-      #wipe {
-        width: 100vw;
-        height: 70vh;
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 74%, rgba(255, 255, 255, 0) 100%);
-        z-index: 200;
-        position: absolute;
-      }
-  
-  
-      #pp-btn {
-        background-image: url('/assets/surething/pt1/pp.png');
-        background-size: 100%;
-        background-repeat: none;
-        width: 35vw;
-        height: 20vw;
-        transform: translate(-50%, -50%);
-        margin-top: 50vh;
-        margin-left: 50vw;
-        position: fixed;
-        z-index: 1000;
-        display: none;
-        cursor: url(/assets/surething/tf.png), pointer;
-      }
+    .nav img {
+      margin-top: -2.5rem;
+      opacity: 0.4;
+      cursor: url(/assets/surething/tf.png), pointer;
+      -webkit-transform: translateZ(0);
+      -moz-transform: rotate(0);
+      border: 1px solid transparent;
+      transition: opacity 0.3s;
+
+    }
+
+    .nav img.active,
+    .nav img:hover {
+      opacity: 1;
+      transition: opacity 0.3s;
+    }
+    .nav img.active:hover{
+      opacity: 0.7;
+      transition: opacity 0.3s;
+
+    }
+    .nav img:hover ~ img.active{
+      opacity: 0.1;
+      transition: opacity 0.3s;
+    }
+#p1{
+  z-index: 30;
+}
+#p2{
+z-index: 20;
+}
+#p3{
+z-index: 10;
+}
+
+    .txt {
+      padding: 0;
+      margin:0;
+      z-index: 100;
+      width: 100vw;
+      position: absolute;
+      transform: translateZ(0);
+      pointer-events: none;
+    }
+    .txt.pt1 {  height: 470vw;}
+    .txt.pt2 {  height: 497vw;}
+    .txt.pt3 {  height: 570vw;}
+
+    .txt img{width: 100%;}
+    .txt.multiply {
+      opacity: 0.8;
+      mix-blend-mode: multiply;
+    }
+
+
+    .layed {
+      padding: 0;
+      width: 100%;
+      top: 0;
+      position: relative;
+      z-index: 10;
+    }
+
+    .white,
+    .bgimg,
+    .green {
+      position: relative;
+      display: block;
+      width: 100vw;
+      z-index: -1;
+
+    }
+
+
+    .portal {
+      width: 100%;
+      height: 100vh;
+      max-height: 70vw;
+      text-align: center;
+      background-size: 100%;
+      background-repeat: no-repeat;
+    }
+
+    .portalglow {
+      margin: 0;
+      opacity: 0;
+      cursor: url(/assets/surething/tf.png), pointer;
+    }

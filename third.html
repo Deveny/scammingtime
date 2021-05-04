@@ -8,6 +8,7 @@
   <!-- Metas -->
   <title>SCAMMING TIME brings you</title>
   <link href="/third.css" rel="stylesheet">
+  <link href="/surething.css" rel="stylesheet">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
@@ -32,9 +33,9 @@
     <div class="overlay"></div>
 
 
-    <div class="txt multiply">
+    <div class="txt pt3 multiply">
       <img src="/assets/surething/pt3/text-multiply.png">    </div>
-          <div class="txt top">
+          <div class="txt pt3 top">
             <img src="/assets/surething/pt3/text-top.png"> 
           </div>
 
@@ -156,14 +157,14 @@
       duration: 1,
       opacity: 1
     });
-    gsap.from('.overlay', {
+    gsap.to('.overlay', {
       scrollTrigger: {
         trigger: '#ad-time',
         start: 'top top',
         toggleActions: 'play none none none'
       },
       duration: 0.3,
-      opacity: 0,
+      display:'block',
       onComplete: function () {
         $('.popup').fadeIn(300);
         $('body').addClass('noscroll');
