@@ -17,46 +17,45 @@
 <body>
 
   <div class="nav">
-    <a href="/first.html"><img src="/assets/surething/nav/menu1.png" width="100%"></a>
-    <a href="/second.html"><img src="/assets/surething/nav/menu2.png" width="100%"></a>
-    <a href="/third.html"><img class="active" src="/assets/surething/nav/menu3.png" width="100%"></a>
+    <a href="/first.html"><img id="p1" src="/assets/surething/nav/menu1.png" width="100%"></a>
+    <a href="/second.html"><img id="p2" src="/assets/surething/nav/menu2.png" width="100%"></a>
+    <a href="/third.html"><img id="p3" class="active" src="/assets/surething/nav/menu3.png" width="100%"></a>
   </div>
-    <div class="popup">
-      <div class="close"></div>
+  <div class="popup">
+    <div class="close"></div>
+  </div>
+  <div class="overlay"></div>
+  <div class="txt pt3 multiply">
+    <img src="/assets/surething/pt3/multi/1.jpeg" width="100%">
+    <img src="/assets/surething/pt3/multi/2.jpeg" width="100%">
+    <img src="/assets/surething/pt3/multi/3.jpeg" width="100%">
+    <img src="/assets/surething/pt3/multi/4.jpeg" width="100%">
+    <img src="/assets/surething/pt3/multi/5.jpeg" width="100%">
+    <img src="/assets/surething/pt3/multi/6.jpeg" width="100%">
+    <img src="/assets/surething/pt3/multi/7.jpeg" width="100%">
+    <img src="/assets/surething/pt3/multi/8.jpeg" width="100%">
+    <img src="/assets/surething/pt3/multi/9.jpeg" width="100%">
+    <img src="/assets/surething/pt3/multi/10.jpeg" width="100%">
+    <img src="/assets/surething/pt3/multi/11.jpeg" width="100%">
+  </div>
+  <div class="txt pt3 top">
+    <img src="/assets/surething/pt3/text-top.png" width="100%">
+  </div>
+
+
+  <div class="layed">
+    <img class="bgimg" id='c7' src="/assets/surething/pt3/gsap/1.jpeg" width="100%">
+    <img class="white" src="/assets/surething/pt3/gsap/2.jpeg" width="100%">
+    <img class="bgimg" id='c8' src="/assets/surething/pt3/gsap/3.jpeg" width="100%">
+    <img class="white" src="/assets/surething/pt3/gsap/4.jpeg" width="100%">
+    <img class="bgimg" id='c9' src="/assets/surething/pt3/gsap/5.jpeg" width="100%">
+    <img class="white" id='ad-time' src="/assets/surething/pt3/gsap/6.jpeg" width="100%">
+    <img class="bgimg" id='c10' src="/assets/surething/pt3/gsap/7.jpeg" width="100%">
+    <img class="white" src="/assets/surething/pt3/gsap/8.jpeg" width="100%">
+    <div class="portal alge">
+      <a href="/first.html"> <img class="portalglow" id="pinkass" src="/assets/surething/pt3/gsap/portal.png"></a>
     </div>
-    <div class="overlay"></div>
-
-
-    <div class="txt pt3 multiply">
-      <img src="/assets/surething/pt3/multi/1.jpeg" width="100%">
-      <img src="/assets/surething/pt3/multi/2.jpeg" width="100%"> 
-      <img src="/assets/surething/pt3/multi/3.jpeg" width="100%"> 
-      <img src="/assets/surething/pt3/multi/4.jpeg" width="100%"> 
-      <img src="/assets/surething/pt3/multi/5.jpeg" width="100%"> 
-      <img src="/assets/surething/pt3/multi/6.jpeg" width="100%"> 
-      <img src="/assets/surething/pt3/multi/7.jpeg" width="100%"> 
-      <img src="/assets/surething/pt3/multi/8.jpeg" width="100%"> 
-      <img src="/assets/surething/pt3/multi/9.jpeg" width="100%"> 
-      <img src="/assets/surething/pt3/multi/10.jpeg" width="100%">
-      <img src="/assets/surething/pt3/multi/11.jpeg" width="100%">     </div>
-          <div class="txt pt3 top">
-            <img src="/assets/surething/pt3/text-top.png" width="100%">
-          </div>
-
-
-    <div class="layed">
-      <img class="bgimg" id='c7' src="/assets/surething/pt3/gsap/1.jpeg" width="100%">
-      <img class="white" src="/assets/surething/pt3/gsap/2.jpeg" width="100%">
-      <img class="bgimg" id='c8' src="/assets/surething/pt3/gsap/3.jpeg" width="100%">
-      <img class="white" src="/assets/surething/pt3/gsap/4.jpeg" width="100%">
-      <img class="bgimg" id='c9' src="/assets/surething/pt3/gsap/5.jpeg" width="100%">
-      <img class="white" id='ad-time' src="/assets/surething/pt3/gsap/6.jpeg" width="100%">
-      <img class="bgimg" id='c10' src="/assets/surething/pt3/gsap/7.jpeg" width="100%">
-      <img class="white" src="/assets/surething/pt3/gsap/8.jpeg" width="100%">
-      <div class="portal alge">
-        <a href="/first.html"> <img class="portalglow" id="pinkass" src="/assets/surething/pt3/gsap/portal.png"></a>
-      </div>
-    </div>
+  </div>
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -80,20 +79,19 @@
       },
       duration: 1,
       opacity: 1,
-      onComplete:function(){
+      onComplete: function () {
         var shake = gsap.to('.portalglow', {
-      duration: 1, scale: 1, y: 20, yoyo: true,
-      repeat: -1,
-      ease: "power1.inOut"
-    });
-
-    $('.portalglow').hover(function () {
-      shake.pause();
-      //$(this).addClass('lighted');
-    }, function () {
-      shake.resume();
-      //$(this).removeClass('lighted');
-    })
+          duration: 1, scale: 1, y: 20, yoyo: true,
+          repeat: -1,
+          ease: "power1.inOut"
+        });
+        $('.portalglow').hover(function () {
+          shake.pause();
+          //$(this).addClass('lighted');
+        }, function () {
+          shake.resume();
+          //$(this).removeClass('lighted');
+        })
       }
     });
 
@@ -172,7 +170,7 @@
         toggleActions: 'play none none none'
       },
       duration: 0.3,
-      display:'block',
+      display: 'block',
       onComplete: function () {
         $('.popup').fadeIn(300);
         $('body').addClass('noscroll');
@@ -185,21 +183,22 @@
 
     });
     $(".nav").on({
-    mouseenter: function(){
-      gsap.to('.nav img', {
-      duration: 0.3,
-      marginTop: "-1.9rem",
-      ease: "Expo. easeOut"
-    });
-  },
-
-    mouseleave: function(){
+      mouseenter: function () {
         gsap.to('.nav img', {
-      duration: 0.3,
-      marginTop: "-2.5rem",
-      ease: "Expo. easeOut"
-    });     }
-});
+          duration: 0.3,
+          marginTop: "-1.9rem",
+          ease: "Expo. easeOut"
+        });
+      },
+
+      mouseleave: function () {
+        gsap.to('.nav img', {
+          duration: 0.3,
+          marginTop: "-2.5rem",
+          ease: "Expo. easeOut"
+        });
+      }
+    });
   });
 
 </script>

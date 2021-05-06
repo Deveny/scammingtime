@@ -191,12 +191,12 @@ opacity: 0;
         renderer.setSize(window.innerWidth, window.innerHeight);
         //basics
         scene = new THREE.Scene();
-        scene.fog = new THREE.FogExp2(0xffc494, 0.000005);
+        scene.fog = new THREE.FogExp2(0xffc494, 0.0004);
         //0,0004
         //camera = new THREE.OrthographicCamera( 0.5 * 600 * 1.7 / - 2, 0.5 * 600 * 1.7 / 2, 600 / 2, 600 / - 2, 150, 1000 );
-        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 200000);
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 15000);
         //1, 15000 in last version
-        camera.position.z = 60000;
+        camera.position.z = 2000;
         camera.position.y = 100;
         //10000 in last version
         camera.focus = 1;
@@ -404,7 +404,7 @@ opacity: 0;
           screen.lookAt(vector);
           screens.add(screen);
         }
-        //helix.add(screens);
+        helix.add(screens);
         helix.rotation.y = 0;
 
         //movement helix
