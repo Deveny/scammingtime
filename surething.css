@@ -16,6 +16,9 @@ body {
   width: 100vw;
   text-align: center;
 }
+a{text-decoration: none;
+  cursor: url(/surething/tf.png), pointer;
+}
 .nav {
   width: 10vw;
   position: fixed;
@@ -24,9 +27,9 @@ body {
   z-index: 1000;
 }
 .nav img {
-  margin-top: -2.5rem;
+  margin-top: -2.9vw;
   opacity: 0.4;
-  cursor: url(/assets/surething/tf.png), pointer;
+  cursor: url(/surething/tf.png), pointer;
   -webkit-transform: translateZ(0);
   -moz-transform: rotate(0);
   border: 1px solid transparent;
@@ -77,6 +80,7 @@ body {
   opacity: 0.8;
   mix-blend-mode: multiply;
 }
+      
 .layed {
   text-align: center;
   padding: 0;
@@ -104,5 +108,6 @@ body {
 .portalglow {
   margin: 0;
   opacity: 0;
-  cursor: url(/assets/surething/tf.png), pointer;
+  cursor: url(/surething/tf.png), pointer;
+  z-index: 1000;
 }

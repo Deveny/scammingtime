@@ -1,0 +1,80 @@
+
+      /* width */
+      ::-webkit-scrollbar {
+        width: 20px;
+      }
+  
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: transparant;
+      }
+  
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: url(assets/scroll.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        opacity: 1;
+        border-radius: 10px;
+  
+      }
+  
+      /*FIRST-SPECIFIC*/
+  
+      #sheets {
+        
+        position: absolute;
+  width: 28vw;
+  bottom: -29vw;
+  left:27%;
+  
+      }
+  
+      #again {
+        transform: translateX(45.26vw) translateY(262.24vw);
+        position: absolute;
+        padding: 0;
+        text-align: center;
+        z-index: 200;
+        opacity: 0.7;
+        cursor: url(assets/surething/tf.png), pointer;
+      }
+  
+      #again img {
+        width: 19.64vw;
+      }
+  
+  
+  
+      #video {
+        transform: translateY(-50%);
+        width: 100vw;
+        height: 70.7vh;
+        padding: 0;
+        position: relative;
+        z-index: -300;
+      }
+  
+      #wipe {
+        width: 100vw;
+        height: 70vh;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 74%, rgba(255, 255, 255, 0) 100%);
+        z-index: 200;
+        position: absolute;
+      }
+  
+  
+      #pp-btn {
+        background-image: url('assets/pp.png');
+        background-size: 100%;
+        background-repeat: none;
+        width: 35vw;
+        height: 20vw;
+        transform: translate(-50%, -50%);
+        margin-top: 50vh;
+        margin-left: 50vw;
+        position: fixed;
+        z-index: 1000;
+        display: none;
+        cursor: url(surething/tf.png), pointer;
+      }

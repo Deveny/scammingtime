@@ -1,0 +1,68 @@
+
+      /* width */
+      ::-webkit-scrollbar {
+        width: 20px;
+      }
+  
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: transparant;
+      }
+  
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: url(assets/scroll.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        opacity: 1;
+        border-radius: 10px;
+  
+      }
+  
+      /*SECOND-SPECIFIC*/
+      #boobs {
+        margin-left: 12.5vw;
+        margin-top: 15vw;
+        width: 20vw;
+      }
+  
+      .flowers {
+        background-image: url(assets/gsap/portalbg.jpg);
+        background-position: center center;
+      }
+  
+      .banner {
+        height: 5vw;
+      }
+  
+      .green {
+        width: 100vw;
+        position: absolute;
+        z-index: -1;
+      }
+  
+      .marquee {
+        display: inline-block;
+        white-space: nowrap;
+        /*  animation: scrollLeft 48s linear infinite; */
+        padding-left: 101%;
+        font-size: 1.5vw;
+        padding-top: 0.75vw;
+        color: hotpink;
+        z-index: 10;
+        cursor: grabbing;
+      }
+  
+      .marquee:hover {
+        animation-play-state: paused;
+      }
+  
+      @keyframes scrollLeft {
+        0% {
+          transform: translateX(0%);
+        }
+  
+        100% {
+          transform: translateX(-100%)
+        }
+      }

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!-- Metas -->
+  <title>SCAMMING TIME brings you</title>
+  <link rel="icon" href="" type="image/png" href="/favicon.png">
+
+  <link href="first.css" rel="stylesheet">
+  <link href="/surething.css" rel="stylesheet">
+  <style>
+  .bck{
+    font-size:1.1rem;
+    margin: 0 0 2rem 0;
+    color: gray;
+    text-shadow: 0 0 1px indigo;
+    text-decoration: none;
+    opacity: 0;
+  }  
+  .back{
+    opacity: 0.5;
+    height: 3vw;
+    padding: 1rem;
+    z-index: 20;
+  }
+  .back:hover{
+    opacity: 1;
+  }
+  .nav:hover .back{
+    opacity: 0.5;
+  }
+  .nav{
+    top: 2rem;
+    right: 2rem;
+  }
+  </style>
+  
+</head>
+
+<body>
+  <div class="nav">
+    <a href="/abouttime.html"><img class="back"  src="assets/back.png"></a>
+    <a href="/surething/pt1/index.html"><img id="p1" class="active" src="../nav/menu1.png" width="100%"></a>
+    <a href="/surething/pt2"><img id="p2" src="../nav/menu2.png" width="100%"></a>
+    <a href="/surething/pt3"><img id="p3" src="../nav/menu3.png" width="100%"></a>
+  </div>
+    <div id='pp-btn'></div>
+
+    <div id="again">
+      <img src="assets/and-again.png">
+    </div>
+
+    <div class="txt pt1 multiply">
+<img src="assets/text-multiply.jpg" width="100%">    </div>
+    <div class="txt pt1 top">
+      <img src="assets/text-top.png" width="100%"> 
+    </div>
+    <div class="layed">
+      <img class="white" src="assets/gsap/1.jpeg" width="100%">
+      <img class="bgimg" id='c1' src="assets/gsap/2.jpeg" width="100%">
+      <img class="white" src="assets/gsap/3.jpeg" width="100%">
+      <img class="bgimg" id='c2' src="assets/gsap/4.jpeg" width="100%">
+      <img class="white" src="assets/gsap/5.jpeg" width="100%">
+      <img class="bgimg" id='c3' src="assets/gsap/6.jpeg" width="100%">
+      <img class="white" src="assets/gsap/7.jpeg" width="100%">
+    </div>
+    <div id="video">
+
+      <div id='wipe'></div>
+
+      <video id='grass' onclick="toggleVid()" width="100%" height="auto">
+        <source src="assets/grass.mp4" type="video/mp4">
+      </video>
+      <a href="/index.html"><img class="portalglow" id="sheets" src="assets/gsap/portalglow.png"></a>
+      <audio id="sound">
+        <source src="assets/androgyn.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
+
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  function hitIt() {
+    $('#grass').get(0).play();
+    $('#pp-btn').fadeOut('500');
+    document.getElementById('grass').addEventListener('playing', myHandler, false);
+    function myHandler(e) {
+      $('#sheets').fadeIn(500);
+      gsap.to('#sheets', {
+        duration: 1, scale: 1, y: 20, yoyo: true,
+        repeat: -1,
+        ease: "power1.inOut"
+      });
+    }
+
+  }
+
+  function toggleVid() {
+    var video = $('#grass');
+    return video.paused ? video.play() : video.get(0).pause();
+  };
+
+  $(document).ready(function () {
+
+
+
+    var audio = $('audio');
+
+    var myAudio = document.getElementById("sound");
+
+    function togglePlay() {
+      return myAudio.paused ? myAudio.play() : myAudio.pause();
+    };
+    $('#again').click(function () {
+      $('#pp-btn').fadeToggle(500);
+      togglePlay();
+      if (audio.paused) {
+        mover.pause();
+
+      } else {
+        mover.play();
+
+      }
+    });
+    $('.txt, .layed').click(function () {
+      $('#pp-btn').fadeOut();
+      myAudio.pause()
+
+    });
+
+
+    $('#pp-btn').click(function () {
+      togglePlay();
+
+      if (myAudio.paused) {
+        mover.pause();
+
+      } else {
+        mover.play();
+      }
+    });
+
+
+    $('#pinkass').hover(function () {
+      shake.pause();
+      //$(this).addClass('lighted');
+    }, function () {
+      shake.resume();
+      // $(this).removeClass('lighted');
+    })
+
+    var mover = gsap.to('#pp-btn', {
+      paused: true, duration: 1, scale: 1, y: 10, yoyo: true,
+      repeat: -1,
+      ease: "power1.inOut"
+    });
+
+    $('#pp-btn').hover(function () {
+      mover.pause();
+
+    }, function () {
+      mover.play();
+
+    })
+
+
+
+
+      gsap.to('#again', {
+        duration: 1, opacity:0, yoyo: true,
+        repeat: -1,
+        ease: "power1.inOut"
+      });
+
+    gsap.to('#grass', {
+      scrollTrigger: {
+        trigger: '#grass',
+        start: 'top center',
+        end: 'bottom 60%',
+        scrub: true,
+        toggleActions: 'restart pause resume reverse',
+        onLeave: hitIt,
+        onEnterBack: function(){
+          var video = $('#grass');
+          video.get(0).pause();
+          }
+      },
+      duration: 3,
+      transform: 'translateY(50vh)'
+    });
+
+    gsap.from('#c1', {
+      scrollTrigger: {
+        trigger: '#c1',
+        start: 'top bottom',
+        end: 'center center',
+        scrub: 0.75,
+        toggleActions: 'restart pause resume reverse'
+      },
+      duration: 3,
+      scale: 0.5,
+      opacity: 0.5,
+      ease: "Expo. easeOut"
+    });
+
+
+    gsap.from('#c2', {
+      scrollTrigger: {
+        trigger: '#c2',
+        start: 'top bottom',
+        end: 'center center',
+        scrub: 0.75,
+        toggleActions: 'restart pause resume reverse'
+      },
+      duration: 3,
+      scale: 0.5,
+      opacity: 0.5,
+      ease: "Expo. easeOut"
+    });
+
+    gsap.from('#c3', {
+      scrollTrigger: {
+        trigger: '#c3',
+        start: 'top bottom',
+        end: 'center center',
+        scrub: 0.75,
+        toggleActions: 'restart pause resume reverse'
+      },
+      duration: 3,
+      scale: 0.5,
+      opacity: 0.5,
+      ease: "Expo. easeOut"
+    });
+
+    $(".nav").on({
+    mouseenter: function(){
+      gsap.to('.nav img', {
+      duration: 0.3,
+      marginTop: "-2.2vw",
+      x:-10,
+      ease: "Expo. easeOut"
+    });
+  },
+
+    mouseleave: function(){
+        gsap.to('.nav img', {
+      duration: 0.3,
+      marginTop: "-2.9vw",
+      x:0,
+      ease: "Expo. easeOut"
+    });     }
+});
+
+  });
+</script>
+
+</html>

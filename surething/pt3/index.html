@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!-- Metas -->
+  <title>SCAMMING TIME brings you</title>
+  <link rel="icon" href="" type="image/png" href="/favicon.png">
+
+  <link href="third.css" rel="stylesheet">
+  <link href="/surething.css" rel="stylesheet">
+
+  <style>
+  </style>
+</head>
+
+<body>
+
+  <div class="nav">
+    <a href="/surething/pt1/index.html"><img id="p1" src="../nav/menu1.png" width="100%"></a>
+    <a href="/surething/pt2/index.html"><img id="p2" src="../nav/menu2.png" width="100%"></a>
+    <a href="/surething/pt3/index.html"><img id="p3" class="active" src="../nav/menu3.png" width="100%"></a>
+  </div>
+  <div class="popup">
+    <div class="close"></div>
+  </div>
+  <div class="overlay"></div>
+  <div class="txt pt3 multiply">
+    <img src="assets/multi/1.jpeg" width="100%">
+    <img src="assets/multi/2.jpeg" width="100%">
+    <img src="assets/multi/3.jpeg" width="100%">
+    <img src="assets/multi/4.jpeg" width="100%">
+    <img src="assets/multi/5.jpeg" width="100%">
+    <img src="assets/multi/6.jpeg" width="100%">
+    <img src="assets/multi/7.jpeg" width="100%">
+    <img src="assets/multi/8.jpeg" width="100%">
+    <img src="assets/multi/9.jpeg" width="100%">
+    <img src="assets/multi/10.jpeg" width="100%">
+    <img src="assets/multi/11.jpeg" width="100%">
+  </div>
+  <div class="txt pt3 top">
+    <img src="assets/text-top.png" width="100%">
+  </div>
+
+
+  <div class="layed">
+    <img class="bgimg" id='c7' src="assets/gsap/1.jpeg" width="100%">
+    <img class="white" src="assets/gsap/2.jpeg" width="100%">
+    <img class="bgimg" id='c8' src="assets/gsap/3.jpeg" width="100%">
+    <img class="white" src="assets/gsap/4.jpeg" width="100%">
+    <img class="bgimg" id='c9' src="assets/gsap/5.jpeg" width="100%">
+    <img class="white" id='ad-time' src="assets/gsap/6.jpeg" width="100%">
+    <img class="bgimg" id='c10' src="assets/gsap/7.jpeg" width="100%">
+    <img class="white" src="assets/gsap/8.jpeg" width="100%">
+    <div class="portal alge">
+      <a href="/surething/pt1/index.html"> <img class="portalglow" id="pinkass" src="assets/gsap/portal.png"></a>
+    </div>
+  </div>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  window.scrollTo(0, 0);
+
+
+
+  $(document).ready(function () {
+
+    gsap.to('.portalglow', {
+      scrollTrigger: {
+        trigger: '.portal',
+        start: 'top center',
+        end: 'bottom bottom',
+        toggleActions: 'play none none none'
+      },
+      duration: 1,
+      opacity: 1,
+      onComplete: function () {
+        var shake = gsap.to('.portalglow', {
+          duration: 1, scale: 1, y: 20, yoyo: true,
+          repeat: -1,
+          ease: "power1.inOut"
+        });
+        $('.portalglow').hover(function () {
+          shake.pause();
+          //$(this).addClass('lighted');
+        }, function () {
+          shake.resume();
+          //$(this).removeClass('lighted');
+        })
+      }
+    });
+
+    gsap.from('#c7', {
+      /*scrollTrigger: {
+        trigger: '#c1',
+        start: 'top bottom',
+        end: 'center center',
+        scrub: 1,
+        toggleActions: 'restart pause resume reverse'
+      },*/
+      duration: 1.5,
+      scale: 0.5,
+      opacity: 0.5,
+      ease: "Expo. easeOut"
+    });
+
+
+    gsap.from('#c8', {
+      scrollTrigger: {
+        trigger: '#c8',
+        start: 'top bottom',
+        end: 'center center',
+        scrub: 0.75,
+        toggleActions: 'restart pause resume reverse'
+      },
+      duration: 3,
+      scale: 0.5,
+      opacity: 0.5,
+      ease: "Expo. easeOut"
+    });
+
+    gsap.from('#c9', {
+      scrollTrigger: {
+        trigger: '#c9',
+        start: 'top bottom',
+        end: 'center center',
+        scrub: 0.75,
+        toggleActions: 'restart pause resume reverse'
+      },
+      duration: 3,
+      scale: 0.5,
+      opacity: 0.5,
+      ease: "Expo. easeOut"
+    });
+
+    gsap.from('#c10', {
+      scrollTrigger: {
+        trigger: '#c10',
+        start: 'top bottom',
+        end: 'center center',
+        scrub: 0.75,
+        toggleActions: 'restart pause resume reverse'
+      },
+      duration: 3,
+      scale: 0.5,
+      opacity: 0.5,
+      ease: "Expo. easeOut"
+    });
+
+    gsap.to('.portalglow', {
+      scrollTrigger: {
+        trigger: '.portal',
+        start: 'top center',
+        end: 'bottom bottom',
+        toggleActions: 'play none none none'
+      },
+      delay: 0.5,
+      duration: 1,
+      opacity: 1
+    });
+    gsap.to('.overlay', {
+      scrollTrigger: {
+        trigger: '#ad-time',
+        start: 'top top',
+        toggleActions: 'play none none none'
+      },
+      duration: 0.3,
+      display: 'block',
+      onComplete: function () {
+        $('.popup').fadeIn(300);
+        $('body').addClass('noscroll');
+      }
+    });
+    $('.close').click(function () {
+      $('.popup').fadeOut(700);
+      $('.overlay').fadeOut(1000);
+      $('body').removeClass('noscroll');
+
+    });
+    $(".nav").on({
+      mouseenter: function () {
+        gsap.to('.nav img', {
+          duration: 0.3,
+          marginTop: "-1.9rem",
+          ease: "Expo. easeOut"
+        });
+      },
+
+      mouseleave: function () {
+        gsap.to('.nav img', {
+          duration: 0.3,
+          marginTop: "-2.5rem",
+          ease: "Expo. easeOut"
+        });
+      }
+    });
+  });
+
+</script>
+
+</html>
