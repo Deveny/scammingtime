@@ -281,6 +281,7 @@ function animate() {
         setTimeout(function () {
             requestAnimationFrame(animate);
         }, 1e3 / 30),
+    
         TWEEN.update(),
         render();
         checkIntersection();
