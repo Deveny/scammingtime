@@ -224,7 +224,6 @@ function init() {
         window.addEventListener("resize", onWindowResize, !1),
         document.addEventListener("pointermove", onPointerMove, !1),
         document.addEventListener("click", onClicker, !1),
-        onWindowResize(),
         (renderer.domElement.style.touchAction = "none"),
         renderer.renderLists.dispose();
 }
@@ -261,7 +260,6 @@ function goToNextPage(e) {
 }
 function onPointerMove(e) {
     e.preventDefault(), (mouse.x = (e.clientX / window.innerWidth) * 2 - 1), (mouse.y = (-e.clientY / window.innerHeight) * 2 + 1);
-    checkIntersection();
 }
 function checkIntersection() {
     raycaster.setFromCamera(mouse, camera);
@@ -285,8 +283,11 @@ function animate() {
         }, 1e3 / 30),
         TWEEN.update(),
         render();
+        checkIntersection();
+
 }
 function render() {
+    
     renderer.render(scene, camera);
 }
 init(), animate();

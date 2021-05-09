@@ -457,7 +457,7 @@ opacity: 0;
         window.addEventListener("resize", onWindowResize, false);
         document.addEventListener('pointermove', onPointerMove, false);
         document.addEventListener('click', onClicker, false);
-        onWindowResize();
+       
 
         //postprocessing
 
@@ -676,7 +676,7 @@ opacity: 0;
       }
 
       function animate() {
-        //  helix.rotation.y -= 0.01;
+         helix.rotation.y -= 0.01;
 
         setTimeout(function () {
           requestAnimationFrame(animate);
@@ -685,7 +685,6 @@ opacity: 0;
         //controls.update();
         TWEEN.update();
         render();
-
         onMove();
       }
       function render() {
@@ -693,11 +692,7 @@ opacity: 0;
           checkIntersection();
         } else { }
 
-
-
         renderer.render(scene, camera);
-        var time = Date.now() * 0.00025;
-        var d = 2000;
 
       }
     </script>
