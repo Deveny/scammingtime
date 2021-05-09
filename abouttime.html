@@ -108,7 +108,6 @@ var helixspeed,
     tl,
     movement,
     ring,
-    isRan,
     control,
     executed = !1;
 function init() {
@@ -128,7 +127,7 @@ function init() {
     var n = new THREE.AmbientLight(2236962);
     scene.add(n), (helixspeed = 0.001);
     var t = new THREE.Vector3();
-    (helix.name = "surething"), (isRan = !0);
+    (helix.name = "surething");
     for (var o = 0; o < 3; o++) {
         var r = new THREE.Shape();
         function a(e, n, t) {
@@ -239,7 +238,7 @@ function onClicker(e) {
         console.log(screens.rotation.y), console.log(o), scene.getObjectsByTag("fadein", []).forEach(tweenIn);
         var r = n[0].object.parent,
             a = new THREE.Vector3();
-        a.copy(r.position), console.log(r.position), a.negate(), a.applyAxisAngle(t, o), console.log(a), isRan && (tweenCamera(a, 1500, r.name), (isRan = !1));
+        a.copy(r.position), console.log(r.position), a.negate(), a.applyAxisAngle(t, o), console.log(a), tweenCamera(a, 1500, r.name);
     }
 }
 function tweenCamera(e, n, t) {
@@ -262,6 +261,7 @@ function goToNextPage(e) {
 }
 function onPointerMove(e) {
     e.preventDefault(), (mouse.x = (e.clientX / window.innerWidth) * 2 - 1), (mouse.y = (-e.clientY / window.innerHeight) * 2 + 1);
+    checkIntersection();
 }
 function checkIntersection() {
     raycaster.setFromCamera(mouse, camera);
@@ -270,7 +270,7 @@ function checkIntersection() {
     raycaster.intersectObject(screens, !0).length > 0 ? (e.forEach(tweenIn), (document.body.style.cursor = "url('/surething/tf.png'), pointer")) : (e.forEach(tweenOut), (document.body.style.cursor = "default"));
 }
 function tweenIn(e) {
-    new TWEEN.Tween(e.material).to({ opacity: 1 }, 100).start();
+    new TWEEN.Tween(e.material).to({ opacity: 1 }, 10).start();
 }
 function tweenOut(e) {
     new TWEEN.Tween(e.material).to({ opacity: 0 }, 100).start();
@@ -287,7 +287,7 @@ function animate() {
         render();
 }
 function render() {
-    isRan && checkIntersection(), renderer.render(scene, camera);
+    renderer.render(scene, camera);
 }
 init(), animate();
     </script>
