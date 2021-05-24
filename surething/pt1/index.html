@@ -10,42 +10,39 @@
   <link rel="icon" href="" type="image/png" href="/favicon.png">
 
   <link href="first.css" rel="stylesheet">
-  <link href="/surething.css" rel="stylesheet">
+  <link href="/surething.css" media="screen and (min-width: 907px)" rel="stylesheet">
+  <link rel="stylesheet" media="screen and (max-width: 907px)" href="mob.css" />
   <style>
-  .bck{
-    font-size:1.1rem;
-    margin: 0 0 2rem 0;
-    color: gray;
-    text-shadow: 0 0 1px indigo;
-    text-decoration: none;
-    opacity: 0;
-  }  
-  .back{
-    opacity: 0.5;
-    height: 3vw;
-    padding: 1rem;
-    z-index: 20;
-  }
-  .back:hover{
-    opacity: 1;
-  }
-  .nav:hover .back{
-    opacity: 0.5;
-  }
-  .nav{
-    top: 2rem;
-    right: 2rem;
-  }
+    .back{
+   font-size:1.1rem;
+   margin: 0;
+   color: white;
+   text-shadow: 0 0 1px indigo;
+   text-decoration: none;
+ }  
+ .back:hover{
+   opacity: 1;
+ }
+ .trail {
+ width: 50%;
+ position: absolute;
+ text-align: left;
+ left: 1rem;
+ top: 1rem;
+ z-index: 1000;
+}
+
   </style>
   
 </head>
 
 <body>
+  <div class="trail"><a href="/abouttime.html"><p class="back">scamming time / sure thing / pinkass</p></a>  </div>
+
   <div class="nav">
-    <a href="/abouttime.html"><img class="back"  src="assets/back.png"></a>
-    <a href="/surething/pt1"><img id="p1" class="active" src="../nav/menu1.png" width="100%"></a>
-    <a href="/surething/pt2"><img id="p2" src="../nav/menu2.png" width="100%"></a>
-    <a href="/surething/pt3"><img id="p3" src="../nav/menu3.png" width="100%"></a>
+    <a href="/surething/pt1"><img id="p1" class="active" src="../nav/menu1.png" width="100%" alt="first chapter, you are here"></a>
+    <a href="/surething/pt2"><img id="p2" src="../nav/menu2.png" width="100%" alt="second chapter"></a>
+    <a href="/surething/pt3"><img id="p3" src="../nav/menu3.png" width="100%" alt="third chapter"></a>
   </div>
     <div id='pp-btn'></div>
 

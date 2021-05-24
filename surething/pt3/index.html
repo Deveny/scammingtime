@@ -13,15 +13,34 @@
   <link href="/surething.css" rel="stylesheet">
 
   <style>
+    .back{
+   font-size:1.2rem;
+   margin: 0;
+   color: white;
+   text-shadow: 0 0 1px indigo;
+   text-decoration: none;
+ }  
+ .back:hover{
+   opacity: 1;
+ }
+ .trail {
+ width: 50%;
+ position: absolute;
+ text-align: left;
+ left: 1rem;
+ top: 1rem;
+ z-index: 1000;
+}
   </style>
 </head>
 
 <body>
+  <div class="trail"><a href="/abouttime.html"><p class="back">&#8592; back to scamming time</p></a>  </div>
 
   <div class="nav">
-    <a href="/surething/pt1/index.html"><img id="p1" src="../nav/menu1.png" width="100%"></a>
-    <a href="/surething/pt2/index.html"><img id="p2" src="../nav/menu2.png" width="100%"></a>
-    <a href="/surething/pt3/index.html"><img id="p3" class="active" src="../nav/menu3.png" width="100%"></a>
+    <a href="/surething/pt1/index.html"><img id="p1" src="../nav/menu1.png" width="100%" alt="first chapter"></a>
+    <a href="/surething/pt2/index.html"><img id="p2" src="../nav/menu2.png" width="100%" alt="second chapter"></a>
+    <a href="/surething/pt3/index.html"><img id="p3" class="active" src="../nav/menu3.png" width="100%" alt="third chapter, you are here"></a>
   </div>
   <div class="popup">
     <div class="close"></div>

@@ -19,32 +19,32 @@
 
   <style>
      .back{
-    font-size:1.1rem;
-    margin: 0 0 2rem 0;
+    font-size:1.2rem;
+    margin: 0;
     color: white;
     text-shadow: 0 0 1px indigo;
     text-decoration: none;
-    opacity: 0;
   }  
   .back:hover{
     opacity: 1;
   }
-  .nav:hover .back{
-    opacity: 1;
-  }
-  .nav{
-    top: 1rem;
-    right: 1rem;
-  }
+  .trail {
+  width: 50%;
+  position: absolute;
+  text-align: left;
+  left: 1rem;
+  top: 1rem;
+  z-index: 1000;
+}
   </style>
 </head>
 
 <body>
+  <div class="trail"><a href="/abouttime.html"><p class="back">&#8592; back to scamming time</p></a>  </div>
     <div class="nav">
-      <a href="/abouttime.html"><p class="back">	&#8592; to main</p></a>
-      <a href="/surething/pt1"><img id="p1" src="../nav/menu1.png" width="100%"></a>
-      <a href="/surething/pt2"><img id="p2" class="active" src="../nav/menu2.png" width="100%"></a>
-      <a href="/surething/pt3/index.html"><img id="p3" src="../nav/menu3.png" width="100%"></a>
+      <a href="/surething/pt1"><img id="p1" src="../nav/menu1.png" width="100%" alt="first chapter"></a>
+      <a href="/surething/pt2"><img id="p2" class="active" src="../nav/menu2.png" width="100%" alt="second chapter, you are here"></a>
+      <a href="/surething/pt3/index.html"><img id="p3" src="../nav/menu3.png" width="100%" alt="third chapter"></a>
     </div>
 
     <div class="txt pt2 multiply">

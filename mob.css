@@ -20,7 +20,7 @@ a{text-decoration: none;
   cursor: url(/surething/tf.png), pointer;
 }
 .nav {
-  width: 10vw;
+  width: 10%;
   position: fixed;
   right: 2rem;
   top: 4rem;
@@ -61,20 +61,20 @@ a{text-decoration: none;
   padding: 0;
   margin: 0;
   z-index: 100;
-  width: 100vw;
+  width: 100%;
   position: absolute;
   transform: translateZ(0);
   pointer-events: none;
   text-align: center;
 }
 .txt.pt1 {
-  height: 470vw;
+  height: 470%;
 }
 .txt.pt2 {
-  height: 497vw;
+  height: 497%;
 }
 .txt.pt3 {
-  height: 570vw;
+  height: 570%;
 }
 .txt.multiply {
   opacity: 0.8;
@@ -84,7 +84,7 @@ a{text-decoration: none;
 .layed {
   text-align: center;
   padding: 0;
-  width: 100vw;
+  width: 100%;
   position: relative;
   z-index: 10;
 }
