@@ -111,9 +111,3 @@ a{text-decoration: none;
   cursor: url(/surething/tf.png), pointer;
   z-index: 1000;
 }
-@media only screen and (orientation:portrait){
-  body {
-    width: 100vh;
-    transform: rotate(90deg);
-  }
-}
