@@ -36,6 +36,18 @@
   top: 1rem;
   z-index: 1000;
 }
+@media screen and (min-width: 320px) and (max-width: 800px) {
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+}
   </style>
 </head>
 
