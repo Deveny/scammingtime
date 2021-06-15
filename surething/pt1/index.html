@@ -28,17 +28,18 @@
    font-size:1.1rem;
    margin: 0;
    color: white;
-   text-shadow: 0 0 1px indigo;
+   text-shadow: 0 0 1px darkgray;
    text-decoration: none;
  }  
  .back:hover{
-   opacity: 1;
+    color: gainsboro;
+    transition: color 0.2s;
  }
  .trail {
- width: 50%;
+ width: 100%;
  position: absolute;
- text-align: left;
- left: 1rem;
+ text-align: center;
+/*  left: 1rem; */
  top: 1rem;
  z-index: 1000;
 }
@@ -89,7 +90,6 @@
     </div>
 
 </body>
-<script src="/Pleaserotate.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
@@ -101,15 +101,31 @@
   function hitIt() {
     $('#grass').get(0).play();
     $('#pp-btn').fadeOut('500');
-    document.getElementById('grass').addEventListener('playing', myHandler, false);
+    /* document.getElementById('grass').addEventListener('playing', myHandler, false);
     function myHandler(e) {
-      $('#sheets').fadeIn(500);
-      gsap.to('#sheets', {
-        duration: 1, scale: 1, y: 20, yoyo: true,
-        repeat: -1,
-        ease: "power1.inOut"
-      });
-    }
+
+    } */
+    $(document).ready(function () {
+    gsap.to('.portalglow', {
+      delay:5,
+      duration: 1,
+      opacity: 1,
+      onComplete:function(){
+        var shake = gsap.to('.portalglow', {
+      duration: 1, scale: 1, y: 20, yoyo: true,
+      repeat: -1,
+      ease: "power1.inOut"
+    });
+
+    $('.portalglow').hover(function () {
+      shake.pause();
+      //$(this).addClass('lighted');
+    }, function () {
+      shake.resume();
+      //$(this).removeClass('lighted');
+    })
+      }
+    }); });
 
   }
 

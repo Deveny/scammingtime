@@ -14,25 +14,28 @@
 <meta name="description" content="Scammingtime is a platform that...">
 <link rel="icon" href="" type="image/png" href="/favicon.png">
 
-  <link href="/surething.css" rel="stylesheet">
-  <link href="second.css" rel="stylesheet">
+<link href="/surething.css" media="screen and (min-width: 907px)" rel="stylesheet">
+<link href="/surething-mob.css" media="screen and (max-width: 907px)" rel="stylesheet">
+<link href="second.css" rel="stylesheet">
 
   <style>
      .back{
     font-size:1.2rem;
     margin: 0;
     color: white;
-    text-shadow: 0 0 1px indigo;
+    text-shadow: 0 0 1px darkgray;
     text-decoration: none;
   }  
   .back:hover{
     opacity: 1;
+    color: gainsboro;
+    transition: color 0.5s;
   }
   .trail {
-  width: 50%;
+  width: 100%;
   position: absolute;
-  text-align: left;
-  left: 1rem;
+  text-align: center;
+  left: 0rem;
   top: 1rem;
   z-index: 1000;
 }
@@ -138,6 +141,7 @@
     gsap.from('#c4', {
       scrollTrigger: {
         trigger: '#c4',
+        markers:true,
         start: 'top bottom',
         end: 'center center',
         scrub: 0.75,
@@ -204,7 +208,6 @@
       ease: "Expo. easeOut"
     });
   },
-
     mouseleave: function(){
         gsap.to('.nav img', {
       duration: 0.3,

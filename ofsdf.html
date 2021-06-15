@@ -165,6 +165,7 @@ var helixspeed,
     ring,
     control,
     executed = !1;
+
 function init() {
     var e = document.querySelector("#webgl");
     document.body.appendChild(e),
@@ -180,103 +181,213 @@ function init() {
         (n = new THREE.DirectionalLight(16774100)).position.set(-1, 3, 15),
         scene.add(n);
     var n = new THREE.AmbientLight(2236962);
-    scene.add(n), (helixspeed = 0.001);
-    var t = new THREE.Vector3();
-    (helix.name = "surething");
-    for (var o = 0; o < 3; o++) {
-        // o is the count
-        var r = new THREE.Shape();
-        function a(e, n, t) {
-            var o = -n / 2,
-                r = -t / 2;
-            e.moveTo(o, r + 0),
-                e.lineTo(o, r + t - 0),
-                e.quadraticCurveTo(o, r + t, o + 0, r + t),
-                e.lineTo(o + n - 0, r + t),
-                e.quadraticCurveTo(o + n, r + t, o + n, r + t - 0),
-                e.lineTo(o + n, r + 0),
-                e.quadraticCurveTo(o + n, r, o + n - 0, r),
-                e.lineTo(o + 0, r),
-                e.quadraticCurveTo(o, r, o, r + 0);
+    scene.add(n),
+       //helix
+        //helix = new THREE.Object3D();
+        helixspeed = 0.001;
+        var vector = new THREE.Vector3();
+
+        helix.name = 'surething';
+
+        //each screen
+        for (var i = 0; i < 3; i++) {
+
+          var superegg = new THREE.Shape();
+          function rounded(ctx, width, height) {
+            var radius = 0;
+            var x = - (width / 2);
+            var y = - (height / 2);
+            ctx.moveTo(x, y + radius);
+            ctx.lineTo(x, y + height - radius);
+            ctx.quadraticCurveTo(x, y + height, x + radius, y + height);
+            ctx.lineTo(x + width - radius, y + height);
+            ctx.quadraticCurveTo(x + width, y + height, x + width, y + height - radius);
+            ctx.lineTo(x + width, y + radius);
+            ctx.quadraticCurveTo(x + width, y, x + width - radius, y);
+            ctx.lineTo(x + radius, y);
+            ctx.quadraticCurveTo(x, y, x, y + radius);
+          }
+
+          var screen = new THREE.Group();
+
+
+          //sizes 
+          if (i == 1 || i == 4) {
+            var width = 128;
+            var height = 96;
+            var map = new THREE.TextureLoader().load("/assets/scene/screens/sheets.jpg");
+            screen.name = 'second';
+
+          }
+          else if (i == 2 || i == 5) {
+
+            var width = 96;
+            var height = 128;
+            var map = new THREE.TextureLoader().load("/assets/scene/screens/boobs.jpg");
+            screen.name = 'third';
+
+          }
+          else {
+            var width = 110;
+            var height = 110;
+            var map = new THREE.TextureLoader().load("/assets/scene/screens/pinkass.jpg");
+            screen.name = 'first';
+
+          }
+          rounded(superegg, width, height);
+          var theta = i * 2.1 + Math.PI;
+          var geometry = new THREE.ShapeBufferGeometry(superegg);
+          var texture = new THREE.TextureLoader().load("/assets/scene/screens/fake.jpg");
+          //imgside
+          var material1 = new THREE.MeshBasicMaterial({
+            map: map,
+            side: THREE.BackSide,
+            transparent: true,
+            opacity: 0,
+            fog: true,
+            polygonOffset: true,
+            polygonOffsetFactor: -1
+          });
+          map.repeat.set((1 / width), (1 / height));
+          map.offset.y = 0.5;
+          map.offset.x = 0.5;
+          //outside
+          var material2 = new THREE.MeshBasicMaterial({
+
+            side: THREE.FrontSide,
+            transparent: true,
+            opacity: 0.5,
+            // color : new THREE.Color(0xC0C0C0),
+            map: texture,
+            fog: true,
+          });
+          texture.repeat.set((1 / width), (1 / height));
+          texture.offset = new THREE.Vector2(0.5, 0.5);
+          //non-hovering both side
+          var material3 = new THREE.MeshBasicMaterial({
+            side: THREE.BackSide,
+            transparent: true,
+            opacity: 0.5,
+            // color : new THREE.Color(0xC0C0C0),
+            map: texture,
+            fog: true,
+            depthWrite: true,
+            depthTest:true,
+            polygonOffset: true,
+            polygonOffsetFactor: 0.1
+          });
+          var hide = new THREE.Mesh(geometry, material3);
+          var inside = new THREE.Mesh(geometry, material1);
+          var outside = new THREE.Mesh(geometry, material2);
+
+          inside.name = "in";
+          outside.name = "out";
+          hide.name = "hide";
+
+          hide.userData.tag = "fadeout";
+          inside.userData.tag = "fadein";
+
+          screen.add(hide);
+          screen.add(outside);
+          screen.add(inside);
+
+          screen.position.setFromCylindricalCoords(160, theta, 0);
+          vector.x = screen.position.x * 2;
+          vector.y = screen.position.y;
+          vector.z = screen.position.z * 2;
+
+          //glowborder-img  
+          var glowmap = new THREE.TextureLoader().load('/assets/scene/screens/glow-cut.png');
+          glowmap.offset = new THREE.Vector2(0.5, 0.5);
+          glowmap.repeat.set((1 / width), (1 / height));
+          var glowmaterial = new THREE.MeshBasicMaterial({
+            color: 0xfa8072,
+            map: glowmap,
+            transparent: true,
+            side: THREE.DoubleSide,
+            polygonOffset: true,
+            polygonOffsetFactor: -0.2,
+            depthWrite: false,
+            opacity: 0.5
+          });
+          var glowobj = new THREE.Mesh(geometry, glowmaterial);
+          glowobj.name = "glow";
+          //glowwtween   
+          var col = new THREE.Color('#bdb3ff');
+          var vol = new THREE.Color('#fbbda4');
+          tl = new TimelineLite({ repeat: -1, yoyo: true });
+          tl.fromTo(glowmaterial.color, {
+            r: col.r,
+            g: col.g,
+            b: col.b
+          }, {
+            r: vol.r,
+            g: vol.g,
+            b: vol.b, duration: 2
+          }).fromTo(glowmaterial, { opacity: 1 }, { opacity: 0.1, duration: 1 });
+
+
+          THREE.Object3D.prototype.getObjectsByTag = function (tag, result) {
+            if (this.userData.tag === tag) result.push(this);
+            for (var i = 0, l = this.children.length; i < l; i++) {
+              var child = this.children[i];
+              child.getObjectsByTag(tag, result);
+            }
+            return result;
+          };
+
+          glowobj.scale.set(1.25, 1.25, 1.25);
+          screen.add(glowobj);
+
+
+          screen.lookAt(vector);
+          screens.add(screen);
         }
-        var i = new THREE.Group();
-        // i is a screen
-        if (1 == o || 4 == o) {
-            var s = 128,
-                c = 96,
-                d = new THREE.TextureLoader().load("/assets/scene/screens/sheets.jpg");
-            i.name = "pt2";
-        } else if (2 == o || 5 == o) {
-            (s = 96), (c = 128);
-            var d = new THREE.TextureLoader().load("/assets/scene/screens/boobs.jpg");
-            i.name = "pt3";
-        } else {
-            (s = 110), (c = 110), (d = new THREE.TextureLoader().load("/assets/scene/screens/pinkass.jpg"));
-            i.name = "pt1";
-        }
-        a(r, s, c);
-        var E = 2.1 * o + Math.PI,
-            l = new THREE.ShapeBufferGeometry(r),
-            p = new THREE.TextureLoader().load("/assets/scene/screens/fake-square.png"),
-            m = new THREE.MeshBasicMaterial({ map: d, side: THREE.BackSide, transparent: !0, opacity: 0, fog: !0, polygonOffset: !0, polygonOffsetFactor: -1 });
-        d.repeat.set(1 / s, 1 / c), (d.offset.y = 0.5), (d.offset.x = 0.5);
-        var w = new THREE.MeshBasicMaterial({ side: THREE.FrontSide, transparent: !0, opacity: 0.5, map: p, fog: !0, polygonOffset: !0, polygonOffsetFactor: -2 });
-        p.repeat.set(1 / s, 1 / c), (p.offset = new THREE.Vector2(0.5, 0.5));
-        var T = new THREE.MeshBasicMaterial({ side: THREE.BackSide, transparent: !0, opacity: 0.7, map: p, fog: !0, depthWrite: !0, depthTest: !0, polygonOffset: !0, polygonOffsetFactor: 0.1 }),
-            u = new THREE.Mesh(l, T),
-            g = new THREE.Mesh(l, m),
-            f = new THREE.Mesh(l, w);
-        (g.name = "in"),
-            (f.name = "out"),
-            (u.name = "hide"),
-            (u.userData.tag = "fadeout"),
-            (g.userData.tag = "fadein"),
-            i.add(u),
-            i.add(f),
-            i.add(g),
-            i.position.setFromCylindricalCoords(160, E, 0),
-            (t.x = 2 * i.position.x),
-            (t.y = i.position.y),
-            (t.z = 2 * i.position.z);
-        var h = new THREE.TextureLoader().load("/assets/scene/screens/bigglow.png");
-        (h.offset = new THREE.Vector2(0.5, 0.5)), h.repeat.set(1 / s, 1 / c);
-        var R = new THREE.MeshBasicMaterial({ color: 16416882, map: h, transparent: !0, side: THREE.DoubleSide, polygonOffset: !0, polygonOffsetFactor: -0.5, depthWrite: !1, opacity: 0.5 }),
-            y = new THREE.Mesh(l, R);
-        y.name = "glow";
-        var H = new THREE.Color("#E6E6FA"),
-            v = new THREE.Color("#fbbda4");
-        (tl = new TimelineLite({ repeat: -1, yoyo: !0 })).fromTo(R.color, { r: H.r, g: H.g, b: H.b }, { r: v.r, g: v.g, b: v.b, duration: 3 }).fromTo(R, { opacity: 1 }, { opacity: 0.3, duration: 1.5 }, "<"),
-            (THREE.Object3D.prototype.getObjectsByTag = function (e, n) {
-                this.userData.tag === e && n.push(this);
-                for (var t = 0, o = this.children.length; t < o; t++) {
-                    this.children[t].getObjectsByTag(e, n);
-                }
-                return n;
-            }),
-            y.scale.set(2.1, 2.1, 2.1),
-            i.add(y),
-            i.lookAt(t),
-            screens.add(i);
-    }
-    helix.add(screens),
-        (helix.rotation.y = 0),
-        (movement = gsap.timeline({ repeat: -1 })).to(screens.rotation, { y: 4 * Math.PI, duration: 20 }).to(screens.rotation, { y: 0, duration: 20 }),
-        (ring = new THREE.Group()),
-        ((d = new THREE.TextureLoader().load("/assets/scene/screens/st2.png")).wrapS = d.wrapT = THREE.RepeatWrapping),
-        d.repeat.set(1.05, 1);
-    var b = new THREE.MeshPhongMaterial({ map: d, side: THREE.FrontSide, transparent: !0, color: 16569813, opacity: 0.5 }),
-        x =
-            ((w = new THREE.MeshPhongMaterial({ map: d, side: THREE.BackSide, transparent: !0, color: 2808262, opacity: 0.5, blending: THREE.AdditiveBlending })),
-            new THREE.Mesh(new THREE.CylinderBufferGeometry(200, 200, 230, 240, 25, !0), w)),
-        M = new THREE.Mesh(new THREE.CylinderBufferGeometry(200, 200, 230, 240, 25, !0), b);
-    x.position.set(0, -5, 0),
-        M.position.set(0, -5, 0),
-        (M.name = "buitenring"),
-        (x.name = "binnenring"),
-        (ring.renderOrder = 1),
-        ring.add(x),
-        ring.add(M),
-        helix.add(ring),
+        helix.add(screens);
+        helix.rotation.y = 0;
+
+        //movement helix
+        movement = new TimelineLite({ repeat: -1, yoyo: true });
+        movement.to(helix.rotation, {
+          y: 10, ease:
+            Back.
+              easeInOut.config(
+                1.7), duration: 30
+        });
+    
+        //cylinder
+        ring = new THREE.Group();
+
+        var map = new THREE.TextureLoader().load('/assets/scene/screens/st-l.png');
+        map.wrapS = map.wrapT = THREE.RepeatWrapping;
+        map.repeat.set(1.25, 1);
+        var material = new THREE.MeshPhongMaterial({
+          map: map
+          , side: THREE.FrontSide
+          , transparent: true
+          , color: 0xFCD5D5
+          //  , blending: THREE.NormalBlending
+          //  , depthWrite: false
+          //   , depthTest:false
+        });
+        var material2 = new THREE.MeshPhongMaterial({
+          map: map,
+          side: THREE.BackSide,
+          transparent: true,
+          color: 0x2ad9c6
+        });
+        var object2 = new THREE.Mesh(new THREE.CylinderBufferGeometry(245, 245, 230, 240, 25, true), material2);
+        var object = new THREE.Mesh(new THREE.CylinderBufferGeometry(245, 245, 230, 240, 25, true), material);
+
+        object2.position.set(0, -5, 0);
+        object.position.set(0, -5, 0);
+        object.name = "buitenring";
+        object2.name = "binnenring";
+        ring.renderOrder = 1;
+        ring.add(object2);
+        ring.add(object);
+        
+        helix.add(ring);
         scene.add(helix),
         window.addEventListener("resize", onWindowResize, !1),
         document.addEventListener("pointermove", onPointerMove, !1),
