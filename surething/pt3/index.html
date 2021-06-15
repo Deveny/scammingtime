@@ -34,8 +34,8 @@
 .screenreader {
     position: absolute !important; /* Outside the DOM flow */
     height: 1px; width: 1px; /* Nearly collapsed */
-    overflow: hidden;
-    clip: rect(1px 1px 1px 1px); /* IE 7+ only support clip without commas */
+/*     overflow: hidden;
+ */    clip: rect(1px 1px 1px 1px); /* IE 7+ only support clip without commas */
     clip: rect(1px, 1px, 1px, 1px); /* All other browsers */
 }
   </style>
@@ -263,7 +263,7 @@ holes are nice so im out of vocabulary. when will there be a language for us to 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
-
+<script src="/surething/nav.js"></script>
 <script>
   gsap.registerPlugin(ScrollTrigger);
   window.scrollTo(0, 0);
@@ -280,6 +280,7 @@ holes are nice so im out of vocabulary. when will there be a language for us to 
         toggleActions: 'play none none none'
       },
       duration: 1,
+      delay:3,
       opacity: 1,
       onComplete: function () {
         var shake = gsap.to('.portalglow', {
@@ -384,23 +385,7 @@ holes are nice so im out of vocabulary. when will there be a language for us to 
       $('body').removeClass('noscroll');
 
     });
-    $(".nav").on({
-      mouseenter: function () {
-        gsap.to('.nav img', {
-          duration: 0.3,
-          marginTop: "-1.9rem",
-          ease: "Expo. easeOut"
-        });
-      },
-
-      mouseleave: function () {
-        gsap.to('.nav img', {
-          duration: 0.3,
-          marginTop: "-2.5rem",
-          ease: "Expo. easeOut"
-        });
-      }
-    });
+   
   });
 
 </script>

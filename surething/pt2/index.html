@@ -9,7 +9,7 @@
   <meta name="robots" content="index, follow"/>
 
   <!-- Metas -->
-<title>SCAMMINGTIME brings you</title>
+<title>SCAMMINGTIME brings you: Surething</title>
 <meta name="title" content="Scammingtime">
 <meta name="description" content="Scammingtime is a platform that...">
 <link rel="icon" href="" type="image/png" href="/favicon.png">
@@ -100,7 +100,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/ScrollTrigger.min.js"></script>
-
 <script>
   
   gsap.registerPlugin(ScrollTrigger);
@@ -141,7 +140,6 @@
     gsap.from('#c4', {
       scrollTrigger: {
         trigger: '#c4',
-        markers:true,
         start: 'top bottom',
         end: 'center center',
         scrub: 0.75,
@@ -200,23 +198,10 @@
       marquee.style['animation-play-state'] = 'running';
     })
 
-    $(".nav").on({
-    mouseenter: function(){
-      gsap.to('.nav img', {
-      duration: 0.3,
-      marginTop: "-1.9rem",
-      ease: "Expo. easeOut"
-    });
-  },
-    mouseleave: function(){
-        gsap.to('.nav img', {
-      duration: 0.3,
-      marginTop: "-2.5rem",
-      ease: "Expo. easeOut"
-    });     }
-});
+
   });
 
 </script>
+<script src="/surething/nav.js"></script>
 
 </html>
